@@ -1,0 +1,45 @@
+﻿@model List<Team>
+
+@{
+    ViewData["Title"] = "ViewAllTeams";
+}
+
+<h2>View All Teams</h2>
+
+<hr />
+<table class="team_table">
+    <tr>
+        <th>Team Name</th>
+        <th>League</th>
+        <th>Organization</th>
+        <th>Primary Venue</th>
+        <th>Secondary Venue</th>
+        <th>Home Dates Available</th>
+        <th>Travel Dates Available</th>
+    </tr>
+    @foreach (Team team in Model)
+    {
+
+    <tr>
+        <td>@team.Name</td>
+        <td>@team.League</td>
+        <td>@team.Org</td>
+        <td>@team.PrimaryVenue</td>
+        <td>@team.SecondaryVenue</td>
+        @foreach (DateTime date in team.HomeDates)
+        {
+            <td>@date</td>
+        }
+        @foreach (DateTime date in team.TravelDates)
+        {
+            <td>@date</td>
+        }
+    </tr>
+    }
+</table>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

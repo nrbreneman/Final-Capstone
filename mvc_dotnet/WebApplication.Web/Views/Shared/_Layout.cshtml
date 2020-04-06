@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Sport Club Helper</title>
+
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+   
+    <nav>
+        <ul>
+            <li><a asp-action="Index" asp-controller="Home">Home</a></li>
+            <li><a asp-action="ViewAllTeams" asp-controller="Home">View All Teams</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; 2020 - TN Enterprises</p>
+        </footer>
+    </div>
+
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
