@@ -4,16 +4,31 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using WebApplication.Web.DAL;
 using WebApplication.Web.Models;
 
 namespace WebApplication.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private TeamSqlDAL teamSqlDao;
+
+        public HomeController(TeamSqlDAL teamSqlDao)
+        {
+            this.teamSqlDao = teamSqlDao;
+        }
+
         public IActionResult Index()
         {            
             return View();
         }
+
+        public IActionResult ViewAllTeams()
+        {
+            List<Team> teams = teamSqlDao.GetTeams();
+            return View(teams);
+        }
+
 
         public IActionResult About()
         {
