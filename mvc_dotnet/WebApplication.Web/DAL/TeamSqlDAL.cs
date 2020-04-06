@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
 using WebApplication.Web.Models;
 
 namespace WebApplication.Web.DAL
@@ -41,6 +39,7 @@ namespace WebApplication.Web.DAL
                 throw ex;
             }
         }
+
         private Team MapRowToTeam(SqlDataReader reader)
         {
             Team team = new Team();
@@ -55,6 +54,4 @@ namespace WebApplication.Web.DAL
             return team;
         }
     }
-
 }
-
