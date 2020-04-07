@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebApplication.Web.DAL;
-//using WebApplication.Web.Providers.Auth;
+using WebApplication.Web.Providers.Auth;
 
 namespace WebApplication.Web
 {
@@ -34,7 +34,7 @@ namespace WebApplication.Web
                 options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
+            
             services.AddDistributedMemoryCache();
             services.AddSession(options =>
             {
@@ -49,7 +49,7 @@ namespace WebApplication.Web
             // Dependency Injection
             // For Authentication
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            //services.AddScoped<IAuthProvider, SessionAuthProvider>();
+            services.AddScoped<IAuthProvider, SessionAuthProvider>();
             services.AddTransient<IUserDAL>(m => new UserSqlDAL(connectionString));
             services.AddTransient<TeamSqlDAL>(m => new TeamSqlDAL(connectionString));
 

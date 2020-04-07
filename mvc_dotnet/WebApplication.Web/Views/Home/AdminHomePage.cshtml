@@ -1,0 +1,22 @@
+﻿@model Team
+@{
+    ViewData["Title"] = "AdminHomePage";
+}
+
+<h2>AdminHomePage</h2>
+
+<form asp-controller="Home" asp-action="ViewTeam" method="get">
+    <div class="form-row">
+        <label asp-for="League"></label>
+        <input asp-for="League" />
+    </div>
+    <div class="form-actions">
+        <button type="submit">Search</button>
+    </div>
+</form>
+
+<nav>
+    <ul>
+        <li><a asp-action="ViewAllTeams" asp-controller="Home">View All Teams</a></li>
+    </ul>
+</nav>
