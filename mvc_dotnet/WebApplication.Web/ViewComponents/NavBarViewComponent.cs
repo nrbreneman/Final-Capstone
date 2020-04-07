@@ -4,10 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplication.Web.Providers.Auth;
-<<<<<<< HEAD
-=======
-//using WebApplication.Web.Providers.Auth;
->>>>>>> 9b87d910d0e88a7553aea97cea29b9322a52476d
 
 namespace WebApplication.Web.ViewComponents
 {

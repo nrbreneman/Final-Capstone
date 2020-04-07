@@ -14,15 +14,7 @@ namespace WebApplication.Web.DAL
             this.connectionString = connectionString;
         }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-        public List<Team> GetTeams()
-=======
-        public List<Team> GetTeamsByLeague(string LeagueName)
->>>>>>> d982680a1a68ea22ea0e90b269570f2d7d749c7b
-=======
         public List<Team> GetTeamsByLeague(string League)
->>>>>>> 9b87d910d0e88a7553aea97cea29b9322a52476d
         {
             List<Team> teams = new List<Team>();
             try
@@ -30,12 +22,6 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-<<<<<<< HEAD
-                    SqlCommand cmd = new SqlCommand("SELECT * from TEAMS JOIN EventDates on EventDates.TeamID = TEAMS.id; ", conn);
-                    //Pull by specific league ^^
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-=======
                     SqlCommand cmd = new SqlCommand("SELECT * from TEAMS JOIN EventDates on EventDates.TeamID = TEAMS.id WHERE League = @LeagueName Order by Date; ", conn);
                     cmd.Parameters.AddWithValue("@LeagueName", League);
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -68,7 +54,6 @@ namespace WebApplication.Web.DAL
                     SqlDataReader reader = cmd.ExecuteReader();
 
 
->>>>>>> d982680a1a68ea22ea0e90b269570f2d7d749c7b
                     while (reader.Read())
                     {
                         teams.Add(MapRowToTeam(reader));
@@ -113,10 +98,7 @@ namespace WebApplication.Web.DAL
         {
             Team team = new Team();
 
-<<<<<<< HEAD
-=======
             team.TeamID = Convert.ToInt32(reader["id"]);
->>>>>>> d982680a1a68ea22ea0e90b269570f2d7d749c7b
             team.Name = Convert.ToString(reader["Name"]);
             team.League = Convert.ToString(reader["League"]);
             team.Org = Convert.ToString(reader["Org"]);
