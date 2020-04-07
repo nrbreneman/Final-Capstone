@@ -53,7 +53,9 @@ CREATE TABLE EventDates
 
 );
 
-ALTER TABLE EventDatesADD CONSTRAINT fk_datesFOREIGN KEY (TeamID) REFERENCES TEAMS(id);
+ALTER TABLE EventDates
+ADD CONSTRAINT fk_dates
+FOREIGN KEY (TeamID) REFERENCES TEAMS(id);
 
 
 INSERT INTO TEAMS (Name, League, Org, PrimaryVenue, SecondaryVenue) VALUES ('Browns', 'NFL', 'NFL1', 'Cleveland', 'Cleveland Heights');
