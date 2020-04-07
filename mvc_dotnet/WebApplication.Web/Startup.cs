@@ -34,7 +34,7 @@ namespace WebApplication.Web
                 options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
+            
             services.AddDistributedMemoryCache();
             services.AddSession(options =>
             {

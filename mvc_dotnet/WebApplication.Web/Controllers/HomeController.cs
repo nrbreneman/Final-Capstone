@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication.Web.DAL;
 using WebApplication.Web.Models;
@@ -23,11 +24,64 @@ namespace WebApplication.Web.Controllers
             return View();
         }
 
+        public IActionResult AdminHomePage()
+        {
+            return View();
+        }
+
+        public IActionResult UserHomePage()
+        {
+            return View();
+        }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        public IActionResult Register()
+        {
+            return View();
+        }
+
         public IActionResult ViewAllTeams()
         {
-            List<Team> teams = teamSqlDao.GetTeams();
+            List<Team> teams = teamSqlDao.GetAllTeams();
             return View(teams);
         }
+
+        public IActionResult ViewTeam(string League)
+        {
+            List<Team> teams = teamSqlDao.GetTeamsByLeague(League);
+            return View(teams);
+        }
+
+        //private User GetUserInfo()
+        //{
+        //    User user = null;
+
+        //    if (HttpContext.Session.Get<User>("User") == null)
+        //    {
+        //        user = new User();
+        //        SaveUser(user);
+        //    }
+        //    else
+        //    {
+        //        user = HttpContext.Session.Get<User>("User");
+        //    }
+
+        //    return user;
+        //}
+
+        //private void SaveUser(User user)
+        //{
+        //    HttpContext.Session.Set("User", user);
+        //}
+
+
+
+
+
 
 
         public IActionResult About()
