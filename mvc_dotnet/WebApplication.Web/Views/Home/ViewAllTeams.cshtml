@@ -28,11 +28,11 @@
         <td>@team.SecondaryVenue</td>
         @foreach (DateTime date in team.HomeDates)
         {
-            <td>@date</td>
+            <td>@date.ToString("MM/dd/yyyy")</td>
         }
         @foreach (DateTime date in team.TravelDates)
         {
-            <td>@date</td>
+            <td>@date.ToString("MM/dd/yyyy")</td>
         }
     </tr>
     }
