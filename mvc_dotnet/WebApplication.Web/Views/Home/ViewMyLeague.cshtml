@@ -1,13 +1,13 @@
 ﻿@model List<Team>
 @{
-    ViewData["Title"] = "ViewTeam";
+    ViewData["Title"] = "ViewMyLeague";
 }
 
 <h2>ViewTeam</h2>
-@foreach (Team team in Model)
+@*@foreach (Team team in Model)
 {
-<form method="get" asp-controller="Home" asp-action="ViewTeam" asp-route-code="@team.League"></form>
-}
+<form method="get" asp-controller="Home" asp-action="ViewMyLeague" asp-route-code="@team.League"></form>
+}*@
 
 <hr />
 <table class="team_table">
@@ -17,8 +17,8 @@
         <th>Organization</th>
         <th>Primary Venue</th>
         <th>Secondary Venue</th>
-        <th>Home Dates Available</th>
-        <th>Travel Dates Available</th>
+        @*<th>Home Dates Available</th>
+        <th>Travel Dates Available</th>*@
     </tr>
     @foreach (Team team in Model)
     {
@@ -29,7 +29,7 @@
             <td>@team.Org</td>
             <td>@team.PrimaryVenue</td>
             <td>@team.SecondaryVenue</td>
-            <td>
+            @*<td>
                 @foreach (DateTime date in team.HomeDates)
                 {
                     @date.ToString("MM/dd/yyyy")
@@ -42,7 +42,7 @@
                     @date.ToString("MM/dd/yyyy")
 
                 }
-            </td>
+            </td>*@
         </tr>
     }
 </table>

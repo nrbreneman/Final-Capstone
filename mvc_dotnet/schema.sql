@@ -37,7 +37,7 @@ CREATE TABLE TEAMS
  Org varchar(50) not null,
  PrimaryVenue varchar(50) not null,
  SecondaryVenue varchar(50),
-
+ UserID int,
  constraint pk_teams primary key (id)
 
 );
@@ -57,6 +57,10 @@ CREATE TABLE EventDates
 ALTER TABLE EventDates
 ADD CONSTRAINT fk_dates
 FOREIGN KEY (TeamID) REFERENCES TEAMS(id);
+
+ALTER TABLE TEAMS
+ADD CONSTRAINT fk_users
+FOREIGN KEY (UserID) REFERENCES users(id);
 
 
 
@@ -242,5 +246,6 @@ INSERT INTO EventDates(TeamID, Date, Home) VALUES(33, '2020-09-19', 0);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(34, '2020-09-19', 0);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(35, '2020-09-19', 0);
 
+INSERT INTO users(username, password ,salt ,role)  VALUES ('madi.kohr@gmail.com','Zn3FdCdRkqZbUxfSoc1o7aCEkVk=','/NWc+euho+Y=', 'Admin')
 
 COMMIT TRANSACTION;

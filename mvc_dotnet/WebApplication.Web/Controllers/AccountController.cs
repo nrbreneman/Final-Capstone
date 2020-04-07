@@ -42,17 +42,27 @@ namespace WebApplication.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Login(LoginViewModel loginViewModel)
         {
+            
             // Ensure the fields were filled out
             if (ModelState.IsValid)
             {
                 // Check that they provided correct credentials
                 bool validLogin = authProvider.SignIn(loginViewModel.Email, loginViewModel.Password);
+                User user = authProvider.GetCurrentUser();
                 if (validLogin)
                 {
+                    if(user.Role == "Admin")
+                    {
+                        return RedirectToAction("AdminHomePage", "Home");
+                        //Admin login: madi.kohr@gmail.com, Password
+                    }
+                    else
+                    {
+                        return RedirectToAction("UserHomePage", "Home");
+                    }
                     // Redirect the user where you want them to go after successful login
-                    return RedirectToAction("AdminHomePage", "Home");
-                    //if user is Admin, take to AdminHomePage, else take to UserHomePage ^^^
-                    //Admin login: madi.kohr@gmail.com, Password
+                   
+                    
                 }
             }
 
@@ -114,7 +124,7 @@ namespace WebApplication.Web.Controllers
                 
 
                 // Redirect the user where you want them to go after registering
-                return RedirectToAction("ViewTeam", "Home", new { team.League });
+                return RedirectToAction("UserHomePage", "Home", new { team.League });
 
             }
 

@@ -7,16 +7,18 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication.Web.DAL;
 using WebApplication.Web.Models;
+using WebApplication.Web.Providers.Auth;
 
 namespace WebApplication.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private TeamSqlDAL teamSqlDao;
-
-        public HomeController(TeamSqlDAL teamSqlDao)
+        private readonly IAuthProvider authProvider;
+        private readonly TeamSqlDAL teamDAL;
+        public HomeController(IAuthProvider authProvider, TeamSqlDAL teamDAL)
         {
-            this.teamSqlDao = teamSqlDao;
+            this.authProvider = authProvider;
+            this.teamDAL = teamDAL;
         }
 
         public IActionResult Index()
@@ -46,14 +48,14 @@ namespace WebApplication.Web.Controllers
 
         public IActionResult ViewAllTeams()
         {
-            List<Team> teams = teamSqlDao.GetAllTeams();
+            List<Team> teams = teamDAL.GetAllTeams();
             return View(teams);
         }
 
         [HttpGet]
         public IActionResult ViewTeam(string League)
         {
-            List<Team> teams = teamSqlDao.GetTeamsByLeague(League);
+            List<Team> teams = teamDAL.GetTeamsByLeague(League);
             return View(teams);
         }
 
@@ -61,6 +63,16 @@ namespace WebApplication.Web.Controllers
         public IActionResult UserHomePage()
         {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult ViewMyLeague()
+        {
+            User user = authProvider.GetCurrentUser();
+            string League = teamDAL.GetLeagueByUser(user);
+            
+            List<Team> teams = teamDAL.GetTeamsByLeague(League);
+            return View(teams);
         }
 
 
