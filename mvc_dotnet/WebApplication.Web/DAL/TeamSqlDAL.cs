@@ -14,7 +14,7 @@ namespace WebApplication.Web.DAL
             this.connectionString = connectionString;
         }
 
-        public List<Team> GetTeamsByLeague(string LeagueName)
+        public List<Team> GetTeamsByLeague(string League)
         {
             List<Team> teams = new List<Team>();
             try
@@ -23,7 +23,7 @@ namespace WebApplication.Web.DAL
                 {
                     conn.Open();
                     SqlCommand cmd = new SqlCommand("SELECT * from TEAMS JOIN EventDates on EventDates.TeamID = TEAMS.id WHERE League = @LeagueName Order by Date; ", conn);
-                    cmd.Parameters.AddWithValue("@LeagueName", LeagueName);
+                    cmd.Parameters.AddWithValue("@LeagueName", League);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     
@@ -67,6 +67,32 @@ namespace WebApplication.Web.DAL
                 throw ex;
             }
         }
+
+        public void InsertTeam(Team team)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("INSERT INTO TEAMS (Name, League, Org, PrimaryVenue, SecondaryVenue) VALUES (@Name, @League, @Org, @PrimaryVenue, @SecondaryVenue);", conn);
+                    cmd.Parameters.AddWithValue("@Name", team.Name);
+                    cmd.Parameters.AddWithValue("@League", team.League);
+                    cmd.Parameters.AddWithValue("@Org", team.Org);
+                    cmd.Parameters.AddWithValue("@PrimaryVenue", team.PrimaryVenue);
+                    cmd.Parameters.AddWithValue("@SecondaryVenue", team.SecondaryVenue);
+
+                    cmd.ExecuteNonQuery();
+
+                    return;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+
 
         private Team MapRowToTeam(SqlDataReader reader)
         {

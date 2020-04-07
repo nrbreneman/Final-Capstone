@@ -25,7 +25,6 @@ CREATE TABLE users
 	password	varchar(50)	not null,
 	salt		varchar(50)	not null,
 	role		varchar(50)	default('user'),
-	teamName	varchar(50) not null,
 
 	constraint pk_users primary key (id)
 );
@@ -37,17 +36,18 @@ CREATE TABLE TEAMS
  League varchar(50) not null,
  Org varchar(50) not null,
  PrimaryVenue varchar(50) not null,
- SecondaryVenue varchar(50) not null,
+ SecondaryVenue varchar(50),
 
- constraint pk_teams primary key (Name)
+ constraint pk_teams primary key (id)
 
 );
 
 CREATE TABLE EventDates 
 (
  id int identity(1,1),
- TeamName varchar(50) not null,
- Date DateTime not null,
+ TeamName varchar(50),
+ TeamID int not null,
+ Date DateTime,
  Home bit not null,
 
  constraint pk_dates primary key (id),
@@ -56,11 +56,8 @@ CREATE TABLE EventDates
 
 ALTER TABLE EventDates
 ADD CONSTRAINT fk_dates
-FOREIGN KEY (TeamName) REFERENCES TEAMS(Name);
+FOREIGN KEY (TeamID) REFERENCES TEAMS(id);
 
-ALTER TABLE users
-ADD CONSTRAINT fk_teamName
-FOREIGN KEY (teamName) REFERENCES TEAMS(Name);
 
 
 
@@ -244,5 +241,6 @@ INSERT INTO EventDates(TeamID, Date, Home) VALUES(32, '2020-09-19', 0);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(33, '2020-09-19', 0);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(34, '2020-09-19', 0);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(35, '2020-09-19', 0);
+
 
 COMMIT TRANSACTION;

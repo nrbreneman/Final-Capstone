@@ -28,11 +28,11 @@ namespace WebApplication.Web.Controllers
         {
             return View();
         }
-
-        public IActionResult UserHomePage()
-        {
-            return View();
-        }
+        
+        //public IActionResult UserHomePage()
+        //{
+        //    return View();
+        //}
 
         public IActionResult Login()
         {
@@ -50,11 +50,19 @@ namespace WebApplication.Web.Controllers
             return View(teams);
         }
 
+        [HttpGet]
         public IActionResult ViewTeam(string League)
         {
             List<Team> teams = teamSqlDao.GetTeamsByLeague(League);
             return View(teams);
         }
+
+        [HttpGet]
+        public IActionResult UserHomePage()
+        {
+            return View();
+        }
+
 
         //private User GetUserInfo()
         //{
