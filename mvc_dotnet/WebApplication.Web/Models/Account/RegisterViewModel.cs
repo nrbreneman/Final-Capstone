@@ -24,8 +24,8 @@ namespace WebApplication.Web.Models.Account
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
-        [Required]
-        [Display(Name = "Team Name")]
-        public Team Team { get; set; } = new Team();
+        //[Required]
+        //[Display(Name = "Team Name")]
+        //public Team Team { get; set; } = new Team();
     }
 }

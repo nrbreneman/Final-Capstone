@@ -1,16 +1,14 @@
-﻿@model Team
+﻿@model List<Team>
 @{
     ViewData["Title"] = "UserHomePage";
 }
 
-<h2>UserHomePage</h2>
+<h2>User Home Page</h2>
 
-<form asp-controller="Home" asp-action="ViewTeam" method="get">
-    <div class="form-row">
-        <label asp-for="League"></label>
-        <input asp-for="League" />
-    </div>
-    <div class="form-actions">
-        <button type="submit">Search</button>
-    </div>
-</form>
+
+<div>
+    <a asp-action="ViewTeam" asp-controller="Home">View All Teams in Your League</a>
+</div>
+
+
+
