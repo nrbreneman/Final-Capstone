@@ -49,7 +49,14 @@ namespace WebApplication.Web.DAL
             team.Org = Convert.ToString(reader["Org"]);
             team.PrimaryVenue = Convert.ToString(reader["PrimaryVenue"]);
             team.SecondaryVenue = Convert.ToString(reader["SecondaryVenue"]);
-            if (Convert.ToInt32(reader["Home"]) == 1)            {                team.HomeDates.Add(Convert.ToDateTime(reader["Date"]));            }            else            {                team.TravelDates.Add(Convert.ToDateTime(reader["Date"]));            }
+            if (Convert.ToInt32(reader["Home"]) == 1)
+            {
+                team.HomeDates.Add(Convert.ToDateTime(reader["Date"]));
+            }
+            else
+            {
+                team.TravelDates.Add(Convert.ToDateTime(reader["Date"]));
+            }
 
             return team;
         }
