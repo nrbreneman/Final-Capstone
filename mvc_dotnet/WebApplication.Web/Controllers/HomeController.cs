@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using WebApplication.Web.DAL;
 using WebApplication.Web.Models;
 using WebApplication.Web.Providers.Auth;
@@ -15,26 +16,26 @@ namespace WebApplication.Web.Controllers
     {
         private readonly IAuthProvider authProvider;
         private readonly TeamSqlDAL teamDAL;
-        public HomeController(IAuthProvider authProvider, TeamSqlDAL teamDAL)
+        private readonly IUserDAL userDAL;
+        public HomeController(IAuthProvider authProvider, TeamSqlDAL teamDAL, IUserDAL userDAL)
         {
             this.authProvider = authProvider;
             this.teamDAL = teamDAL;
+            this.userDAL = userDAL;
         }
+        
 
         public IActionResult Index()
         {            
             return View();
         }
 
+        [AuthorizationFilter("Admin")]
         public IActionResult AdminHomePage()
         {
             return View();
         }
-        
-        //public IActionResult UserHomePage()
-        //{
-        //    return View();
-        //}
+       
 
         public IActionResult Login()
         {
@@ -46,6 +47,7 @@ namespace WebApplication.Web.Controllers
             return View();
         }
 
+        [AuthorizationFilter("Admin")]
         public IActionResult ViewAllTeams()
         {
             List<Team> teams = teamDAL.GetAllTeams();
@@ -53,6 +55,7 @@ namespace WebApplication.Web.Controllers
         }
 
         [HttpGet]
+        [AuthorizationFilter("Admin", "User")]
         public IActionResult ViewTeam(string League)
         {
             List<Team> teams = teamDAL.GetTeamsByLeague(League);
@@ -60,12 +63,14 @@ namespace WebApplication.Web.Controllers
         }
 
         [HttpGet]
+        [AuthorizationFilter("User")]
         public IActionResult UserHomePage()
         {
             return View();
         }
 
         [HttpGet]
+        [AuthorizationFilter("Admin", "User")]
         public IActionResult ViewMyLeague()
         {
             User user = authProvider.GetCurrentUser();
@@ -75,28 +80,63 @@ namespace WebApplication.Web.Controllers
             return View(teams);
         }
 
+        //private Team AddTeamNames(Team model)        //{        //    IList<Team> teamNames = teamDAL.GetAllTeams();        //    foreach (Team s in teamNames)        //    {
+        //        model.AddGenre(s);        //    }        //    return model;        //}
 
-        //private User GetUserInfo()
-        //{
-        //    User user = null;
 
-        //    if (HttpContext.Session.Get<User>("User") == null)
-        //    {
-        //        user = new User();
-        //        SaveUser(user);
-        //    }
-        //    else
-        //    {
-        //        user = HttpContext.Session.Get<User>("User");
-        //    }
+                private SelectListItem AddTeamToList(string teamName)        {            SelectListItem selectListItems = new SelectListItem();            selectListItems = new SelectListItem { Text = teamName, Value = teamName };            return selectListItems;        }
 
-        //    return user;
-        //}
+        [HttpGet]
+        [AuthorizationFilter("User")]
+        public IActionResult ChangeMyTeamInfo()
+        {
+            User user = authProvider.GetCurrentUser();
+            user.UserTeam = teamDAL.GetTeamByUserID(user);
+            return View(user.UserTeam);
+        }
 
-        //private void SaveUser(User user)
-        //{
-        //    HttpContext.Session.Set("User", user);
-        //}
+        [HttpPost]
+        [AuthorizationFilter("User")]
+        public IActionResult ChangeMyTeamInfo(Team team)
+        {
+            User user = authProvider.GetCurrentUser();
+            team.UserID = user.Id;
+            teamDAL.UpdateTeam(team);
+            return RedirectToAction("UserHomePage", "Home");
+        }
+
+        [HttpGet]
+        [AuthorizationFilter("User")]
+        public IActionResult UpdateUserInfo()
+        {
+            User user = authProvider.GetCurrentUser();
+            user = userDAL.GetUser(user.Username);
+            return View(user);
+        }
+
+        [HttpPost]
+        [AuthorizationFilter("User")]
+        public IActionResult UpdateUserInfo(User user, string Salt, string NewPassword, string Password)
+        {
+            if (ModelState.IsValid)
+            {
+                user = authProvider.GetCurrentUser();
+                authProvider.ChangePassword(Password, NewPassword);
+                return RedirectToAction("UserHomePage", "Home");
+            }
+            return View(user);
+        }
+
+
+        [HttpGet]        [AuthorizationFilter("Admin")]        public IActionResult ChangeATeamInfo()        {            Team model = new Team();            IList<Team> teams = teamDAL.GetAllTeams();            foreach (Team team in teams)            {                model.DropDownListTeam.Add(AddTeamToList(team.Name));            }            return View(model);        }
+
+        [HttpPost]
+        [AuthorizationFilter("Admin")]
+        public IActionResult ChangeATeamInfo(Team team)
+        {
+            teamDAL.UpdateTeam(team);
+            return View(team);
+        }
 
 
 

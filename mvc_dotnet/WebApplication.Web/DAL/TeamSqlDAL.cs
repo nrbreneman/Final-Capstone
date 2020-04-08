@@ -26,7 +26,7 @@ namespace WebApplication.Web.DAL
                     cmd.Parameters.AddWithValue("@LeagueName", League);
                     SqlDataReader reader = cmd.ExecuteReader();
 
-                    
+
                     while (reader.Read())
                     {
                         teams.Add(MapRowToTeam(reader));
@@ -78,7 +78,7 @@ namespace WebApplication.Web.DAL
                 {
                     conn.Open();
                     SqlCommand cmd = new SqlCommand("SELECT * from TEAMS JOIN EventDates on EventDates.TeamID = TEAMS.id Order by Date; ", conn);
-                   
+
                     SqlDataReader reader = cmd.ExecuteReader();
 
 
@@ -95,6 +95,35 @@ namespace WebApplication.Web.DAL
                 throw ex;
             }
         }
+
+        public Team GetTeamByUserID(User user)
+        {
+            Team team = new Team();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT * from TEAMS WHERE UserID = @UserID; ", conn);
+                    cmd.Parameters.AddWithValue("@UserID", user.Id);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+
+                    while (reader.Read())
+                    {
+                        team = (MapRowToTeam(reader));
+                    }
+                }
+
+                return team;
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+
+
 
         public void InsertTeam(Team team)
         {
@@ -135,6 +164,39 @@ namespace WebApplication.Web.DAL
         }
 
 
+        public void UpdateTeam(Team team)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("UPDATE TEAMS SET Name = @Name, League = @League, Org = @Org, " +
+                        "PrimaryVenue = @Pvenue, SecondaryVenue = @SVenue WHERE UserID = @UserID; ", conn);
+                    cmd.Parameters.AddWithValue("@Name", team.Name);
+                    cmd.Parameters.AddWithValue("@League", team.League);
+                    cmd.Parameters.AddWithValue("@Org", team.Org);
+                    cmd.Parameters.AddWithValue("@PVenue", team.PrimaryVenue);
+                    cmd.Parameters.AddWithValue("@SVenue", team.SecondaryVenue);
+                    cmd.Parameters.AddWithValue("@UserID", team.UserID);
+
+                    cmd.ExecuteNonQuery();
+                    
+                    return;
+                }
+            }
+            catch (NotImplementedException ex)
+            {
+                throw ex;
+            }
+        }
+
+
+
+
+
+
+
         private Team MapRowToTeam(SqlDataReader reader)
         {
             Team team = new Team();
@@ -145,6 +207,7 @@ namespace WebApplication.Web.DAL
             team.Org = Convert.ToString(reader["Org"]);
             team.PrimaryVenue = Convert.ToString(reader["PrimaryVenue"]);
             team.SecondaryVenue = Convert.ToString(reader["SecondaryVenue"]);
+            team.UserID = Convert.ToInt32(reader["UserID"]);
             //if (Convert.ToInt32(reader["Home"]) == 1)
             //{
             //    team.HomeDates.Add(Convert.ToDateTime(reader["Date"]));

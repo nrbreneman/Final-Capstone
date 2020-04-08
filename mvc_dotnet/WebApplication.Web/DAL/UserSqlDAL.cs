@@ -117,7 +117,6 @@ namespace WebApplication.Web.DAL
                     cmd.Parameters.AddWithValue("@salt", user.Salt);
                     cmd.Parameters.AddWithValue("@role", user.Role);
                     cmd.Parameters.AddWithValue("@id", user.Id);
-                    //cmd.Parameters.AddWithValue("@teamID", user.TeamID);
 
                     cmd.ExecuteNonQuery();
 
@@ -139,7 +138,6 @@ namespace WebApplication.Web.DAL
                 Password = Convert.ToString(reader["password"]),
                 Salt = Convert.ToString(reader["salt"]),
                 Role = Convert.ToString(reader["role"])
-                //TeamID = Convert.ToInt32(reader["teamID"])
             };
         }
     }

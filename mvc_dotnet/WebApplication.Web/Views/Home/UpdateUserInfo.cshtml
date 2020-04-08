@@ -1,0 +1,32 @@
+﻿@model User
+@{
+    ViewData["Title"] = "UpdateUserInfo";
+}
+
+<h2>Update Username/Password</h2>
+<p>If you would not like to change this information, please input your current username and/or password</p>
+<form asp-controller="Home" asp-action="UpdateUserInfo" method="post">
+    <div class="form-group">
+        <label asp-for="Username">New Username</label>
+        <input type="email" asp-for="Username" value="@Model.Username" />
+        <span asp-validation-for="Username"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Password">Current Password</label>
+        <input type="password" asp-for="Password" />
+        <span asp-validation-for="Password"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NewPassword">New Password</label>
+        <input type="password" asp-for="NewPassword" />
+        <span asp-validation-for="Password"></span>
+    </div>
+
+    <input type="submit" value="UpdateUserInfo" class="btn btn-default" />
+
+
+    @*<a asp-controller="Home" asp-action="UserHomePage" method="post">
+        <input type="button" value="Cancel" class="btn btn-default" />
+    </a>*@
+
+</form>

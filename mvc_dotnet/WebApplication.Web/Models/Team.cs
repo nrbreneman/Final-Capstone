@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -35,5 +36,11 @@ namespace WebApplication.Web.Models
 
         [Display(Name = "Available Travel Dates")]
         public List<DateTime> TravelDates { get; set; } = new List<DateTime>();
+
+
+        public int UserID { get; set; }
+
+        public IList<SelectListItem> DropDownListTeam = new List<SelectListItem>();        
+
     }
 }

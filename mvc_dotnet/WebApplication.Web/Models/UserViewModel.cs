@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebApplication.Web.Models
 {
-    public class User
+    public class UserViewModel
     {
         /// <summary>
         /// The user's id.
@@ -25,11 +25,15 @@ namespace WebApplication.Web.Models
         /// The user's password.
         /// </summary>
         [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
 
 
-        public string  NewPassword { get; set; }
-
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
         /// <summary>
         /// The user's salt.
         /// </summary>
