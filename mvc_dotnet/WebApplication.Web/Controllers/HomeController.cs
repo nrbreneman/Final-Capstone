@@ -150,7 +150,10 @@ namespace WebApplication.Web.Controllers
 
 
 
-
+        public ActionResult Calendar()
+        {
+            return View();
+        }
 
 
         public IActionResult About()
