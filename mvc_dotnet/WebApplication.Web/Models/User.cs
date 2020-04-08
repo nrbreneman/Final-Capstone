@@ -33,7 +33,7 @@ namespace WebApplication.Web.Models
         /// <summary>
         /// The user's salt.
         /// </summary>
-        [Required]
+        //[Required]
         public string Salt { get; set; }
 
         /// <summary>

@@ -92,6 +92,7 @@ namespace WebApplication.Web.Controllers
         {
             User user = authProvider.GetCurrentUser();
             user.UserTeam = teamDAL.GetTeamByUserID(user);
+            user.UserTeam = teamDAL.GetDatesByTeamID(user);
             return View(user.UserTeam);
         }
 
@@ -114,10 +115,18 @@ namespace WebApplication.Web.Controllers
             return View(user);
         }
 
+        //[TempData]
+        //public string Message { get; set; }
+
         [HttpPost]
         [AuthorizationFilter("User")]
         public IActionResult UpdateUserInfo(User user, string Salt, string NewPassword, string Password)
         {
+            TempData["Added"] = "Successfully updated username/password!";
+
+
+
+
             if (ModelState.IsValid)
             {
                 user = authProvider.GetCurrentUser();

@@ -4,6 +4,7 @@
 }
 
 <h2>Update Username/Password</h2>
+
 <p>If you would not like to change this information, please input your current username and/or password</p>
 <form asp-controller="Home" asp-action="UpdateUserInfo" method="post">
     <div class="form-group">
@@ -25,8 +26,8 @@
     <input type="submit" value="UpdateUserInfo" class="btn btn-default" />
 
 
-    @*<a asp-controller="Home" asp-action="UserHomePage" method="post">
-        <input type="button" value="Cancel" class="btn btn-default" />
-    </a>*@
+    <a asp-controller="Home" asp-action="UserHomePage" method="post">
+        <input type="button" value="Back To User Home Page" class="btn btn-default" />
+    </a>
 
 </form>

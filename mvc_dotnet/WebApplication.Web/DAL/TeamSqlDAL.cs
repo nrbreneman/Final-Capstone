@@ -123,7 +123,46 @@ namespace WebApplication.Web.DAL
             }
         }
 
+        public Team GetDatesByTeamID(User user)
+        {
+            Team team = new Team();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT * from TEAMS JOIN EventDates on EventDates.TeamID = TEAMS.id  WHERE TeamID = @TeamID; ", conn);
+                    cmd.Parameters.AddWithValue("@TeamID", user.UserTeam.TeamID);
+                    SqlDataReader reader = cmd.ExecuteReader();
 
+
+                    while (reader.Read())
+                    {
+                        team = (MapRowToTeam(reader));
+
+                        if (Convert.ToInt32(reader["Home"]) == 1)
+                        {
+                            team.HomeDates.Add(Convert.ToDateTime(reader["Date"]));
+                        }
+                        else if (Convert.ToInt32(reader["Home"]) == 0)
+                        {
+                            team.TravelDates.Add(Convert.ToDateTime(reader["Date"]));
+                        }
+                        else
+                        {
+                            DateTime date = new DateTime(2020, 01, 01);
+                            team.TravelDates.Add(date);
+                        }
+                    }
+                }
+
+                return team;
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
 
         public void InsertTeam(Team team)
         {
@@ -154,6 +193,8 @@ namespace WebApplication.Web.DAL
 
                     comd.ExecuteNonQuery();
 
+                    //INSERT INTO EventDates(TeamID, Date, Home) VALUES(36, '2020-09-12', 0);
+
                     return;
                 }
             }
@@ -181,7 +222,7 @@ namespace WebApplication.Web.DAL
                     cmd.Parameters.AddWithValue("@UserID", team.UserID);
 
                     cmd.ExecuteNonQuery();
-                    
+
                     return;
                 }
             }
@@ -207,16 +248,15 @@ namespace WebApplication.Web.DAL
             team.Org = Convert.ToString(reader["Org"]);
             team.PrimaryVenue = Convert.ToString(reader["PrimaryVenue"]);
             team.SecondaryVenue = Convert.ToString(reader["SecondaryVenue"]);
-            team.UserID = Convert.ToInt32(reader["UserID"]);
-            //if (Convert.ToInt32(reader["Home"]) == 1)
-            //{
-            //    team.HomeDates.Add(Convert.ToDateTime(reader["Date"]));
-            //}
-            //else
-            //{
-            //    team.TravelDates.Add(Convert.ToDateTime(reader["Date"]));
-            //}
-
+            if (!DBNull.Value.Equals(reader["UserID"]))
+            {
+                team.UserID = Convert.ToInt32(reader["UserID"]);
+            }
+            else
+            {
+                team.UserID = 0;
+            }
+            
             return team;
         }
     }

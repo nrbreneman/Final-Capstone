@@ -32,10 +32,13 @@ namespace WebApplication.Web.Models
         public string SecondaryVenue { get; set; }
 
         [Display(Name = "Available Home Dates")]
+        [DataType(DataType.Date)]
         public List<DateTime> HomeDates { get; set; } = new List<DateTime>();
 
         [Display(Name = "Available Travel Dates")]
+        [DataType(DataType.Date)]
         public List<DateTime> TravelDates { get; set; } = new List<DateTime>();
+        
 
 
         public int UserID { get; set; }
