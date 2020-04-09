@@ -11,7 +11,7 @@ namespace WebApplication.Web.DAL
 
         private string GetTeamsByLeagueSQL = "SELECT * from TEAMS WHERE League = @LeagueName Order by Name; ";
         private string GetLeagueByUserSQL = "SELECT League from TEAMS JOIN users on users.id = TEAMS.UserID WHERE users.id = @id; ";
-        private string GetAllTeamsSQL = "SELECT * from TEAMS JOIN EventDates on EventDates.TeamID = TEAMS.id Order by Date; ";
+        private string GetAllTeamsSQL = "SELECT * from TEAMS; ";
         private string GetTeamByUserIDSQL = "SELECT * from TEAMS WHERE UserID = @UserID; ";
         private string GetDatesByTeamIDSQL = "SELECT * from TEAMS JOIN EventDates on EventDates.TeamID = TEAMS.id  WHERE TeamID = @TeamID; ";
         private string InsertTeamSQL = "SELECT MAX(id) as max from users";
@@ -84,6 +84,7 @@ namespace WebApplication.Web.DAL
                 {
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(GetAllTeamsSQL, conn);
+
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
@@ -219,6 +220,33 @@ namespace WebApplication.Web.DAL
                     cmd.Parameters.AddWithValue("@PVenue", team.PrimaryVenue);
                     cmd.Parameters.AddWithValue("@SVenue", team.SecondaryVenue);
                     cmd.Parameters.AddWithValue("@UserID", team.UserID);
+
+                    cmd.ExecuteNonQuery();
+
+                    return;
+                }
+            }
+            catch (NotImplementedException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void AdminUpdateTeam(Team team)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("UPDATE TEAMS SET Name = @Name, League = @League, Org = @Org, " +
+                        "PrimaryVenue = @Pvenue, SecondaryVenue = @SVenue WHERE id = @TeamID; ", conn);
+                    cmd.Parameters.AddWithValue("@Name", team.Name);
+                    cmd.Parameters.AddWithValue("@League", team.League);
+                    cmd.Parameters.AddWithValue("@Org", team.Org);
+                    cmd.Parameters.AddWithValue("@PVenue", team.PrimaryVenue);
+                    cmd.Parameters.AddWithValue("@SVenue", team.SecondaryVenue);
+                    cmd.Parameters.AddWithValue("@TeamID", team.TeamID);
 
                     cmd.ExecuteNonQuery();
 

@@ -23,10 +23,10 @@ namespace WebApplication.Web.Controllers
             this.teamDAL = teamDAL;
             this.userDAL = userDAL;
         }
-        
+
 
         public IActionResult Index()
-        {            
+        {
             return View();
         }
 
@@ -35,7 +35,7 @@ namespace WebApplication.Web.Controllers
         {
             return View();
         }
-       
+
 
         public IActionResult Login()
         {
@@ -78,8 +78,29 @@ namespace WebApplication.Web.Controllers
 
             List<Team> teams = teamDAL.GetTeamsByLeague(League);
             return View(teams);
+
         }
-        
+
+
+        //private Team AddTeamNames(Team model)
+        //{
+        //    IList<Team> teamNames = teamDAL.GetAllTeams();
+        //    foreach (Team s in teamNames)
+        //    {
+        //        model.AddGenre(s);
+        //    }
+        //    return model;
+        //}
+
+
+        //private SelectListItem AddTeamToList(string teamName)
+        //{
+        //    SelectListItem selectListItems = new SelectListItem();
+        //    selectListItems = new SelectListItem { Text = teamName, Value = teamName };
+        //    return selectListItems;
+        //}
+
+
         private SelectListItem AddTeamToList(string teamName)
         {
             SelectListItem selectListItems = new SelectListItem();
@@ -88,8 +109,18 @@ namespace WebApplication.Web.Controllers
         }
 
 
+        private SelectListItem AddLeagueToList(string leagueName)
+        {
+            SelectListItem selectListItems = new SelectListItem();
+            selectListItems = new SelectListItem { Text = leagueName, Value = leagueName };
+            return selectListItems;
+        }
+
+
+
+
         [HttpGet]
-        [AuthorizationFilter("User")]
+        [AuthorizationFilter("User", "Admin")]
         public IActionResult ChangeMyTeamInfo()
         {
             User user = authProvider.GetCurrentUser();
@@ -99,7 +130,7 @@ namespace WebApplication.Web.Controllers
         }
 
         [HttpPost]
-        [AuthorizationFilter("User")]
+        [AuthorizationFilter("User", "Admin")]
         public IActionResult ChangeMyTeamInfo(Team team)
         {
             User user = authProvider.GetCurrentUser();
@@ -116,6 +147,7 @@ namespace WebApplication.Web.Controllers
             user = userDAL.GetUser(user.Username);
             return View(user);
         }
+
 
         [HttpPost]
         [AuthorizationFilter("User")]
@@ -134,6 +166,8 @@ namespace WebApplication.Web.Controllers
         }
 
 
+
+
         //[HttpGet]
         //[AuthorizationFilter("Admin")]
         //public IActionResult ChangeATeamInfo()
@@ -146,13 +180,41 @@ namespace WebApplication.Web.Controllers
         //    }
 
         
+
         [HttpGet]
         [AuthorizationFilter("Admin")]
-        public IActionResult ChangeATeamInfo()
+        public IActionResult SelectLeague()
         {
             Team model = new Team();
             IList<Team> teams = teamDAL.GetAllTeams();
+            HashSet<string> teamHash = new HashSet<string>();
             foreach (Team team in teams)
+            {
+                teamHash.Add(team.League);
+            }
+
+            foreach (string league in teamHash)
+            {
+                model.LeagueDropDown.Add(AddLeagueToList(league));
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [AuthorizationFilter("Admin")]
+        public IActionResult SelectLeague(Team team)
+        {
+            return RedirectToAction("ChangeATeamInfo", "Home", new { team.League });
+        }
+
+        [HttpGet]
+        [AuthorizationFilter("Admin")]
+        public IActionResult ChangeATeamInfo(string League)
+        {
+            Team model = new Team();
+            List<Team> teamsByLeague = teamDAL.GetTeamsByLeague(League);
+
+            foreach (Team team in teamsByLeague)
             {
                 model.DropDownListTeam.Add(AddTeamToList(team.Name));
             }
@@ -165,9 +227,28 @@ namespace WebApplication.Web.Controllers
         [AuthorizationFilter("Admin")]
         public IActionResult ChangeATeamInfo(Team team)
         {
-            teamDAL.UpdateTeam(team);
+<<<<<<< HEAD
+
+            return RedirectToAction("ChangeATeam", "Home");
+        }
+
+        [HttpGet]
+        [AuthorizationFilter("Admin")]
+        public IActionResult ChangeATeam(Team team)
+        {
             return View(team);
         }
+
+        [HttpPost]
+        [AuthorizationFilter("Admin")]
+        public IActionResult ChangeATeam(Team team, string str)
+        {
+            teamDAL.AdminUpdateTeam(team);
+            return RedirectToAction("AdminHomePage", "Home");
+        }
+        
+
+
 
         public ActionResult Calendar()
         {
