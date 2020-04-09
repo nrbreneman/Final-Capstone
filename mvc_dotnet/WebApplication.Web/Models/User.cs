@@ -8,19 +8,19 @@ namespace WebApplication.Web.Models
     {
         [Required]
         public int Id { get; set; }
-        
+
         [Required]
         [MaxLength(50)]
         public string Username { get; set; }
-        
+
         [Required]
         public string Password { get; set; }
 
         public string NewPassword { get; set; }
-        
+
         //[Required]
         public string Salt { get; set; }
-        
+
         public string Role { get; set; }
 
         public int TeamID { get; set; }

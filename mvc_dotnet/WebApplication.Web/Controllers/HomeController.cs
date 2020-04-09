@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
+using System.Diagnostics;
 using WebApplication.Web.DAL;
 using WebApplication.Web.Models;
 using WebApplication.Web.Models.Account;
@@ -18,13 +15,13 @@ namespace WebApplication.Web.Controllers
         private readonly IAuthProvider authProvider;
         private readonly TeamSqlDAL teamDAL;
         private readonly IUserDAL userDAL;
+
         public HomeController(IAuthProvider authProvider, TeamSqlDAL teamDAL, IUserDAL userDAL)
         {
             this.authProvider = authProvider;
             this.teamDAL = teamDAL;
             this.userDAL = userDAL;
         }
-
 
         public IActionResult Index()
         {
@@ -36,7 +33,6 @@ namespace WebApplication.Web.Controllers
         {
             return View();
         }
-
 
         public IActionResult Login()
         {
@@ -83,6 +79,10 @@ namespace WebApplication.Web.Controllers
         }
 
 
+
+
+
+
         //private Team AddTeamNames(Team model)
         //{
         //    IList<Team> teamNames = teamDAL.GetAllTeams();
@@ -102,8 +102,8 @@ namespace WebApplication.Web.Controllers
         //}
 
 
-
         private SelectListItem AddTeamToList(Team Team)
+
         {
             SelectListItem selectListItems = new SelectListItem();
             selectListItems = new SelectListItem { Text = Team.Name, Value = Team.TeamID.ToString() };
@@ -117,9 +117,6 @@ namespace WebApplication.Web.Controllers
             selectListItems = new SelectListItem { Text = leagueName, Value = leagueName };
             return selectListItems;
         }
-
-
-
 
         [HttpGet]
         [AuthorizationFilter("User", "Admin")]
@@ -150,7 +147,6 @@ namespace WebApplication.Web.Controllers
             return View(user);
         }
 
-
         [HttpPost]
         [AuthorizationFilter("User")]
         public IActionResult UpdateUserInfo(User user, string Salt, string NewPassword, string Password)
@@ -166,9 +162,6 @@ namespace WebApplication.Web.Controllers
             }
             return View(user);
         }
-
-
-
 
         //[HttpGet]
         //[AuthorizationFilter("Admin")]
@@ -230,6 +223,7 @@ namespace WebApplication.Web.Controllers
         {
             team = teamDAL.GetTeamByTeamID(team.TeamID.ToString());
             return RedirectToAction("ChangeATeam", "Home", team);
+
         }
 
         [HttpGet]

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WebApplication.Web.Models;
+﻿using WebApplication.Web.Models;
 
 namespace WebApplication.Web.Providers.Auth
 {

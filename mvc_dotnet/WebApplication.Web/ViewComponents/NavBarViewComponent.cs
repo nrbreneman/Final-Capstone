@@ -1,8 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WebApplication.Web.Providers.Auth;
 
 namespace WebApplication.Web.ViewComponents
@@ -15,6 +11,7 @@ namespace WebApplication.Web.ViewComponents
     {
         // Components allow dependency injection just like controllers.
         private IAuthProvider authProvider;
+
         public NavBarViewComponent(IAuthProvider authProvider)
         {
             this.authProvider = authProvider;

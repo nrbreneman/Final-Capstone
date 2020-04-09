@@ -11,9 +11,9 @@ namespace WebApplication.Tests.Providers
     [TestClass]
     public class SessionAuthProviderTests
     {
-        Mock<IHttpContextAccessor> mockAccessor;
-        Mock<ISession> mockSession;
-        Mock<IUserDAL> mockUserDal;
+        private Mock<IHttpContextAccessor> mockAccessor;
+        private Mock<ISession> mockSession;
+        private Mock<IUserDAL> mockUserDal;
 
         [TestInitialize]
         public void Initialize()
@@ -24,7 +24,7 @@ namespace WebApplication.Tests.Providers
             mockSession = new Mock<ISession>();
             mockUserDal = new Mock<IUserDAL>();
 
-            var mockContext = new Mock<HttpContext>();                                    
+            var mockContext = new Mock<HttpContext>();
             mockContext.SetupGet(m => m.Session).Returns(mockSession.Object);
 
             mockAccessor.SetupGet(m => m.HttpContext).Returns(mockContext.Object);
@@ -50,12 +50,12 @@ namespace WebApplication.Tests.Providers
         [TestMethod]
         public void GetCurrentUser_Should_ReturnsNullIfNotLoggedIn()
         {
-            // Arrange DAL to always return null ensuring that user does not exist           
+            // Arrange DAL to always return null ensuring that user does not exist
             mockUserDal.Setup(m => m.GetUser(It.IsAny<string>())).Returns<User>(null);
 
             var provider = new SessionAuthProvider(mockAccessor.Object, mockUserDal.Object);
 
-            Assert.IsNull(provider.GetCurrentUser());            
+            Assert.IsNull(provider.GetCurrentUser());
         }
 
         [TestMethod]
@@ -64,7 +64,7 @@ namespace WebApplication.Tests.Providers
             // Arrange DAL to have user named "test"
             AddUserToDAL("test");
             AddUserToSession("test");
-            
+
             var provider = new SessionAuthProvider(mockAccessor.Object, mockUserDal.Object);
 
             // Call our method to test
@@ -78,8 +78,8 @@ namespace WebApplication.Tests.Providers
         [TestMethod]
         public void SignIn_Should_ReturnTrueIfMatch()
         {
-            // Arrange the DAL to have a user                                    
-            AddUserToDAL("test");                       
+            // Arrange the DAL to have a user
+            AddUserToDAL("test");
             var provider = new SessionAuthProvider(mockAccessor.Object, mockUserDal.Object);
 
             // Call our method to test
@@ -118,7 +118,7 @@ namespace WebApplication.Tests.Providers
             // Asserts that Clear was called
             mockSession.Verify(m => m.Clear());
         }
-                
+
         [TestMethod]
         public void ChangePassword_Should_ReturnFalseIfNotLoggedIn()
         {
@@ -176,12 +176,13 @@ namespace WebApplication.Tests.Providers
             mockUserDal.Verify(m => m.CreateUser(It.IsAny<User>()));
             mockSession.Verify(m => m.Set(SessionAuthProvider.SessionKey, It.IsAny<byte[]>()));
         }
-        
+
         #region Private Methods
+
         private void AddUserToDAL(string username)
         {
-            var user = new User { Username = username, Password = "OZpnzNCj1mcK3lvPKxhh89ikT0w=", Salt = "rsD3TaOu0XQ=" };            
-            mockUserDal.Setup(m => m.GetUser(username)).Returns(user);              
+            var user = new User { Username = username, Password = "OZpnzNCj1mcK3lvPKxhh89ikT0w=", Salt = "rsD3TaOu0XQ=" };
+            mockUserDal.Setup(m => m.GetUser(username)).Returns(user);
         }
 
         private void AddUserToSession(string username)
@@ -189,6 +190,7 @@ namespace WebApplication.Tests.Providers
             byte[] data = Encoding.UTF8.GetBytes(username);
             mockSession.Setup(m => m.TryGetValue(SessionAuthProvider.SessionKey, out data)).Returns(true);
         }
-        #endregion
+
+        #endregion Private Methods
     }
 }

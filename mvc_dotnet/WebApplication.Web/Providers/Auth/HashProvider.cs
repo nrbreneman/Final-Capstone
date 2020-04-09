@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
-using System.Threading.Tasks;
 
 namespace WebApplication.Web.Providers.Auth
 {
     /// <summary>
-    /// The hash provider provides functionality to hash a plain text password and validate 
+    /// The hash provider provides functionality to hash a plain text password and validate
     /// an existing password against its hash.
     /// </summary>
     public class HashProvider
@@ -27,7 +24,7 @@ namespace WebApplication.Web.Providers.Auth
             //Get the Hashed Password
             byte[] hash = rfc.GetBytes(20);
 
-            //Set the SaltValue 
+            //Set the SaltValue
             string salt = Convert.ToBase64String(rfc.Salt);
 
             //Return the Hashed Password
@@ -81,5 +78,4 @@ namespace WebApplication.Web.Providers.Auth
         /// </summary>
         public string Salt { get; }
     }
-
 }
