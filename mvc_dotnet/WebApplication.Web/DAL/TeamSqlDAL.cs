@@ -127,6 +127,32 @@ namespace WebApplication.Web.DAL
             }
         }
 
+        public Team GetTeamByTeamID(string TeamID)
+        {
+            Team team = new Team();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT * from TEAMS WHERE id = @TeamID;", conn);
+                    cmd.Parameters.AddWithValue("@TeamID", TeamID);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        team = (MapRowToTeam(reader));
+                    }
+                }
+
+                return team;
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+
         public Team GetDatesByTeamID(User user)
         {
             Team team = new Team();

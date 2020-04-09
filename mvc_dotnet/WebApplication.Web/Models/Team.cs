@@ -40,5 +40,22 @@ namespace WebApplication.Web.Models
 
         public IList<SelectListItem> DropDownListTeam = new List<SelectListItem>();
         public IList<SelectListItem> LeagueDropDown = new List<SelectListItem>();
+
+        [Display(Name = "Home Date")]
+        [DataType(DataType.Date)]
+        public DateTime? HomeDate { get; set; }
+
+        [Display(Name = "Travel Date")]
+        [DataType(DataType.Date)]
+        public DateTime? TravelDate { get; set; }
+
+        //public void AddHomeDate(DateTime HomeDate)
+        //{
+        //    HomeDates.Add(HomeDate);
+        //}
+        //public void AddTravelDate(DateTime TravelDate)
+        //{
+        //    TravelDates.Add(TravelDate);
+        //}
     }
 }

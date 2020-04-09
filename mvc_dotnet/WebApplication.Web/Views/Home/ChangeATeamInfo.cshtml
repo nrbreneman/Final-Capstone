@@ -7,15 +7,17 @@
 
 <p>Select which team you would like to modify</p>
 
-<form asp-controller="Home" asp-action="ChangeATeamInfo" method="post">
-    <div class="form-group">
-        <label asp-for="Name" class="control-label">Team Name</label>
-        <select asp-for="Name" asp-items="Model.DropDownListTeam"></select>
-    </div>
+<div class="page-info">
+    <form asp-controller="Home" asp-action="ChangeATeamInfo" method="post">
+        <div class="form-group">
+            <label asp-for="TeamID" class="control-label">Team Name</label>
+            <select asp-for="TeamID" asp-items="Model.DropDownListTeam"></select>
+        </div>
 
-    <input type="submit" value="ChangeATeamInfo" class="btn btn-default" />
+        <input type="submit" value="ChangeATeamInfo" class="btn btn-default" />
 
-    <a asp-controller="Home" asp-action="AdminHomePage" method="post">
-        <input type="button" value="Back To Admin Home Page" class="btn btn-default" />
-    </a>
-</form>
+        <a asp-controller="Home" asp-action="AdminHomePage" method="post">
+            <input type="button" value="Back To Admin Home Page" class="btn btn-default" />
+        </a>
+    </form>
+</div>

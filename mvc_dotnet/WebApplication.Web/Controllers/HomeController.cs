@@ -78,12 +78,9 @@ namespace WebApplication.Web.Controllers
 
             List<Team> teams = teamDAL.GetTeamsByLeague(League);
             return View(teams);
-<<<<<<< HEAD
 
-=======
->>>>>>> 3d30aa349d1061358d4b4dd740cc0b46c729dd4b
         }
-<<<<<<< HEAD
+
 
         //private Team AddTeamNames(Team model)
         //{
@@ -95,26 +92,21 @@ namespace WebApplication.Web.Controllers
         //    return model;
         //}
 
-<<<<<<< HEAD
 
-
-=======
         //private SelectListItem AddTeamToList(string teamName)
         //{
         //    SelectListItem selectListItems = new SelectListItem();
         //    selectListItems = new SelectListItem { Text = teamName, Value = teamName };
         //    return selectListItems;
         //}
-=======
-        
->>>>>>> 3d30aa349d1061358d4b4dd740cc0b46c729dd4b
-        private SelectListItem AddTeamToList(string teamName)
+
+        private SelectListItem AddTeamToList(Team Team)
         {
             SelectListItem selectListItems = new SelectListItem();
-            selectListItems = new SelectListItem { Text = teamName, Value = teamName };
+            selectListItems = new SelectListItem { Text = Team.Name, Value = Team.TeamID.ToString() };
             return selectListItems;
         }
->>>>>>> 5e39ef46a6457fa64a7123676c18b90c8e199cce
+
 
         private SelectListItem AddLeagueToList(string leagueName)
         {
@@ -154,30 +146,13 @@ namespace WebApplication.Web.Controllers
             user = userDAL.GetUser(user.Username);
             return View(user);
         }
-<<<<<<< HEAD
 
-
-=======
-<<<<<<< HEAD
-
-=======
-        
->>>>>>> 5e39ef46a6457fa64a7123676c18b90c8e199cce
->>>>>>> 3d30aa349d1061358d4b4dd740cc0b46c729dd4b
         [HttpPost]
         [AuthorizationFilter("User")]
         public IActionResult UpdateUserInfo(User user, string Salt, string NewPassword, string Password)
         {
             TempData["Added"] = "Successfully updated username/password!";
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
-
-=======
-            
->>>>>>> 5e39ef46a6457fa64a7123676c18b90c8e199cce
->>>>>>> 3d30aa349d1061358d4b4dd740cc0b46c729dd4b
             if (ModelState.IsValid)
             {
                 user = authProvider.GetCurrentUser();
@@ -186,10 +161,7 @@ namespace WebApplication.Web.Controllers
             }
             return View(user);
         }
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
 
         //[HttpGet]
         //[AuthorizationFilter("Admin")]
@@ -201,9 +173,7 @@ namespace WebApplication.Web.Controllers
         //    {
         //        model.DropDownListTeam.Add(AddTeamToList(team.Name));
         //    }
-=======
-        
->>>>>>> 3d30aa349d1061358d4b4dd740cc0b46c729dd4b
+
         [HttpGet]
         [AuthorizationFilter("Admin")]
         public IActionResult SelectLeague()
@@ -239,58 +209,63 @@ namespace WebApplication.Web.Controllers
 
             foreach (Team team in teamsByLeague)
             {
-                model.DropDownListTeam.Add(AddTeamToList(team.Name));
+                model.DropDownListTeam.Add(AddTeamToList(team));
             }
->>>>>>> 5e39ef46a6457fa64a7123676c18b90c8e199cce
 
-        //    return View(model);
-        //}
+
+            return View(model);
+        }
 
         [HttpPost]
         [AuthorizationFilter("Admin")]
         public IActionResult ChangeATeamInfo(Team team)
         {
-<<<<<<< HEAD
-
-            return RedirectToAction("ChangeATeam", "Home");
+            team = teamDAL.GetTeamByTeamID(team.TeamID.ToString());
+            return RedirectToAction("ChangeATeam", "Home", team );
         }
 
         [HttpGet]
         [AuthorizationFilter("Admin")]
         public IActionResult ChangeATeam(Team team)
         {
+            //team = teamDAL.GetTeamByTeamID(team.TeamID.ToString());
             return View(team);
         }
 
         [HttpPost]
         [AuthorizationFilter("Admin")]
-        public IActionResult ChangeATeam(Team team, string str)
+        public IActionResult ChangeATeam(Team team, int teamID)
         {
+            teamID = team.TeamID;
             teamDAL.AdminUpdateTeam(team);
             return RedirectToAction("AdminHomePage", "Home");
         }
         
 
-=======
-            teamDAL.UpdateTeam(team);
-            return View(team);
-        }
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 5e39ef46a6457fa64a7123676c18b90c8e199cce
->>>>>>> 3d30aa349d1061358d4b4dd740cc0b46c729dd4b
+        //    teamDAL.UpdateTeam(team);
+        //    return View(team);
+        //}
+
         public ActionResult Calendar()
         {
             //https://localhost:44392/home/calendar
             return View();
         }
 
-<<<<<<< HEAD
+        //public ActionResult ClickTravelButton(Team team, DateTime TravelDate)
+        //{
+        //    team.TravelDates.Add(TravelDate);
+        //    return View(TravelDate);
+        //}
 
-=======
->>>>>>> 3d30aa349d1061358d4b4dd740cc0b46c729dd4b
+        //public ActionResult ClickHomeButton(Team team, DateTime HomeDate)
+        //{
+        //    team.HomeDates.Add(HomeDate);
+        //    return c
+        //}
+
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";

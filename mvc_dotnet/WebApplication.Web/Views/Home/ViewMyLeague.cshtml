@@ -5,47 +5,49 @@
 
 <h2>ViewTeam</h2>
 <hr />
-<table class="team_table">
-    <tr>
-        <th>Team Name</th>
-        <th>League</th>
-        <th>Organization</th>
-        <th>Primary Venue</th>
-        <th>Secondary Venue</th>
-        @*<th>Home Dates Available</th>
-            <th>Travel Dates Available</th>*@
-    </tr>
-    @foreach (Team team in Model)
-    {
-
+<div class="page-info">
+    <table class="team_table">
         <tr>
-            <td>@team.Name</td>
-            <td>@team.League</td>
-            <td>@team.Org</td>
-            <td>@team.PrimaryVenue</td>
-            <td>@team.SecondaryVenue</td>
-            @*<td>
-                    @foreach (DateTime date in team.HomeDates)
-                    {
-                        @date.ToString("MM/dd/yyyy")
-
-                    }
-                </td>
-                <td>
-                    @foreach (DateTime date in team.TravelDates)
-                    {
-                        @date.ToString("MM/dd/yyyy")
-
-                    }
-                </td>*@
+            <th>Team Name</th>
+            <th>League</th>
+            <th>Organization</th>
+            <th>Primary Venue</th>
+            <th>Secondary Venue</th>
+            @*<th>Home Dates Available</th>
+                <th>Travel Dates Available</th>*@
         </tr>
-    }
-</table>
+        @foreach (Team team in Model)
+        {
 
-<a asp-controller="Home" asp-action="UserHomePage" method="post">
-    <input type="button" value="Back To User Home Page" class="btn btn-default" />
-</a>
+            <tr>
+                <td>@team.Name</td>
+                <td>@team.League</td>
+                <td>@team.Org</td>
+                <td>@team.PrimaryVenue</td>
+                <td>@team.SecondaryVenue</td>
+                @*<td>
+                        @foreach (DateTime date in team.HomeDates)
+                        {
+                            @date.ToString("MM/dd/yyyy")
 
-@*<div>
-        <a asp-action="Index">Back to Login</a>
-    </div>*@
+                        }
+                    </td>
+                    <td>
+                        @foreach (DateTime date in team.TravelDates)
+                        {
+                            @date.ToString("MM/dd/yyyy")
+
+                        }
+                    </td>*@
+            </tr>
+        }
+    </table>
+
+    <a asp-controller="Home" asp-action="UserHomePage" method="post">
+        <input type="button" value="Back To User Home Page" class="btn btn-default" />
+    </a>
+
+    @*<div>
+            <a asp-action="Index">Back to Login</a>
+        </div>*@
+</div>
