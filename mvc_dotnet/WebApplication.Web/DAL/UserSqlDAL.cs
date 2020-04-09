@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
 using WebApplication.Web.Models;
 
 namespace WebApplication.Web.DAL
@@ -20,7 +17,7 @@ namespace WebApplication.Web.DAL
         {
             this.connectionString = connectionString;
         }
-        
+
         public void CreateUser(User user)
         {
             try
@@ -39,12 +36,12 @@ namespace WebApplication.Web.DAL
                     return;
                 }
             }
-            catch(SqlException ex)
+            catch (SqlException ex)
             {
                 throw ex;
             }
         }
-        
+
         public void DeleteUser(User user)
         {
             try
@@ -53,7 +50,7 @@ namespace WebApplication.Web.DAL
                 {
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(DeleteUserSQL, conn);
-                    cmd.Parameters.AddWithValue("@id", user.Id);                    
+                    cmd.Parameters.AddWithValue("@id", user.Id);
 
                     cmd.ExecuteNonQuery();
 
@@ -65,7 +62,7 @@ namespace WebApplication.Web.DAL
                 throw ex;
             }
         }
-        
+
         public User GetUser(string username)
         {
             User user = null;
@@ -90,9 +87,9 @@ namespace WebApplication.Web.DAL
             catch (SqlException ex)
             {
                 throw ex;
-            }            
+            }
         }
-        
+
         public void UpdateUser(User user)
         {
             try
@@ -100,7 +97,7 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand(UpdateUserSQL, conn);                    
+                    SqlCommand cmd = new SqlCommand(UpdateUserSQL, conn);
                     cmd.Parameters.AddWithValue("@password", user.Password);
                     cmd.Parameters.AddWithValue("@salt", user.Salt);
                     cmd.Parameters.AddWithValue("@role", user.Role);

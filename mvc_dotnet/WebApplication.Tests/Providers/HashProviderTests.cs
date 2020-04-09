@@ -1,7 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using WebApplication.Web.Providers.Auth;
 
 namespace WebApplication.Providers.Tests
@@ -9,7 +6,7 @@ namespace WebApplication.Providers.Tests
     [TestClass]
     public class HashProviderTests
     {
-        [TestMethod]        
+        [TestMethod]
         public void HashProvider_ReturnsHashedPassword()
         {
             HashProvider hashProvider = new HashProvider();
@@ -26,7 +23,7 @@ namespace WebApplication.Providers.Tests
         {
             HashProvider hashProvider = new HashProvider();
 
-            Assert.IsTrue(hashProvider.VerifyPasswordMatch(hashedPassword, password, salt));            
+            Assert.IsTrue(hashProvider.VerifyPasswordMatch(hashedPassword, password, salt));
         }
     }
 }
