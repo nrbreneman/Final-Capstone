@@ -54,12 +54,21 @@ CREATE TABLE EventDates
 
 );
 
+CREATE TABLE Leagues
+(
+id int identity(1,1),
+leagueName varchar(25) not null,
+org varchar(25) not null,
+sport varchar(25) not null,
+
+constraint pk_leagueID primary key (id),
+);
+
 CREATE TABLE Messages 
 (
 id int identity(1,1),
 SentByUserID int not null,
 toUserID int not null,
-subject varchar(25) not null,
 messageBody varchar(300),
 
 constraint pk_messageID primary key (id)
@@ -152,6 +161,13 @@ INSERT INTO TEAMS (Name, League, Org, PrimaryVenue, SecondaryVenue, UserID) VALU
 INSERT INTO TEAMS (Name, League, Org, PrimaryVenue, SecondaryVenue, UserID) VALUES ('Old Mission Beach Athletic', 'Mens Pacific D1', 'USAR', 'Happy Field', 'Rock Park', 35);
 INSERT INTO TEAMS (Name, League, Org, PrimaryVenue, SecondaryVenue, UserID) VALUES ('Glendale Merlins', 'Mens Pacific D1', 'USAR', 'Whaler Field', 'Beach Park', 36);
 
+
+INSERT INTO Leagues (leagueName, org, sport) VALUES ('Mens Pacific D1', 'USAR', 'Rugby');
+INSERT INTO Leagues (leagueName, org, sport) VALUES ('Womens Midwest D1', 'USAR', 'Rugby');
+INSERT INTO Leagues (leagueName, org, sport) VALUES ('Womens Midwest D2', 'USAR', 'Rugby');
+INSERT INTO Leagues (leagueName, org, sport) VALUES ('Mens Midwest D1', 'USAR', 'Rugby');
+INSERT INTO Leagues (leagueName, org, sport) VALUES ('Womens Frontier D1', 'USAR', 'Rugby');
+INSERT INTO Leagues (leagueName, org, sport) VALUES ('Mens Frontier D2', 'USAR', 'Rugby');
 
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(1, '2020-09-05', 1);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(2, '2020-09-05', 1);
