@@ -109,6 +109,6 @@ ul {
 footer {
     padding-left: 22%;
     bottom: 0;
-    position: absolute;
+  position:relative;
 }
 

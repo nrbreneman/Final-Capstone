@@ -52,6 +52,7 @@
 
         @foreach (DateTime date in @Model.TravelDates)
         {
+
             <label asp-for="@date">Travel Dates</label>
             <input type="text" asp-for="@date" value="@date.ToString("MM/dd/yyy")" />
             @*<span asp-validation-for="TravelDates"></span>*@

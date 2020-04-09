@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using WebApplication.Web.DAL;
 using WebApplication.Web.Models;
+using WebApplication.Web.Models.Account;
 using WebApplication.Web.Providers.Auth;
 
 namespace WebApplication.Web.Controllers
@@ -95,10 +96,12 @@ namespace WebApplication.Web.Controllers
         //    return selectListItems;
         //}
 
-        private SelectListItem AddTeamToList(string teamName)
+
+        private SelectListItem AddTeamToList(Team Team)
+
         {
             SelectListItem selectListItems = new SelectListItem();
-            selectListItems = new SelectListItem { Text = teamName, Value = teamName };
+            selectListItems = new SelectListItem { Text = Team.Name, Value = Team.TeamID.ToString() };
             return selectListItems;
         }
 
@@ -164,6 +167,7 @@ namespace WebApplication.Web.Controllers
         //        model.DropDownListTeam.Add(AddTeamToList(team.Name));
         //    }
 
+
         [HttpGet]
         [AuthorizationFilter("Admin")]
         public IActionResult SelectLeague()
@@ -199,7 +203,7 @@ namespace WebApplication.Web.Controllers
 
             foreach (Team team in teamsByLeague)
             {
-                model.DropDownListTeam.Add(AddTeamToList(team.Name));
+                model.DropDownListTeam.Add(AddTeamToList(team));
             }
             return View(model);
         }
@@ -208,20 +212,24 @@ namespace WebApplication.Web.Controllers
         [AuthorizationFilter("Admin")]
         public IActionResult ChangeATeamInfo(Team team)
         {
-            return RedirectToAction("ChangeATeam", "Home");
+            team = teamDAL.GetTeamByTeamID(team.TeamID.ToString());
+            return RedirectToAction("ChangeATeam", "Home", team);
+
         }
 
         [HttpGet]
         [AuthorizationFilter("Admin")]
         public IActionResult ChangeATeam(Team team)
         {
+            //team = teamDAL.GetTeamByTeamID(team.TeamID.ToString());
             return View(team);
         }
 
         [HttpPost]
         [AuthorizationFilter("Admin")]
-        public IActionResult ChangeATeam(Team team, string str)
+        public IActionResult ChangeATeam(Team team, int teamID)
         {
+            teamID = team.TeamID;
             teamDAL.AdminUpdateTeam(team);
             return RedirectToAction("AdminHomePage", "Home");
         }
@@ -231,6 +239,82 @@ namespace WebApplication.Web.Controllers
             //https://localhost:44392/home/calendar
             return View();
         }
+
+        //public ActionResult ClickTravelButton(Team team, DateTime TravelDate)
+        //{
+        //    team.TravelDates.Add(TravelDate);
+        //    return View(TravelDate);
+        //}
+
+        //public ActionResult ClickHomeButton(Team team, DateTime HomeDate)
+        //{
+        //    team.HomeDates.Add(HomeDate);
+        //    return c
+        //}
+
+        [HttpGet]
+        [AuthorizationFilter("Admin")]
+        public IActionResult CreateNewLeague()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AuthorizationFilter("Admin")]
+        public IActionResult CreateNewLeague(League league)
+        {
+            if (ModelState.IsValid)
+            {
+                teamDAL.CreateLeague(league);
+
+                return RedirectToAction("AdminHomePage", "Home");
+
+            }
+
+            return View(league);
+        }
+
+        [HttpGet]
+        [AuthorizationFilter("Admin")]
+        public IActionResult CreateNewUser()
+        {
+            User user = new User();
+            foreach (League league in teamDAL.GetAllLeagues())
+            {
+                user.LeagueDropDown.Add(AddLeagueToList(league.LeagueName));
+            }
+            return View(user);
+        }
+
+        [HttpPost]
+        [AuthorizationFilter("Admin")]
+        public IActionResult CreateNewUser(User user)
+        {
+            RegisterViewModel model = new RegisterViewModel();
+            model.Email = user.Username;
+            model.ConfirmPassword = user.Password;
+            model.Password = user.Password;
+            
+            if (ModelState.IsValid)
+            {
+                if (user.IsAdmin)
+                {
+                    authProvider.Register(model.Email, model.Password, role: "Admin");
+                }
+                else
+                {
+                    authProvider.Register(model.Email, model.Password, role: "User");
+                }
+
+                //userDAL.CreateUser(user);
+
+                return RedirectToAction("AdminHomePage", "Home");
+
+            }
+
+            return View(user);
+        }
+
 
         public IActionResult About()
         {

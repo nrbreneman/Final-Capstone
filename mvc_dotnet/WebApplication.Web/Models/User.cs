@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication.Web.Models
 {
@@ -25,5 +27,7 @@ namespace WebApplication.Web.Models
         public Team UserTeam { get; set; }
 
         public bool IsAdmin { get; set; }
+        public League League { get; set; }
+        public IList<SelectListItem> LeagueDropDown = new List<SelectListItem>();
     }
 }

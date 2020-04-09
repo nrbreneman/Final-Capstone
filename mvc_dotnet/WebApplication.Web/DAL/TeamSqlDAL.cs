@@ -127,6 +127,32 @@ namespace WebApplication.Web.DAL
             }
         }
 
+        public Team GetTeamByTeamID(string TeamID)
+        {
+            Team team = new Team();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT * from TEAMS WHERE id = @TeamID;", conn);
+                    cmd.Parameters.AddWithValue("@TeamID", TeamID);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        team = (MapRowToTeam(reader));
+                    }
+                }
+
+                return team;
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+
         public Team GetDatesByTeamID(User user)
         {
             Team team = new Team();
@@ -258,6 +284,64 @@ namespace WebApplication.Web.DAL
                 throw ex;
             }
         }
+
+        public void CreateLeague(League league)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("INSERT INTO Leagues (leagueName, org, sport) " +
+                        "VALUES (@LeagueName, @Org, @Sport);", conn);
+                    cmd.Parameters.AddWithValue("@LeagueName", league.LeagueName);
+                    cmd.Parameters.AddWithValue("@Org", league.Org);
+                    cmd.Parameters.AddWithValue("@Sport", league.Sport);
+
+                    cmd.ExecuteNonQuery();
+
+                    return;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<League> GetAllLeagues()
+        {
+            List<League> leagues = new List<League>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT * from Leagues", conn);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        League league = new League();
+                        
+                        league.LeagueName = Convert.ToString(reader["leagueName"]);
+                        league.Sport = Convert.ToString(reader["sport"]);
+                        league.Org = Convert.ToString(reader["org"]);
+
+                        
+                        leagues.Add(league);
+                    }
+                }
+
+                return leagues;
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+
 
         private Team MapRowToTeam(SqlDataReader reader)
         {

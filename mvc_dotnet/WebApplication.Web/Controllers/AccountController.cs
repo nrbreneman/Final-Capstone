@@ -88,7 +88,8 @@ namespace WebApplication.Web.Controllers
         [HttpGet]
         public IActionResult RegisterTeam()
         {
-            return View();
+            Team team = new Team();
+            return View(team);
         }
 
         [HttpPost]

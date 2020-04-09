@@ -4,16 +4,17 @@
 }
 
 <h2>SelectLeague</h2>
+<div class="page-info">
+    <form asp-controller="Home" asp-action="SelectLeague" method="post">
+        <div class="form-group">
+            <label asp-for="League" class="control-label">League</label>
+            <select asp-for="League" asp-items="Model.LeagueDropDown"></select>
+        </div>
 
-<form asp-controller="Home" asp-action="SelectLeague" method="post">
-    <div class="form-group">
-        <label asp-for="League" class="control-label">League</label>
-        <select asp-for="League" asp-items="Model.LeagueDropDown"></select>
-    </div>
+        <input type="submit" value="Select League" class="btn btn-default" />
 
-    <input type="submit" value="Select League" class="btn btn-default" />
-
-    <a asp-controller="Home" asp-action="AdminHomePage" method="post">
-        <input type="button" value="Back To Admin Home Page" class="btn btn-default" />
-    </a>
-</form>
+        <a asp-controller="Home" asp-action="AdminHomePage" method="post">
+            <input type="button" value="Back To Admin Home Page" class="btn btn-default" />
+        </a>
+    </form>
+</div>
