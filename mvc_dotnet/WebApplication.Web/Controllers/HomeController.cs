@@ -78,7 +78,24 @@ namespace WebApplication.Web.Controllers
             
             List<Team> teams = teamDAL.GetTeamsByLeague(League);
             return View(teams);
+<<<<<<< HEAD
+        }
+
+        //private Team AddTeamNames(Team model)
+        //{
+        //    IList<Team> teamNames = teamDAL.GetAllTeams();
+        //    foreach (Team s in teamNames)
+        //    {
+        //        model.AddGenre(s);
+        //    }
+        //    return model;
+        //}
+
+
+        
+=======
         }    
+>>>>>>> d192f34aec2c8f71101b45cf1db7d80b60fd88e5
 
         private SelectListItem AddTeamToList(string teamName)
         {
@@ -116,12 +133,24 @@ namespace WebApplication.Web.Controllers
             return View(user);
         }
 
+<<<<<<< HEAD
+        //[TempData]
+        //public string Message { get; set; }
+
+=======
+>>>>>>> d192f34aec2c8f71101b45cf1db7d80b60fd88e5
         [HttpPost]
         [AuthorizationFilter("User")]
         public IActionResult UpdateUserInfo(User user, string Salt, string NewPassword, string Password)
         {
             TempData["Added"] = "Successfully updated username/password!";
 
+<<<<<<< HEAD
+
+
+
+=======
+>>>>>>> d192f34aec2c8f71101b45cf1db7d80b60fd88e5
             if (ModelState.IsValid)
             {
                 user = authProvider.GetCurrentUser();
@@ -131,6 +160,10 @@ namespace WebApplication.Web.Controllers
             return View(user);
         }
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> d192f34aec2c8f71101b45cf1db7d80b60fd88e5
         [HttpGet]
         [AuthorizationFilter("Admin")]
         public IActionResult ChangeATeamInfo()
@@ -153,12 +186,22 @@ namespace WebApplication.Web.Controllers
             return View(team);
         }
 
+<<<<<<< HEAD
+
+
+
+=======
+>>>>>>> d192f34aec2c8f71101b45cf1db7d80b60fd88e5
         public ActionResult Calendar()
         {
             //https://localhost:44392/home/calendar
             return View();
         }
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> d192f34aec2c8f71101b45cf1db7d80b60fd88e5
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
