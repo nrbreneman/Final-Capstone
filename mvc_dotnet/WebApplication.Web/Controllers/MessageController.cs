@@ -1,10 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebApplication.Web.DAL;
-using WebApplication.Web.Models;
 using WebApplication.Web.Providers.Auth;
 
 namespace WebApplication.Web.Controllers
