@@ -13,7 +13,6 @@
   <ItemGroup>
     <Folder Include="Views\Home\AdminViews\" />
     <Folder Include="Views\Home\UserViews\" />
-    <Folder Include="Views\Message\" />
   </ItemGroup>
 
 </Project>

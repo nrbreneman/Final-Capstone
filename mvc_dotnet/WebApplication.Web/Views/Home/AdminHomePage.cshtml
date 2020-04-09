@@ -2,19 +2,42 @@
 @{
     ViewData["Title"] = "AdminHomePage";
 }
+
 <div class="page-info">
     <h2>Admin Home Page</h2>
 
-    @*<form asp-controller="Home" asp-action="ViewTeam" method="get">
+    <form asp-controller="Home" asp-action="ViewTeam" method="get">
+
+        <label asp-for="League"></label>
+        <input asp-for="League" />
+        @*Make dropdown of leagues*@
+
+        <button type="submit">Search</button>
+
+    </form>
+    <div class="admin-links">
+        <ul>
+            <li><a asp-action="ViewAllTeams" asp-controller="Home">View All Teams</a></li>
+            <li><a asp-action="ChangeATeamInfo" asp-controller="Home">Modify Teams</a></li>
+            <li><a asp-action="ApproveUser" asp-controller="Home">Approve New User</a></li>
+            <li><a asp-action="CreateNewLeague" asp-controller="Home">Create New League</a></li>
+            <li><a asp-action="FinalizeEvent" asp-controller="Home">Finalize Events</a></li>
+            <li><a asp-action="SeeAvailability" asp-controller="Home">See Team Availability</a></li>
+        </ul>
+    </div>
+</div>
+@*<form asp-controller="Home" asp-action="ViewTeam" method="get">
         <div class="form-row">
             <label asp-for="League"></label>
             <input asp-for="League" />
+
         </div>
         <div class="form-actions">
             <button type="submit">Search</button>
         </div>
     </form>*@
 
+<div>
     <div>
         <a asp-action="ViewAllTeams" asp-controller="Home">View All Teams</a>
         <a asp-action="SelectLeague" asp-controller="Home">Modify Teams</a>
@@ -23,5 +46,6 @@
         <a asp-action="CreateNewUser" asp-controller="Home">Create New User</a>
         <a asp-action="FinalizeEvent" asp-controller="Home">Finalize Events</a>
         <a asp-action="SeeAvailability" asp-controller="Home">See Team Availability</a>
+        
     </div>
 </div>
