@@ -78,11 +78,6 @@ namespace WebApplication.Web.Controllers
 
         }
 
-
-
-
-
-
         //private Team AddTeamNames(Team model)
         //{
         //    IList<Team> teamNames = teamDAL.GetAllTeams();
@@ -109,7 +104,6 @@ namespace WebApplication.Web.Controllers
             selectListItems = new SelectListItem { Text = Team.Name, Value = Team.TeamID.ToString() };
             return selectListItems;
         }
-
 
         private SelectListItem AddLeagueToList(string leagueName)
         {
@@ -152,7 +146,6 @@ namespace WebApplication.Web.Controllers
         public IActionResult UpdateUserInfo(User user, string Salt, string NewPassword, string Password)
         {
             TempData["Added"] = "Successfully updated username/password!";
-
 
             if (ModelState.IsValid)
             {
@@ -212,8 +205,6 @@ namespace WebApplication.Web.Controllers
             {
                 model.DropDownListTeam.Add(AddTeamToList(team));
             }
-
-
             return View(model);
         }
 
@@ -242,7 +233,6 @@ namespace WebApplication.Web.Controllers
             teamDAL.AdminUpdateTeam(team);
             return RedirectToAction("AdminHomePage", "Home");
         }
-
 
         public ActionResult Calendar()
         {

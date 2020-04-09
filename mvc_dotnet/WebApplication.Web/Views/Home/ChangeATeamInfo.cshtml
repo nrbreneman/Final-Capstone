@@ -2,17 +2,13 @@
 @{
     ViewData["Title"] = "ChangeMyTeamInfo";
 }
-
-<h2>Modify Teams</h2>
-
-<p>Select which team you would like to modify</p>
-
 <div class="page-info">
+    <h2>Modify Teams</h2>
+
+    <p>Please select team:</p>
     <form asp-controller="Home" asp-action="ChangeATeamInfo" method="post">
-        <div class="form-group">
-            <label asp-for="TeamID" class="control-label">Team Name</label>
-            <select asp-for="TeamID" asp-items="Model.DropDownListTeam"></select>
-        </div>
+        <label asp-for="Name" class="control-label">Team Name</label>
+        <select asp-for="Name" asp-items="Model.DropDownListTeam"></select>
 
         <input type="submit" value="ChangeATeamInfo" class="btn btn-default" />
 
@@ -21,3 +17,4 @@
         </a>
     </form>
 </div>
+
