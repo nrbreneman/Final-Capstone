@@ -173,6 +173,7 @@ INSERT INTO EventDates(TeamID, Date, Home) VALUES(32, '2020-09-12', 0);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(33, '2020-09-12', 0);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(34, '2020-09-12', 0);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(35, '2020-09-12', 0);
+INSERT INTO EventDates(TeamID, Date, Home) VALUES(36, '2020-09-12', 0);
 
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(1, '2020-09-26', 1);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(2, '2020-09-26', 1);

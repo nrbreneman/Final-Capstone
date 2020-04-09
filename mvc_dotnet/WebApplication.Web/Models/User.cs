@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication.Web.Models
 {
@@ -27,8 +23,7 @@ namespace WebApplication.Web.Models
         [Required]
         public string Password { get; set; }
 
-
-        public string  NewPassword { get; set; }
+        public string NewPassword { get; set; }
 
         /// <summary>
         /// The user's salt.
@@ -45,7 +40,5 @@ namespace WebApplication.Web.Models
         public Team UserTeam { get; set; }
 
         public bool IsAdmin { get; set; }
-
-
     }
 }

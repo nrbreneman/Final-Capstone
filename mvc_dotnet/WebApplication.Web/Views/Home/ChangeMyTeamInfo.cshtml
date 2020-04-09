@@ -36,7 +36,7 @@
     {
         <div class="form-group">
             <label asp-for="@date">Home Dates</label>
-            <input type="text" asp-for="@date" />
+            <input type="text" asp-for="@date" value="@date.ToString("MM/dd/yyy")" />
             @*<span asp-validation-for="HomeDates"></span>*@
         </div>
     }
@@ -45,7 +45,7 @@
     {
         <div class="form-group">
             <label asp-for="@date">Travel Dates</label>
-            <input type="text" asp-for="@date" />
+            <input type="text" asp-for="@date" value="@date.ToString("MM/dd/yyy")" />
             @*<span asp-validation-for="TravelDates"></span>*@
         </div>
     }
@@ -55,5 +55,4 @@
     <a asp-controller="Home" asp-action="UserHomePage" method="post">
         <input type="button" value="Back To User Home Page" class="btn btn-default" />
     </a>
-
 </form>

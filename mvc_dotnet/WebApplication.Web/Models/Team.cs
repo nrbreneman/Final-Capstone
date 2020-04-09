@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebApplication.Web.Models
 {
@@ -27,7 +25,6 @@ namespace WebApplication.Web.Models
         [Display(Name = "Primary Venue")]
         public string PrimaryVenue { get; set; }
 
-        
         [Display(Name = "Secondary Venue")]
         public string SecondaryVenue { get; set; }
 
@@ -38,12 +35,9 @@ namespace WebApplication.Web.Models
         [Display(Name = "Available Travel Dates")]
         [DataType(DataType.Date)]
         public List<DateTime> TravelDates { get; set; } = new List<DateTime>();
-        
-
 
         public int UserID { get; set; }
 
-        public IList<SelectListItem> DropDownListTeam = new List<SelectListItem>();        
-
+        public IList<SelectListItem> DropDownListTeam = new List<SelectListItem>();
     }
 }

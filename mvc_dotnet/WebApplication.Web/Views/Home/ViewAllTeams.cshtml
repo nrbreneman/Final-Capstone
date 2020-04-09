@@ -6,50 +6,44 @@
 
 <h2>View All Teams</h2>
 
+<hr />
+<table class="team_table">
+    <tr>
+        <th>Team Name</th>
+        <th>League</th>
+        <th>Organization</th>
+        <th>Primary Venue</th>
+        <th>Secondary Venue</th>
+        <th>Home Dates Available</th>
+        <th>Travel Dates Available</th>
+    </tr>
+    @foreach (Team team in Model)
+    {
 
-
-
-
-    <hr />
-    <table class="team_table">
         <tr>
-            <th>Team Name</th>
-            <th>League</th>
-            <th>Organization</th>
-            <th>Primary Venue</th>
-            <th>Secondary Venue</th>
-            <th>Home Dates Available</th>
-            <th>Travel Dates Available</th>
+            <td>@team.Name</td>
+            <td>@team.League</td>
+            <td>@team.Org</td>
+            <td>@team.PrimaryVenue</td>
+            <td>@team.SecondaryVenue</td>
+            <td>
+                @foreach (DateTime date in team.HomeDates)
+                {
+                    @date.ToString("MM/dd/yyyy")
+
+                }
+            </td>
+            <td>
+                @foreach (DateTime date in team.TravelDates)
+                {
+                    @date.ToString("MM/dd/yyyy")
+
+                }
+            </td>
         </tr>
-        @foreach (Team team in Model)
-        {
+    }
+</table>
 
-            <tr>
-                <td>@team.Name</td>
-                <td>@team.League</td>
-                <td>@team.Org</td>
-                <td>@team.PrimaryVenue</td>
-                <td>@team.SecondaryVenue</td>
-                <td>
-                    @foreach (DateTime date in team.HomeDates)
-                    {
-                        @date.ToString("MM/dd/yyyy")
-
-                    }
-                </td>
-                <td>
-                    @foreach (DateTime date in team.TravelDates)
-                    {
-                        @date.ToString("MM/dd/yyyy")
-
-                    }
-                </td>
-            </tr>
-        }
-    </table>
-
-
-    <div>
-        <a asp-action="Index">Back to Home Page</a>
-    </div>
-
+<div>
+    <a asp-action="Index">Back to Home Page</a>
+</div>

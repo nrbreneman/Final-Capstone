@@ -78,13 +78,14 @@ namespace WebApplication.Web.Controllers
             
             List<Team> teams = teamDAL.GetTeamsByLeague(League);
             return View(teams);
+        }    
+
+        private SelectListItem AddTeamToList(string teamName)
+        {
+            SelectListItem selectListItems = new SelectListItem();
+            selectListItems = new SelectListItem { Text = teamName, Value = teamName };
+            return selectListItems;
         }
-
-        //private Team AddTeamNames(Team model)        //{        //    IList<Team> teamNames = teamDAL.GetAllTeams();        //    foreach (Team s in teamNames)        //    {
-        //        model.AddGenre(s);        //    }        //    return model;        //}
-
-
-                private SelectListItem AddTeamToList(string teamName)        {            SelectListItem selectListItems = new SelectListItem();            selectListItems = new SelectListItem { Text = teamName, Value = teamName };            return selectListItems;        }
 
         [HttpGet]
         [AuthorizationFilter("User")]
@@ -115,17 +116,11 @@ namespace WebApplication.Web.Controllers
             return View(user);
         }
 
-        //[TempData]
-        //public string Message { get; set; }
-
         [HttpPost]
         [AuthorizationFilter("User")]
         public IActionResult UpdateUserInfo(User user, string Salt, string NewPassword, string Password)
         {
             TempData["Added"] = "Successfully updated username/password!";
-
-
-
 
             if (ModelState.IsValid)
             {
@@ -136,8 +131,19 @@ namespace WebApplication.Web.Controllers
             return View(user);
         }
 
+        [HttpGet]
+        [AuthorizationFilter("Admin")]
+        public IActionResult ChangeATeamInfo()
+        {
+            Team model = new Team();
+            IList<Team> teams = teamDAL.GetAllTeams();
+            foreach (Team team in teams)
+            {
+                model.DropDownListTeam.Add(AddTeamToList(team.Name));
+            }
 
-        [HttpGet]        [AuthorizationFilter("Admin")]        public IActionResult ChangeATeamInfo()        {            Team model = new Team();            IList<Team> teams = teamDAL.GetAllTeams();            foreach (Team team in teams)            {                model.DropDownListTeam.Add(AddTeamToList(team.Name));            }            return View(model);        }
+            return View(model);
+        }
 
         [HttpPost]
         [AuthorizationFilter("Admin")]
@@ -147,14 +153,10 @@ namespace WebApplication.Web.Controllers
             return View(team);
         }
 
-
-
-
         public ActionResult Calendar()
         {
             return View();
         }
-
 
         public IActionResult About()
         {
