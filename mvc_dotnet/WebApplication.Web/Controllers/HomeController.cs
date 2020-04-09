@@ -80,11 +80,25 @@ namespace WebApplication.Web.Controllers
             return View(teams);
         }
 
-        //private Team AddTeamNames(Team model)        //{        //    IList<Team> teamNames = teamDAL.GetAllTeams();        //    foreach (Team s in teamNames)        //    {
-        //        model.AddGenre(s);        //    }        //    return model;        //}
+        //private Team AddTeamNames(Team model)
+        //{
+        //    IList<Team> teamNames = teamDAL.GetAllTeams();
+        //    foreach (Team s in teamNames)
+        //    {
+        //        model.AddGenre(s);
+        //    }
+        //    return model;
+        //}
 
 
-                private SelectListItem AddTeamToList(string teamName)        {            SelectListItem selectListItems = new SelectListItem();            selectListItems = new SelectListItem { Text = teamName, Value = teamName };            return selectListItems;        }
+        
+
+        private SelectListItem AddTeamToList(string teamName)
+        {
+            SelectListItem selectListItems = new SelectListItem();
+            selectListItems = new SelectListItem { Text = teamName, Value = teamName };
+            return selectListItems;
+        }
 
         [HttpGet]
         [AuthorizationFilter("User")]
@@ -137,7 +151,19 @@ namespace WebApplication.Web.Controllers
         }
 
 
-        [HttpGet]        [AuthorizationFilter("Admin")]        public IActionResult ChangeATeamInfo()        {            Team model = new Team();            IList<Team> teams = teamDAL.GetAllTeams();            foreach (Team team in teams)            {                model.DropDownListTeam.Add(AddTeamToList(team.Name));            }            return View(model);        }
+        [HttpGet]
+        [AuthorizationFilter("Admin")]
+        public IActionResult ChangeATeamInfo()
+        {
+            Team model = new Team();
+            IList<Team> teams = teamDAL.GetAllTeams();
+            foreach (Team team in teams)
+            {
+                model.DropDownListTeam.Add(AddTeamToList(team.Name));
+            }
+
+            return View(model);
+        }
 
         [HttpPost]
         [AuthorizationFilter("Admin")]
