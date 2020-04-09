@@ -8,14 +8,19 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-   
+    <header>
+        <h1>Sports Team Organizer</h1>
+        <div class="logo">
+            <img src="~/images/lol.jpg" />
+        </div>
+    </header>
     <nav>
-        <ul>
-            @*<li><a asp-action="Index" asp-controller="Home">Home</a></li>*@
-            @*<li><a asp-action="AdminHomePage" asp-controller="Home">Admin Page</a></li>
-            <li><a asp-action="UserHomePage" asp-controller="Home">User Page</a></li>*@
-            @*<li><a asp-action="ViewTeam" asp-controller="Home">View Teams by League</a></li>*@
-        </ul>
+            <ul>
+                <li><a asp-action="Index" asp-controller="Home" class="nav-buttons">Home</a></li>
+                @*<li><a asp-action="AdminHomePage" asp-controller="Home">Admin Page</a></li>*@
+                <li><a asp-action="Login" asp-controller="Account" class="nav-buttons">Login</a></li>
+                <li><a asp-action="Register" asp-controller="Account" class="nav-buttons">Register</a></li>
+            </ul>
     </nav>
 
     <div class="container">
