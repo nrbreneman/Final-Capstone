@@ -75,17 +75,37 @@ namespace WebApplication.Web.Controllers
         {
             User user = authProvider.GetCurrentUser();
             string League = teamDAL.GetLeagueByUser(user);
-            
+
             List<Team> teams = teamDAL.GetTeamsByLeague(League);
             return View(teams);
-        }    
+        }
+<<<<<<< HEAD
 
+        //private Team AddTeamNames(Team model)
+        //{
+        //    IList<Team> teamNames = teamDAL.GetAllTeams();
+        //    foreach (Team s in teamNames)
+        //    {
+        //        model.AddGenre(s);
+        //    }
+        //    return model;
+        //}
+
+        //private SelectListItem AddTeamToList(string teamName)
+        //{
+        //    SelectListItem selectListItems = new SelectListItem();
+        //    selectListItems = new SelectListItem { Text = teamName, Value = teamName };
+        //    return selectListItems;
+        //}
+=======
+        
         private SelectListItem AddTeamToList(string teamName)
         {
             SelectListItem selectListItems = new SelectListItem();
             selectListItems = new SelectListItem { Text = teamName, Value = teamName };
             return selectListItems;
         }
+>>>>>>> 5e39ef46a6457fa64a7123676c18b90c8e199cce
 
         [HttpGet]
         [AuthorizationFilter("User")]
@@ -115,13 +135,21 @@ namespace WebApplication.Web.Controllers
             user = userDAL.GetUser(user.Username);
             return View(user);
         }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 5e39ef46a6457fa64a7123676c18b90c8e199cce
         [HttpPost]
         [AuthorizationFilter("User")]
         public IActionResult UpdateUserInfo(User user, string Salt, string NewPassword, string Password)
         {
             TempData["Added"] = "Successfully updated username/password!";
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 5e39ef46a6457fa64a7123676c18b90c8e199cce
             if (ModelState.IsValid)
             {
                 user = authProvider.GetCurrentUser();
@@ -130,7 +158,20 @@ namespace WebApplication.Web.Controllers
             }
             return View(user);
         }
+<<<<<<< HEAD
 
+        //[HttpGet]
+        //[AuthorizationFilter("Admin")]
+        //public IActionResult ChangeATeamInfo()
+        //{
+        //    Team model = new Team();
+        //    IList<Team> teams = teamDAL.GetAllTeams();
+        //    foreach (Team team in teams)
+        //    {
+        //        model.DropDownListTeam.Add(AddTeamToList(team.Name));
+        //    }
+=======
+        
         [HttpGet]
         [AuthorizationFilter("Admin")]
         public IActionResult ChangeATeamInfo()
@@ -141,9 +182,10 @@ namespace WebApplication.Web.Controllers
             {
                 model.DropDownListTeam.Add(AddTeamToList(team.Name));
             }
+>>>>>>> 5e39ef46a6457fa64a7123676c18b90c8e199cce
 
-            return View(model);
-        }
+        //    return View(model);
+        //}
 
         [HttpPost]
         [AuthorizationFilter("Admin")]
@@ -152,9 +194,14 @@ namespace WebApplication.Web.Controllers
             teamDAL.UpdateTeam(team);
             return View(team);
         }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 5e39ef46a6457fa64a7123676c18b90c8e199cce
         public ActionResult Calendar()
         {
+            //https://localhost:44392/home/calendar
             return View();
         }
 
