@@ -2,12 +2,10 @@
 @{
     ViewData["Title"] = "ModifyTeams";
 }
-
+<div class="page-info">
 <h2>Modify Teams</h2>
 
-<p>Select which team you would like to modify</p>
-
-<div class="form-group">
+<p>Please select team:</p>
     <label asp-for="Name" class="control-label">Team Name</label>
     <select asp-for="Name" asp-items="Model.DropDownListTeam"></select>
 </div>

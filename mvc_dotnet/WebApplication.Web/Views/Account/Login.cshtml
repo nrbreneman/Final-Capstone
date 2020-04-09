@@ -12,13 +12,16 @@
         <div class="Login">
             <p>
                 <label asp-for="Email"></label>
-                <input type="text" asp-for="Email" class="input" />
+            </p>
+            <p>
+                <input type="text" asp-for="Email" class="input" placeholder="enter email address" />
                 <span asp-validation-for="Email"></span>
             </p>
-
             <p>
                 <label asp-for="Password"></label>
-                <input type="password" asp-for="Password" class="input" />
+            </p>
+            <p>
+                <input type="password" asp-for="Password" class="input" placeholder="enter password" />
                 <span asp-validation-for="Password"></span>
             </p>
         </div>

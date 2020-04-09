@@ -2,30 +2,39 @@
 @{
     ViewData["Title"] = "UpdateUserInfo";
 }
-
+<div class="page-info">
 <h2>Update Username/Password</h2>
 
 <p>If you would not like to change this information, please input your current username and/or password</p>
 <form asp-controller="Home" asp-action="UpdateUserInfo" method="post">
-    <div class="form-group">
+    <p>
         <label asp-for="Username">New Username</label>
+    </p>
+    <p>
         <input type="email" asp-for="Username" value="@Model.Username" />
         <span asp-validation-for="Username"></span>
-    </div>
-    <div class="form-group">
+    </p>
+
+    <p>
         <label asp-for="Password">Current Password</label>
+    </p>
+    <p>
         <input type="password" asp-for="Password" />
         <span asp-validation-for="Password"></span>
-    </div>
-    <div class="form-group">
+    </p>
+
+    <p>
         <label asp-for="NewPassword">New Password</label>
+    </p>
+    <p>
         <input type="password" asp-for="NewPassword" />
         <span asp-validation-for="Password"></span>
-    </div>
+    </p>
 
-    <input type="submit" value="UpdateUserInfo" class="btn btn-default" />
+        <input type="submit" value="UpdateUserInfo" class="btn btn-default" />
 
-    <a asp-controller="Home" asp-action="UserHomePage" method="post">
-        <input type="button" value="Back To User Home Page" class="btn btn-default" />
-    </a>
+        <a asp-controller="Home" asp-action="UserHomePage" method="post">
+            <input type="button" value="Back To User Home Page" class="btn btn-default" />
+        </a>
 </form>
+</div>

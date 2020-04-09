@@ -5,14 +5,31 @@
 
 @*@TempData["Added"]*@
 <div class="page-info">
-    <h2>User Home Page</h2>
-    <ul>
-        <li><a asp-action="ViewMyLeague" asp-controller="Home">View All Teams in Your League</a></li>
-        <li><a asp-action="ChangeMyTeamInfo" asp-controller="Home">Update Team</a></li>
-        <li><a asp-action="UpdateUserInfo" asp-controller="Home">Update My Username/Password</a></li>
-        <li><a asp-action="Schedule" asp-controller="Home">See Schedule</a></li>
-        @*finalized schedule needs to be able to filter teams and propose/reject games*@
-        <li><a asp-action="AddAvailability" asp-controller="Home">Add Availability</a></li>
-        <li><a asp-action="Messages" asp-controller="Home">Message Other Teams/See Messages</a></li>
-    </ul>
+
+    @{
+        if (DateTime.Now.Hour < 12 && DateTime.Now.Hour >= 0)
+        {
+            <h2>Good Morning!</h2>
+        }
+        else if (DateTime.Now.Hour >= 12 && DateTime.Now.Hour < 17)
+        {
+            <h2>Good Afternoon!</h2>
+        }
+        else if (DateTime.Now.Hour <= 24 && DateTime.Now.Hour >= 17)
+        {
+            <h2>Good Evening!</h2>
+        }
+    }
+
+    <div class="user-links">
+        <ul>
+            <li><a asp-action="ViewMyLeague" asp-controller="Home">View All Teams in Your League</a></li>
+            <li><a asp-action="ChangeMyTeamInfo" asp-controller="Home">Update Team</a></li>
+            <li><a asp-action="UpdateUserInfo" asp-controller="Home">Update My Username/Password</a></li>
+            <li><a asp-action="Schedule" asp-controller="Home">See Schedule</a></li>
+            @*finalized schedule needs to be able to filter teams and propose/reject games*@
+            <li><a asp-action="AddAvailability" asp-controller="Home">Add Availability</a></li>
+            <li><a asp-action="Messages" asp-controller="Home">Message Other Teams/See Messages</a></li>
+        </ul>
+    </div>
 </div>
