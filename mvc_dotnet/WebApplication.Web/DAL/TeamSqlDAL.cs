@@ -9,6 +9,15 @@ namespace WebApplication.Web.DAL
     {
         private readonly string connectionString;
 
+        private string GetTeamsByLeagueSQL = "SELECT * from TEAMS WHERE League = @LeagueName Order by Name; ";
+        private string GetLeagueByUserSQL = "SELECT League from TEAMS JOIN users on users.id = TEAMS.UserID WHERE users.id = @id; ";
+        private string GetAllTeamsSQL = "SELECT * from TEAMS JOIN EventDates on EventDates.TeamID = TEAMS.id Order by Date; ";
+        private string GetTeamByUserIDSQL = "SELECT * from TEAMS WHERE UserID = @UserID; ";
+        private string GetDatesByTeamIDSQL = "SELECT * from TEAMS JOIN EventDates on EventDates.TeamID = TEAMS.id  WHERE TeamID = @TeamID; ";
+        private string InsertTeamSQL = "SELECT MAX(id) as max from users";
+        private string InsertIntoTeamsSQL = "INSERT INTO TEAMS (Name, League, Org, PrimaryVenue, SecondaryVenue, UserID) VALUES (@Name, @League, @Org, @PrimaryVenue, @SecondaryVenue, @userID); ";
+        private string UpdateTeamSQL = "UPDATE TEAMS SET Name = @Name, League = @League, Org = @Org, PrimaryVenue = @Pvenue, SecondaryVenue = @SVenue WHERE UserID = @UserID; ";
+
         public TeamSqlDAL(string connectionString)
         {
             this.connectionString = connectionString;
@@ -22,7 +31,7 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("SELECT * from TEAMS WHERE League = @LeagueName Order by Name; ", conn);
+                    SqlCommand cmd = new SqlCommand(GetTeamsByLeagueSQL, conn);
                     cmd.Parameters.AddWithValue("@LeagueName", League);
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -48,7 +57,7 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("SELECT League from TEAMS JOIN users on users.id = TEAMS.UserID WHERE users.id = @id; ", conn);
+                    SqlCommand cmd = new SqlCommand(GetLeagueByUserSQL, conn);
                     cmd.Parameters.AddWithValue("@id", user.Id);
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -74,8 +83,7 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("SELECT * from TEAMS JOIN EventDates on EventDates.TeamID = TEAMS.id Order by Date; ", conn);
-
+                    SqlCommand cmd = new SqlCommand(GetAllTeamsSQL, conn);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
@@ -100,7 +108,7 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("SELECT * from TEAMS WHERE UserID = @UserID; ", conn);
+                    SqlCommand cmd = new SqlCommand(GetTeamByUserIDSQL, conn);
                     cmd.Parameters.AddWithValue("@UserID", user.Id);
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -126,7 +134,7 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("SELECT * from TEAMS JOIN EventDates on EventDates.TeamID = TEAMS.id  WHERE TeamID = @TeamID; ", conn);
+                    SqlCommand cmd = new SqlCommand(GetDatesByTeamIDSQL, conn);
                     cmd.Parameters.AddWithValue("@TeamID", user.UserTeam.TeamID);
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -165,7 +173,7 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("SELECT MAX(id) as max from users", conn);
+                    SqlCommand cmd = new SqlCommand(InsertTeamSQL, conn);
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -176,7 +184,7 @@ namespace WebApplication.Web.DAL
                     }
                     reader.Close();
 
-                    SqlCommand comd = new SqlCommand("INSERT INTO TEAMS (Name, League, Org, PrimaryVenue, SecondaryVenue, UserID) VALUES (@Name, @League, @Org, @PrimaryVenue, @SecondaryVenue, @userID);", conn);
+                    SqlCommand comd = new SqlCommand(InsertIntoTeamsSQL, conn);
                     comd.Parameters.AddWithValue("@Name", team.Name);
                     comd.Parameters.AddWithValue("@League", team.League);
                     comd.Parameters.AddWithValue("@Org", team.Org);
@@ -204,8 +212,7 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("UPDATE TEAMS SET Name = @Name, League = @League, Org = @Org, " +
-                        "PrimaryVenue = @Pvenue, SecondaryVenue = @SVenue WHERE UserID = @UserID; ", conn);
+                    SqlCommand cmd = new SqlCommand(UpdateTeamSQL, conn);
                     cmd.Parameters.AddWithValue("@Name", team.Name);
                     cmd.Parameters.AddWithValue("@League", team.League);
                     cmd.Parameters.AddWithValue("@Org", team.Org);
