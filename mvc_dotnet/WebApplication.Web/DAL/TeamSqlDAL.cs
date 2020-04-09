@@ -74,7 +74,7 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("SELECT * from TEAMS JOIN EventDates on EventDates.TeamID = TEAMS.id Order by Date; ", conn);
+                    SqlCommand cmd = new SqlCommand("SELECT * from TEAMS; ", conn);
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -212,6 +212,33 @@ namespace WebApplication.Web.DAL
                     cmd.Parameters.AddWithValue("@PVenue", team.PrimaryVenue);
                     cmd.Parameters.AddWithValue("@SVenue", team.SecondaryVenue);
                     cmd.Parameters.AddWithValue("@UserID", team.UserID);
+
+                    cmd.ExecuteNonQuery();
+
+                    return;
+                }
+            }
+            catch (NotImplementedException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void AdminUpdateTeam(Team team)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("UPDATE TEAMS SET Name = @Name, League = @League, Org = @Org, " +
+                        "PrimaryVenue = @Pvenue, SecondaryVenue = @SVenue WHERE id = @TeamID; ", conn);
+                    cmd.Parameters.AddWithValue("@Name", team.Name);
+                    cmd.Parameters.AddWithValue("@League", team.League);
+                    cmd.Parameters.AddWithValue("@Org", team.Org);
+                    cmd.Parameters.AddWithValue("@PVenue", team.PrimaryVenue);
+                    cmd.Parameters.AddWithValue("@SVenue", team.SecondaryVenue);
+                    cmd.Parameters.AddWithValue("@TeamID", team.TeamID);
 
                     cmd.ExecuteNonQuery();
 

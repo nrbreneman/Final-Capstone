@@ -39,5 +39,6 @@ namespace WebApplication.Web.Models
         public int UserID { get; set; }
 
         public IList<SelectListItem> DropDownListTeam = new List<SelectListItem>();
+        public IList<SelectListItem> LeagueDropDown = new List<SelectListItem>();
     }
 }

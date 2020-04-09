@@ -1,0 +1,58 @@
+﻿@model Team
+@{
+    ViewData["Title"] = "ChangeATeam";
+}
+
+<h2>ChangeATeam</h2>
+
+<form asp-controller="Home" asp-action="ChangeATeam" method="post">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input type="text" asp-for="Name" value="@Model.Name" />
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Org"></label>
+        <input type="text" asp-for="Org" value="@Model.Org" />
+        <span asp-validation-for="Org"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="League"></label>
+        <input type="text" asp-for="League" value="@Model.League" />
+        <span asp-validation-for="League"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PrimaryVenue"></label>
+        <input type="text" asp-for="PrimaryVenue" value="@Model.PrimaryVenue" />
+        <span asp-validation-for="PrimaryVenue"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="SecondaryVenue"></label>
+        <input type="text" asp-for="SecondaryVenue" value="@Model.SecondaryVenue" />
+        <span asp-validation-for="SecondaryVenue"></span>
+    </div>
+
+    @foreach (DateTime date in @Model.HomeDates)
+    {
+        <div class="form-group">
+            <label asp-for="@date">Home Dates</label>
+            <input type="text" asp-for="@date" value="@date.ToString("MM/dd/yyy")" />
+            @*<span asp-validation-for="HomeDates"></span>*@
+        </div>
+    }
+
+    @foreach (DateTime date in @Model.TravelDates)
+    {
+        <div class="form-group">
+            <label asp-for="@date">Travel Dates</label>
+            <input type="text" asp-for="@date" value="@date.ToString("MM/dd/yyy")" />
+            @*<span asp-validation-for="TravelDates"></span>*@
+        </div>
+    }
+
+    <input type="submit" value="ChangeATeam" class="btn btn-default" />
+
+    <a asp-controller="Home" asp-action="AdminHomePage" method="post">
+        <input type="button" value="Back To User Home Page" class="btn btn-default" />
+    </a>
+</form>
