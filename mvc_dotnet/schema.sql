@@ -87,7 +87,7 @@ ADD CONSTRAINT fk_userTo
 FOREIGN KEY (toUserID) REFERENCES users(id);
 
 
-INSERT INTO users(username, password ,salt ,role)  VALUES ('madi.kohr@gmail.com','Zn3FdCdRkqZbUxfSoc1o7aCEkVk=','/NWc+euho+Y=', 'Admin');
+INSERT INTO users(username, password ,salt ,role)  VALUES ('admin@gmail.com','Zn3FdCdRkqZbUxfSoc1o7aCEkVk=','/NWc+euho+Y=', 'Admin');
 INSERT INTO users(username, password ,salt)  VALUES ('1@1.com',	'dUQ7LIuKzjJiNYsOSvzS0B5nQQ4=',	'Yk65cf+kbPg=');
 INSERT INTO users(username, password ,salt)  VALUES ('2@1.com',	'15fxnVEz27mM6c42ZOVXXx1lnPc=', 'TfAwiQDlbKY=');
 INSERT INTO users(username, password ,salt)  VALUES ('3@1.com',	'C6GYJziREkRYrwxrfvvIHYc9PLI=', 'sridDRrV8Ss=');
