@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WebApplication.Web.DAL;
 using WebApplication.Web.Models;
+using WebApplication.Web.Models.Account;
 using WebApplication.Web.Providers.Auth;
 
 namespace WebApplication.Web.Controllers
@@ -100,6 +101,8 @@ namespace WebApplication.Web.Controllers
         //    return selectListItems;
         //}
 
+
+
         private SelectListItem AddTeamToList(Team Team)
         {
             SelectListItem selectListItems = new SelectListItem();
@@ -147,11 +150,13 @@ namespace WebApplication.Web.Controllers
             return View(user);
         }
 
+
         [HttpPost]
         [AuthorizationFilter("User")]
         public IActionResult UpdateUserInfo(User user, string Salt, string NewPassword, string Password)
         {
             TempData["Added"] = "Successfully updated username/password!";
+
 
             if (ModelState.IsValid)
             {
@@ -161,6 +166,8 @@ namespace WebApplication.Web.Controllers
             }
             return View(user);
         }
+
+
 
 
         //[HttpGet]
@@ -173,6 +180,7 @@ namespace WebApplication.Web.Controllers
         //    {
         //        model.DropDownListTeam.Add(AddTeamToList(team.Name));
         //    }
+
 
         [HttpGet]
         [AuthorizationFilter("Admin")]
@@ -221,7 +229,7 @@ namespace WebApplication.Web.Controllers
         public IActionResult ChangeATeamInfo(Team team)
         {
             team = teamDAL.GetTeamByTeamID(team.TeamID.ToString());
-            return RedirectToAction("ChangeATeam", "Home", team );
+            return RedirectToAction("ChangeATeam", "Home", team);
         }
 
         [HttpGet]
@@ -240,12 +248,7 @@ namespace WebApplication.Web.Controllers
             teamDAL.AdminUpdateTeam(team);
             return RedirectToAction("AdminHomePage", "Home");
         }
-        
 
-
-        //    teamDAL.UpdateTeam(team);
-        //    return View(team);
-        //}
 
         public ActionResult Calendar()
         {
@@ -264,6 +267,69 @@ namespace WebApplication.Web.Controllers
         //    team.HomeDates.Add(HomeDate);
         //    return c
         //}
+
+        [HttpGet]
+        [AuthorizationFilter("Admin")]
+        public IActionResult CreateNewLeague()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AuthorizationFilter("Admin")]
+        public IActionResult CreateNewLeague(League league)
+        {
+            if (ModelState.IsValid)
+            {
+                teamDAL.CreateLeague(league);
+
+                return RedirectToAction("AdminHomePage", "Home");
+
+            }
+
+            return View(league);
+        }
+
+        [HttpGet]
+        [AuthorizationFilter("Admin")]
+        public IActionResult CreateNewUser()
+        {
+            User user = new User();
+            foreach (League league in teamDAL.GetAllLeagues())
+            {
+                user.LeagueDropDown.Add(AddLeagueToList(league.LeagueName));
+            }
+            return View(user);
+        }
+
+        [HttpPost]
+        [AuthorizationFilter("Admin")]
+        public IActionResult CreateNewUser(User user)
+        {
+            RegisterViewModel model = new RegisterViewModel();
+            model.Email = user.Username;
+            model.ConfirmPassword = user.Password;
+            model.Password = user.Password;
+            
+            if (ModelState.IsValid)
+            {
+                if (user.IsAdmin)
+                {
+                    authProvider.Register(model.Email, model.Password, role: "Admin");
+                }
+                else
+                {
+                    authProvider.Register(model.Email, model.Password, role: "User");
+                }
+
+                //userDAL.CreateUser(user);
+
+                return RedirectToAction("AdminHomePage", "Home");
+
+            }
+
+            return View(user);
+        }
 
 
         public IActionResult About()

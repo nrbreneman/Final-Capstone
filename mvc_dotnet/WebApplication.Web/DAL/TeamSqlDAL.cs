@@ -285,6 +285,64 @@ namespace WebApplication.Web.DAL
             }
         }
 
+        public void CreateLeague(League league)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("INSERT INTO Leagues (leagueName, org, sport) " +
+                        "VALUES (@LeagueName, @Org, @Sport);", conn);
+                    cmd.Parameters.AddWithValue("@LeagueName", league.LeagueName);
+                    cmd.Parameters.AddWithValue("@Org", league.Org);
+                    cmd.Parameters.AddWithValue("@Sport", league.Sport);
+
+                    cmd.ExecuteNonQuery();
+
+                    return;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<League> GetAllLeagues()
+        {
+            List<League> leagues = new List<League>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT * from Leagues", conn);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        League league = new League();
+                        
+                        league.LeagueName = Convert.ToString(reader["leagueName"]);
+                        league.Sport = Convert.ToString(reader["sport"]);
+                        league.Org = Convert.ToString(reader["org"]);
+
+                        
+                        leagues.Add(league);
+                    }
+                }
+
+                return leagues;
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+
+
         private Team MapRowToTeam(SqlDataReader reader)
         {
             Team team = new Team();
