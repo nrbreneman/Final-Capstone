@@ -26,7 +26,6 @@ namespace WebApplication.Web.DAL
                     cmd.Parameters.AddWithValue("@LeagueName", League);
                     SqlDataReader reader = cmd.ExecuteReader();
 
-
                     while (reader.Read())
                     {
                         teams.Add(MapRowToTeam(reader));
@@ -53,7 +52,6 @@ namespace WebApplication.Web.DAL
                     cmd.Parameters.AddWithValue("@id", user.Id);
                     SqlDataReader reader = cmd.ExecuteReader();
 
-
                     while (reader.Read())
                     {
                         league = Convert.ToString(reader["League"]);
@@ -68,7 +66,6 @@ namespace WebApplication.Web.DAL
             }
         }
 
-
         public List<Team> GetAllTeams()
         {
             List<Team> teams = new List<Team>();
@@ -80,7 +77,6 @@ namespace WebApplication.Web.DAL
                     SqlCommand cmd = new SqlCommand("SELECT * from TEAMS JOIN EventDates on EventDates.TeamID = TEAMS.id Order by Date; ", conn);
 
                     SqlDataReader reader = cmd.ExecuteReader();
-
 
                     while (reader.Read())
                     {
@@ -108,7 +104,6 @@ namespace WebApplication.Web.DAL
                     cmd.Parameters.AddWithValue("@UserID", user.Id);
                     SqlDataReader reader = cmd.ExecuteReader();
 
-
                     while (reader.Read())
                     {
                         team = (MapRowToTeam(reader));
@@ -134,7 +129,6 @@ namespace WebApplication.Web.DAL
                     SqlCommand cmd = new SqlCommand("SELECT * from TEAMS JOIN EventDates on EventDates.TeamID = TEAMS.id  WHERE TeamID = @TeamID; ", conn);
                     cmd.Parameters.AddWithValue("@TeamID", user.UserTeam.TeamID);
                     SqlDataReader reader = cmd.ExecuteReader();
-
 
                     while (reader.Read())
                     {
@@ -182,7 +176,6 @@ namespace WebApplication.Web.DAL
                     }
                     reader.Close();
 
-
                     SqlCommand comd = new SqlCommand("INSERT INTO TEAMS (Name, League, Org, PrimaryVenue, SecondaryVenue, UserID) VALUES (@Name, @League, @Org, @PrimaryVenue, @SecondaryVenue, @userID);", conn);
                     comd.Parameters.AddWithValue("@Name", team.Name);
                     comd.Parameters.AddWithValue("@League", team.League);
@@ -203,7 +196,6 @@ namespace WebApplication.Web.DAL
                 throw ex;
             }
         }
-
 
         public void UpdateTeam(Team team)
         {
@@ -232,12 +224,6 @@ namespace WebApplication.Web.DAL
             }
         }
 
-
-
-
-
-
-
         private Team MapRowToTeam(SqlDataReader reader)
         {
             Team team = new Team();
@@ -256,7 +242,7 @@ namespace WebApplication.Web.DAL
             {
                 team.UserID = 0;
             }
-            
+
             return team;
         }
     }

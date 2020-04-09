@@ -19,9 +19,7 @@ namespace WebApplication.Web.Controllers
         {
             this.authProvider = authProvider;
             this.teamDAL = teamDAL;
-        }
-
-        
+        }       
 
         //[AuthorizationFilter] // actions can be filtered to only those that are logged in
         [AuthorizationFilter("Admin", "Author", "Manager", "User")]  //<-- or filtered to only those that have a certain role
@@ -104,7 +102,6 @@ namespace WebApplication.Web.Controllers
             return View(registerViewModel);
         }
 
-
         [HttpGet]
         public IActionResult RegisterTeam()
         {
@@ -129,30 +126,6 @@ namespace WebApplication.Web.Controllers
             }
 
             return View(team);
-        }
-
-        //[AllowAnonymous]
-        //public async Task<ActionResult> ConfirmEmail(string Token, string Email)
-        //{
-        //    User user = this.UserManager.FindById(Token);
-        //    if (user != null)
-        //    {
-        //        if (user.Email == Email)
-        //        {
-        //            user.ConfirmedEmail = true;
-        //            await UserManager.UpdateAsync(user);
-        //            await SignInAsync(user, isPersistent: false);
-        //            return RedirectToAction("Index", "Home", new { ConfirmedEmail = user.Email });
-        //        }
-        //        else
-        //        {
-        //            return RedirectToAction("Confirm", "Account", new { Email = user.Email });
-        //        }
-        //    }
-        //    else
-        //    {
-        //        return RedirectToAction("Confirm", "Account", new { Email = "" });
-        //    }
-        //}
+        }        
     }
 }

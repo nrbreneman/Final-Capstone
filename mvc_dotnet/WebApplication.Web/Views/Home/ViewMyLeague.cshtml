@@ -4,11 +4,6 @@
 }
 
 <h2>ViewTeam</h2>
-@*@foreach (Team team in Model)
-    {
-    <form method="get" asp-controller="Home" asp-action="ViewMyLeague" asp-route-code="@team.League"></form>
-    }*@
-
 <hr />
 <table class="team_table">
     <tr>
@@ -47,12 +42,10 @@
     }
 </table>
 
-
 <a asp-controller="Home" asp-action="UserHomePage" method="post">
     <input type="button" value="Back To User Home Page" class="btn btn-default" />
 </a>
 
-
 @*<div>
-    <a asp-action="Index">Back to Login</a>
-</div>*@
+        <a asp-action="Index">Back to Login</a>
+    </div>*@
