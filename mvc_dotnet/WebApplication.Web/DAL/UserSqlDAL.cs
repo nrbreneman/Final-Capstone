@@ -11,15 +11,16 @@ namespace WebApplication.Web.DAL
     {
         private readonly string connectionString;
 
+        private string CreateUserSQL = "INSERT INTO users VALUES (@username, @password, @salt, @role); ";
+        private string DeleteUserSQL = "DELETE FROM users WHERE id = @id; ";
+        private string GetUserSQL = "SELECT * FROM USERS WHERE username = @username; ";
+        private string UpdateUserSQL = "UPDATE users SET password = @password, salt = @salt, role = @role WHERE id = @id; ";
+
         public UserSqlDAL(string connectionString)
         {
             this.connectionString = connectionString;
         }
-
-        /// <summary>
-        /// Saves the user to the database.
-        /// </summary>
-        /// <param name="user"></param>
+        
         public void CreateUser(User user)
         {
             try
@@ -27,7 +28,7 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("INSERT INTO users VALUES (@username, @password, @salt, @role);", conn);
+                    SqlCommand cmd = new SqlCommand(CreateUserSQL, conn);
                     cmd.Parameters.AddWithValue("@username", user.Username);
                     cmd.Parameters.AddWithValue("@password", user.Password);
                     cmd.Parameters.AddWithValue("@salt", user.Salt);
@@ -43,11 +44,7 @@ namespace WebApplication.Web.DAL
                 throw ex;
             }
         }
-
-        /// <summary>
-        /// Deletes the user from the database.
-        /// </summary>
-        /// <param name="user"></param>
+        
         public void DeleteUser(User user)
         {
             try
@@ -55,7 +52,7 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("DELETE FROM users WHERE id = @id;", conn);
+                    SqlCommand cmd = new SqlCommand(DeleteUserSQL, conn);
                     cmd.Parameters.AddWithValue("@id", user.Id);                    
 
                     cmd.ExecuteNonQuery();
@@ -68,12 +65,7 @@ namespace WebApplication.Web.DAL
                 throw ex;
             }
         }
-
-        /// <summary>
-        /// Gets the user from the database.
-        /// </summary>
-        /// <param name="username"></param>
-        /// <returns></returns>
+        
         public User GetUser(string username)
         {
             User user = null;
@@ -82,7 +74,7 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("SELECT * FROM USERS WHERE username = @username;", conn);
+                    SqlCommand cmd = new SqlCommand(GetUserSQL, conn);
                     cmd.Parameters.AddWithValue("@username", username);
 
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -100,11 +92,7 @@ namespace WebApplication.Web.DAL
                 throw ex;
             }            
         }
-
-        /// <summary>
-        /// Updates the user in the database.
-        /// </summary>
-        /// <param name="user"></param>
+        
         public void UpdateUser(User user)
         {
             try
@@ -112,7 +100,7 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("UPDATE users SET password = @password, salt = @salt, role = @role WHERE id = @id;", conn);                    
+                    SqlCommand cmd = new SqlCommand(UpdateUserSQL, conn);                    
                     cmd.Parameters.AddWithValue("@password", user.Password);
                     cmd.Parameters.AddWithValue("@salt", user.Salt);
                     cmd.Parameters.AddWithValue("@role", user.Role);

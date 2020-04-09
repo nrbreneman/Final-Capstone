@@ -5,15 +5,11 @@ namespace WebApplication.Web.DAL.Models
 {
     public class EmpModel
     {
-        /// <summary>
-        /// DOB datetime data type property
-        /// to display date type control
-        /// </summary>
-        [Display(Name = "Date of Birth")]
+        [Display(Name = "Home Date")]
         [DataType(DataType.Date)]
         public DateTime? HomeDate { get; set; }
 
-        [Display(Name = "Date of Birth")]
+        [Display(Name = "Travel Date")]
         [DataType(DataType.Date)]
         public DateTime? TravelDate { get; set; }
     }
