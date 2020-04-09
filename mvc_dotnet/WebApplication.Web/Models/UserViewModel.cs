@@ -6,11 +6,11 @@ namespace WebApplication.Web.Models
     {
         [Required]
         public int Id { get; set; }
-        
+
         [Required]
         [MaxLength(50)]
         public string Username { get; set; }
-        
+
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
@@ -20,10 +20,10 @@ namespace WebApplication.Web.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-        
+
         [Required]
         public string Salt { get; set; }
-        
+
         public string Role { get; set; }
 
         public int TeamID { get; set; }

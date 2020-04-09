@@ -86,21 +86,18 @@ nav {
 
 input[class=input] {
     background-color: white;
-    box-sizing: border-box;
     border: 1px solid black;
     padding: 5px;
 }
 
 input[type=submit] {
     background-color: lightgrey;
-    box-sizing: border-box;
     border: 1px solid black;
     padding: 5px;
 }
 
 input[type=button] {
     background-color: lightgrey;
-    box-sizing: border-box;
     border: 1px solid black;
     padding: 5px;
 }
@@ -114,3 +111,4 @@ footer {
     bottom: 0;
     position: absolute;
 }
+
