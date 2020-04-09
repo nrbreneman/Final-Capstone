@@ -26,7 +26,7 @@ namespace WebApplication.Web.Controllers
         public IActionResult Index()
         {
             var user = authProvider.GetCurrentUser();
-            return View("../Views/Home/AdminViews/AdminHomePage", user);
+            return View(user);
         }
 
         [HttpGet]
