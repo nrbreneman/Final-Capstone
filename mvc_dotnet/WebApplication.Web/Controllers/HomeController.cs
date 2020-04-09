@@ -155,6 +155,7 @@ namespace WebApplication.Web.Controllers
 
         public ActionResult Calendar()
         {
+            //https://localhost:44392/home/calendar
             return View();
         }
 

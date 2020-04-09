@@ -20,14 +20,13 @@ namespace WebApplication.Web.Controllers
             this.authProvider = authProvider;
             this.teamDAL = teamDAL;
         }       
-
-        //[AuthorizationFilter] // actions can be filtered to only those that are logged in
-        [AuthorizationFilter("Admin", "Author", "Manager", "User")]  //<-- or filtered to only those that have a certain role
+        
+        [AuthorizationFilter("Admin", "User")]
         [HttpGet]
         public IActionResult Index()
         {
             var user = authProvider.GetCurrentUser();
-            return View(user);
+            return View("../Views/Home/AdminViews/AdminHomePage", user);
         }
 
         [HttpGet]
@@ -40,11 +39,8 @@ namespace WebApplication.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Login(LoginViewModel loginViewModel)
         {
-            
-            // Ensure the fields were filled out
             if (ModelState.IsValid)
             {
-                // Check that they provided correct credentials
                 bool validLogin = authProvider.SignIn(loginViewModel.Email, loginViewModel.Password);
                 User user = authProvider.GetCurrentUser();
                 if (validLogin)
@@ -58,9 +54,6 @@ namespace WebApplication.Web.Controllers
                     {
                         return RedirectToAction("UserHomePage", "Home");
                     }
-                    // Redirect the user where you want them to go after successful login
-                   
-                    
                 }
             }
 
@@ -71,10 +64,8 @@ namespace WebApplication.Web.Controllers
         [HttpGet]
         public IActionResult LogOff()
         {
-            // Clear user from session
             authProvider.LogOff();
-
-            // Redirect the user where you want them to go after logoff
+            
             return RedirectToAction("Index", "Home");
         }
 
@@ -90,12 +81,8 @@ namespace WebApplication.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Register them as a new user (and set default role)
-                // When a user registeres they need to be given a role. If you don't need anything special
-                // just give them "User".
                 authProvider.Register(registerViewModel.Email, registerViewModel.Password, role: "User");
-
-                // Redirect the user where you want them to go after registering
+                
                 return RedirectToAction(nameof(RegisterTeam));
             }
 
@@ -114,13 +101,8 @@ namespace WebApplication.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Register them as a new user (and set default role)
-                // When a user registeres they need to be given a role. If you don't need anything special
-                // just give them "User".
                 teamDAL.InsertTeam(team);
                 
-
-                // Redirect the user where you want them to go after registering
                 return RedirectToAction("UserHomePage", "Home", new { team.League });
 
             }
