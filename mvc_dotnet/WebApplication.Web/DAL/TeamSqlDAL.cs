@@ -299,6 +299,37 @@ namespace WebApplication.Web.DAL
                 throw ex;
             }
         }
+        public List<Game> GetScheduleByTeam(Team team)
+        {
+            List<Game> games = new List<Game>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM Schedule where homeTeam = @teamName  OR awayTeam = @teamName;", conn);
+                    cmd.Parameters.AddWithValue("@teamName", team.Name);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Game game = new Game();
+                        game.AwayTeam = Convert.ToString(reader["awayTeam"]);
+                        game.HomeTeam = Convert.ToString(reader["homeTeam"]);
+                        game.Venue = Convert.ToString(reader["venue"]);
+                        game.Date = Convert.ToDateTime(reader["date"]);
+
+                        games.Add(game);
+                    }
+                }
+
+                return games;
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
 
         public void InsertTeam(Team team)
         {

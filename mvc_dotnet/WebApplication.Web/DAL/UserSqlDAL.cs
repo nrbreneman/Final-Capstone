@@ -122,7 +122,8 @@ namespace WebApplication.Web.DAL
                 Username = Convert.ToString(reader["username"]),
                 Password = Convert.ToString(reader["password"]),
                 Salt = Convert.ToString(reader["salt"]),
-                Role = Convert.ToString(reader["role"])
+                Role = Convert.ToString(reader["role"]),
+                TeamID = Convert.ToInt32(reader["teamID"])
             };
         }
     }

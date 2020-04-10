@@ -63,14 +63,16 @@
             <p>
                 <input type="text" asp-for="@date" value="@date.ToString("MM/dd/yyy")" />
             </p>
-                @*<span asp-validation-for="TravelDates"></span>*@
-                }
+            @*<span asp-validation-for="TravelDates"></span>*@
+        }
 
-                <input type="submit" value="Change Team" class="btn btn-default" />
+        <input type="submit" value="Change Team" class="btn btn-default" />
 
-                <a asp-controller="Home" asp-action="AdminHomePage" method="post">
-                    <input type="button" value="Back To Home Page" class="btn btn-default" />
+        <a asp-controller="Home" asp-action="AdminHomePage" method="post">
 
-                </a>
-        </form>
-    </div>
+            <input type="button" value="Back To Home Page" class="btn btn-default" />
+        </a>
+
+    </form>
+</div>
+
