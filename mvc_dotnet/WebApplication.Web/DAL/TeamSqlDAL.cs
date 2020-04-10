@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Globalization;
 using WebApplication.Web.Models;
 
 namespace WebApplication.Web.DAL
@@ -17,6 +18,14 @@ namespace WebApplication.Web.DAL
         private string InsertTeamSQL = "SELECT MAX(id) as max from users";
         private string InsertIntoTeamsSQL = "INSERT INTO TEAMS (Name, League, Org, PrimaryVenue, SecondaryVenue, UserID) VALUES (@Name, @League, @Org, @PrimaryVenue, @SecondaryVenue, @userID); ";
         private string UpdateTeamSQL = "UPDATE TEAMS SET Name = @Name, League = @League, Org = @Org, PrimaryVenue = @Pvenue, SecondaryVenue = @SVenue WHERE UserID = @UserID; ";
+        private string AddTravelDateToDBSQL = "";
+        private string AddHomeDateToDBSQL = "";
+        private string GetHomeDatesSQL = "";
+        private string GetTravelDatesSQL = "";
+        private string CreateLeagueSQL = "";
+        private string GetAllLeaguesSQL = "";
+
+
 
         public TeamSqlDAL(string connectionString)
         {
