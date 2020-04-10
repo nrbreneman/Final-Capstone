@@ -210,7 +210,7 @@ namespace WebApplication.Web.Controllers
         [AuthorizationFilter("Admin")]
         public IActionResult ChangeATeamInfo(Team team)
         {
-            team = teamDAL.GetTeamByTeamID(team.TeamID.ToString());
+            team = teamDAL.GetTeamByTeamID(team.Name);
             return RedirectToAction("ChangeATeam", "Home", team);
         }
 
