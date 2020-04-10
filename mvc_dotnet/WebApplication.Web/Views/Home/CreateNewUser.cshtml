@@ -8,6 +8,20 @@
 
     <form asp-controller="Home" asp-action="CreateNewUser" method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <p>
+            <label asp-for="League" class="control-label">League</label>
+        </p>
+        <p>
+            <select asp-for="League" asp-items="Model.LeagueDropDown" class="dropbtn"></select>
+        </p>
+
+        <div class="checkbox">
+            <label>
+                <input asp-for="IsAdmin" /> @Html.DisplayNameFor(model => model.IsAdmin)
+            </label>
+        </div>
+
         <p>
             <label asp-for="Username" class="control-label"></label>
         </p>
@@ -19,27 +33,13 @@
             <label asp-for="Password" class="control-label"></label>
         </p>
         <p>
-            <input asp-for="Password" class="form-control" />
+            <input asp-for="Password" class="form-control" id="myInput" type="password" />
             <span asp-validation-for="Password" class="text-danger" placeholder="enter password"></span>
         </p>
         <p>
-            <label asp-for="League" class="control-label">League</label>
-        </p>
-        <p>
-            <select asp-for="League" asp-items="Model.LeagueDropDown"></select>
+            <input type="checkbox" onclick="seePassword()">Show Password
         </p>
 
-        <div class="checkbox">
-            <label>
-                <input asp-for="IsAdmin" /> @Html.DisplayNameFor(model => model.IsAdmin)
-            </label>
-        </div>
-
-<<<<<<< HEAD
-    <a asp-controller="Home" asp-action="AdminHomePage" method="post">
-        <input type="button" value="Back To Admin Home Page" class="btn btn-default" />
-    </a>
-=======
         <input type="submit" value="Create" class="btn btn-default" />
 
         <a asp-controller="Home" asp-action="AdminHomePage" method="post">
@@ -47,5 +47,16 @@
         </a>
 
     </form>
->>>>>>> fb8d6418d036c014a2cd909a84fc5351d117577c
+
 </div>
+
+<script>
+    function seePassword() {
+        var x = document.getElementById("myInput");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>

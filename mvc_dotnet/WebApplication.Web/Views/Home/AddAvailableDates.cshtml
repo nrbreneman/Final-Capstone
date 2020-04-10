@@ -3,32 +3,46 @@
 @{
     ViewData["Title"] = "AddAvailableDates";
 }
+
 <div class="page-info">
     <h2>Add Available Dates</h2>
+</div>
 
-    <div class="row">
-        <div class="col-md-4">
-            <form asp-action="AddAvailableDates" method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="HomeDate" class="control-label"></label>
-                    <input asp-for="HomeDate" class="form-control" />
-                    <span asp-validation-for="HomeDate" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="TravelDate" class="control-label"></label>
-                    <input asp-for="TravelDate" class="form-control" />
-                    <span asp-validation-for="TravelDate" class="text-danger"></span>
-                </div>
-                <input type="hidden" asp-for="TravelDates" class="form-control" />
-                <input type="hidden" asp-for="HomeDates" class="form-control" />
-                <div class="form-group">
-                    <input type="submit" value="Add Date(s)" class="btn btn-default" />
-                </div>
-            </form>
-        </div>
+<div class="flex">
+    <div class="calendar">
+        <form asp-action="AddAvailableDates" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <p>
+                <label asp-for="HomeDate" class="control-label"></label>
+            </p>
+            <p>
+                <input asp-for="HomeDate" class="form-control" />
+                <span asp-validation-for="HomeDate" class="text-danger"></span>
+            </p>
+            <p>
+                <label asp-for="TravelDate" class="control-label"></label>
+            </p>
+            <p>
+                <input asp-for="TravelDate" class="form-control" />
+                <span asp-validation-for="TravelDate" class="text-danger"></span>
+            </p>
+
+            <input type="hidden" asp-for="TravelDates" class="form-control" />
+            <input type="hidden" asp-for="HomeDates" class="form-control" />
+
+            <p>
+                <input type="submit" value="Add Date(s)" class="btn btn-default" />
+            </p>
+            <p>
+                <a asp-controller="Home" asp-action="UserHomePage" method="post">
+                    <input type="button" value="Back to Home Page" class="btn btn-default" />
+                </a>
+            </p>
+
+        </form>
     </div>
-    <div>
+
+    <div class="home-dates">
         @if (Model.HomeDates.Count > 0)
         {
             <p><strong>Home Dates:</strong></p>
@@ -43,7 +57,7 @@
             <input type="submit" value="AddTravelDate" class="btn btn-default" />
         </a>*@
 
-    <div>
+    <div class="travel-dates">
         @if (Model.TravelDates.Count > 0)
         {
             <p><strong>Travel Dates:</strong></p>
@@ -53,7 +67,4 @@
             }
         }
     </div>
-    <a asp-controller="Home" asp-action="UserHomePage" method="post">
-        <input type="button" value="Back To User Home Page" class="btn btn-default" />
-    </a>
 </div>

@@ -18,15 +18,11 @@ namespace WebApplication.Web
         }
 
         public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
+        
         public void ConfigureServices(IServiceCollection services)
         {
-            // Session must be configured for our authentication
             services.Configure<CookiePolicyOptions>(options =>
             {
-                // This determines whether user consent for non-essential cookies
-                //is needed.
                 options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
@@ -34,16 +30,12 @@ namespace WebApplication.Web
             services.AddDistributedMemoryCache();
             services.AddSession(options =>
             {
-                // Sets session expiration to 20 minuates
                 options.IdleTimeout = TimeSpan.FromMinutes(20);
                 options.Cookie.HttpOnly = true;
             });
-
-            // Connection String
+            
             string connectionString = Configuration.GetConnectionString("Database");
-
-            // Dependency Injection
-            // For Authentication
+            
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IAuthProvider, SessionAuthProvider>();
             services.AddTransient<IUserDAL>(m => new UserSqlDAL(connectionString));
@@ -52,8 +44,7 @@ namespace WebApplication.Web
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())

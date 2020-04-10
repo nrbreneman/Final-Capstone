@@ -14,16 +14,18 @@ namespace WebApplication.Web.DAL
         private string GetLeagueByUserSQL = "SELECT League from TEAMS JOIN users on users.id = TEAMS.UserID WHERE users.id = @id; ";
         private string GetAllTeamsSQL = "SELECT * from TEAMS; ";
         private string GetTeamByUserIDSQL = "SELECT * from TEAMS WHERE UserID = @UserID; ";
+        private string GetTeamByTeamIDSQL = "SELECT * from TEAMS WHERE id = @TeamID; ";
         private string GetDatesByTeamIDSQL = "SELECT * from TEAMS JOIN EventDates on EventDates.TeamID = TEAMS.id  WHERE TeamID = @TeamID; ";
         private string InsertTeamSQL = "SELECT MAX(id) as max from users";
         private string InsertIntoTeamsSQL = "INSERT INTO TEAMS (Name, League, Org, PrimaryVenue, SecondaryVenue, UserID) VALUES (@Name, @League, @Org, @PrimaryVenue, @SecondaryVenue, @userID); ";
         private string UpdateTeamSQL = "UPDATE TEAMS SET Name = @Name, League = @League, Org = @Org, PrimaryVenue = @Pvenue, SecondaryVenue = @SVenue WHERE UserID = @UserID; ";
-        private string AddTravelDateToDBSQL = "";
-        private string AddHomeDateToDBSQL = "";
-        private string GetHomeDatesSQL = "";
-        private string GetTravelDatesSQL = "";
-        private string CreateLeagueSQL = "";
-        private string GetAllLeaguesSQL = "";
+        private string AddTravelDateToDBSQL = "INSERT into EventDates(TeamID, Date, Home) VALUES (@TeamID, @Date, @Home); ";
+        private string AddHomeDateToDBSQL = "INSERT into EventDates(TeamID, Date, Home) VALUES (@TeamID, @Date, @Home); ";
+        private string GetHomeDatesSQL = "Select * from EventDates WHERE TeamID = @TeamID and Home = 1; ";
+        private string GetTravelDatesSQL = "Select * from EventDates WHERE TeamID = @TeamID and Home = 0; ";
+        private string CreateLeagueSQL = "INSERT INTO Leagues (leagueName, org, sport) VALUES (@LeagueName, @Org, @Sport); ";
+        private string GetAllLeaguesSQL = "SELECT * from Leagues; ";
+        private string AdminUpdateTeamSQL = "UPDATE TEAMS SET Name = @Name, League = @League, Org = @Org, PrimaryVenue = @Pvenue, SecondaryVenue = @SVenue WHERE id = @TeamID; ";
 
 
 
@@ -144,7 +146,7 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("SELECT * from TEAMS WHERE id = @TeamID;", conn);
+                    SqlCommand cmd = new SqlCommand(GetTeamByTeamIDSQL, conn);
                     cmd.Parameters.AddWithValue("@TeamID", TeamID);
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -209,7 +211,7 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("INSERT into EventDates(TeamID, Date, Home) VALUES (@TeamID, @Date, @Home)", conn);
+                    SqlCommand cmd = new SqlCommand(AddTravelDateToDBSQL, conn);
                     cmd.Parameters.AddWithValue("@TeamID", 1);
                     cmd.Parameters.AddWithValue("@Date", TravelDate);
                     cmd.Parameters.AddWithValue("@Home", 0);
@@ -230,7 +232,7 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("INSERT into EventDates(TeamID, Date, Home) VALUES (@TeamID, @Date, @Home)", conn);
+                    SqlCommand cmd = new SqlCommand(AddHomeDateToDBSQL, conn);
                     cmd.Parameters.AddWithValue("@TeamID", 1);
                     cmd.Parameters.AddWithValue("@Date", HomeDate);
                     cmd.Parameters.AddWithValue("@Home", 1);
@@ -252,7 +254,7 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("Select * from EventDates WHERE TeamID = @TeamID and Home = 1", conn);
+                    SqlCommand cmd = new SqlCommand(GetHomeDatesSQL, conn);
                     cmd.Parameters.AddWithValue("@TeamID", 1);
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -280,7 +282,7 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("Select * from EventDates WHERE TeamID = @TeamID and Home = 0", conn);
+                    SqlCommand cmd = new SqlCommand(GetTravelDatesSQL, conn);
                     cmd.Parameters.AddWithValue("@TeamID", 1);
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -403,8 +405,7 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("UPDATE TEAMS SET Name = @Name, League = @League, Org = @Org, " +
-                        "PrimaryVenue = @Pvenue, SecondaryVenue = @SVenue WHERE id = @TeamID; ", conn);
+                    SqlCommand cmd = new SqlCommand(AdminUpdateTeamSQL, conn);
                     cmd.Parameters.AddWithValue("@Name", team.Name);
                     cmd.Parameters.AddWithValue("@League", team.League);
                     cmd.Parameters.AddWithValue("@Org", team.Org);
@@ -430,8 +431,7 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("INSERT INTO Leagues (leagueName, org, sport) " +
-                        "VALUES (@LeagueName, @Org, @Sport);", conn);
+                    SqlCommand cmd = new SqlCommand(CreateLeagueSQL, conn);
                     cmd.Parameters.AddWithValue("@LeagueName", league.LeagueName);
                     cmd.Parameters.AddWithValue("@Org", league.Org);
                     cmd.Parameters.AddWithValue("@Sport", league.Sport);
@@ -455,7 +455,7 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("SELECT * from Leagues", conn);
+                    SqlCommand cmd = new SqlCommand(GetAllLeaguesSQL, conn);
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
