@@ -25,6 +25,7 @@ CREATE TABLE users
 	password	varchar(50)	not null,
 	salt		varchar(50)	not null,
 	role		varchar(50)	default('user'),
+	teamID		int,
 
 	constraint pk_users primary key (id)
 );
@@ -88,41 +89,41 @@ FOREIGN KEY (toUserID) REFERENCES users(id);
 
 
 INSERT INTO users(username, password ,salt ,role)  VALUES ('admin@gmail.com','Zn3FdCdRkqZbUxfSoc1o7aCEkVk=','/NWc+euho+Y=', 'Admin');
-INSERT INTO users(username, password ,salt)  VALUES ('1@1.com',	'dUQ7LIuKzjJiNYsOSvzS0B5nQQ4=',	'Yk65cf+kbPg=');
-INSERT INTO users(username, password ,salt)  VALUES ('2@1.com',	'15fxnVEz27mM6c42ZOVXXx1lnPc=', 'TfAwiQDlbKY=');
-INSERT INTO users(username, password ,salt)  VALUES ('3@1.com',	'C6GYJziREkRYrwxrfvvIHYc9PLI=', 'sridDRrV8Ss=');
-INSERT INTO users(username, password ,salt)  VALUES ('4@1.com',	'F9IHHMDArLbxbinbRnHRTNqU5yk=', 'e2lPXI3nUhQ=');
-INSERT INTO users(username, password ,salt)  VALUES ('5@1.com',	'o0L+Hw9HXO3eqqI1gJ0asHL3RO0=', 'h2/9FNv4Byo=');
-INSERT INTO users(username, password ,salt)  VALUES ('6@1.com',	'o4T1bTDsvd1C8BkwaEpzH/aLpfE=', 'amPpDDGF4EI=');
-INSERT INTO users(username, password ,salt)  VALUES ('7@1.com',	'C1dsfIGauuR8z3K+5b1rWSX27zU=', 'aPp9rSiz+HU=');
-INSERT INTO users(username, password ,salt)  VALUES ('8@1.com',	'rMmrL/gzr5/LMn9a0ISW+Mj+/yM=', 'FBfbiRk4FII=');
-INSERT INTO users(username, password ,salt)  VALUES ('9@1.com',	'PwajjMu08rBiH5HaNI1loZPY7NM=', 'gGpx026EVe8=');
-INSERT INTO users(username, password ,salt)  VALUES ('10@1.com', 'O0EEoqpg78zAmRhVD8NGqh8hDCo=', 'VwolU1KIuvM=');
-INSERT INTO users(username, password ,salt)  VALUES ('11@1.com', 'vFx2hWoYMVWfYGGX/QxVxip+ihE=', 'oH+LexZCgWE=');
-INSERT INTO users(username, password ,salt)  VALUES ('12@1.com', 'uu/o47aNYQam6d3y+K6/sWWo0Zo=', 'HeUtVRp2H6g=');
-INSERT INTO users(username, password ,salt)  VALUES ('13@1.com', 'gk9gFhbGhAvV4XiH0RpCXQpFhb4=', 'YR4ZQ/Od9oo=');
-INSERT INTO users(username, password ,salt)  VALUES ('14@1.com', 'y3fTSE3Shn9iK+kBDeyJ1RSXyTk=', '3zx+d+DGuEc=');
-INSERT INTO users(username, password ,salt)  VALUES ('15@1.com', 'Ssf1O+W7Y5JJSsstflzTSxdCicI=', '9jV2cTKA18Y=');
-INSERT INTO users(username, password ,salt)  VALUES ('16@1.com', 'W4vcVdkaFe2biRYaC4XMoEgTiAQ=', 'FNi7NNCORHQ=');
-INSERT INTO users(username, password ,salt)  VALUES ('17@1.com', 'EO21OWo7jYCK1Jo4R+7ziBPuvnA=', 'MGEn3rQCT50=');
-INSERT INTO users(username, password ,salt)  VALUES ('18@1.com', 'MQY+8k4th1ygdiO/obOjrcs5d38=', 'tTh+57qxXe0=');
-INSERT INTO users(username, password ,salt)  VALUES ('19@1.com', '/1JR7Ow5K2O9Dp0/1ZF7ny7wxzc=', 'rQ0goxnUusU=');
-INSERT INTO users(username, password ,salt)  VALUES ('20@1.com', 'dB5meWHrXcTyyjZzYmDzNFW/CxI=', '0ckkAxyeczc=');
-INSERT INTO users(username, password ,salt)  VALUES ('21@1.com', 'l8plJ5tnyNdcVI9rP9IwNUaxWJA=', 'UG4cQFZPB6A=');
-INSERT INTO users(username, password ,salt)  VALUES ('22@1.com', 'vEKzh3nxnsa3otLbtCAY/0d4yM8=', 'x8Y7nBRXlhE=');
-INSERT INTO users(username, password ,salt)  VALUES ('23@1.com', '+JeqSW2RFKCfp8wCpdqC9309uq8=', 'lgNdWV0zYZI=');
-INSERT INTO users(username, password ,salt)  VALUES ('24@1.com', 'XEGT4sY0BdZXP6u6zw087ZlJR80=', 'WhJaN9XsbX8=');
-INSERT INTO users(username, password ,salt)  VALUES ('25@1.com', '2kD8FohutJG5lmAbpWQdA7OOZvA=', '/se5j7fZ1eU=');
-INSERT INTO users(username, password ,salt)  VALUES ('26@1.com', 'L5LTg9m0jb+DAxopGCGPL8mXGk4=', '/RW2twF2+iI=');
-INSERT INTO users(username, password ,salt)  VALUES ('27@1.com', 'SXciwoGNG7pfaQ7lOvrXwWbFt5c=', 'FjHgH5JfW64=');
-INSERT INTO users(username, password ,salt)  VALUES ('28@1.com', '+ddJXoHutcyGFgwbr5PMPWrwTfM=', 'topMUnjraRY=');
-INSERT INTO users(username, password ,salt)  VALUES ('29@1.com', 'y2i2uNLDcc7ReS3EuCm2Tat248E=', 'Fb6/EbzeLYA=');
-INSERT INTO users(username, password ,salt)  VALUES ('30@1.com', '1xQx0/Rkm36mb8nBWfQ0uN2ryZM=', 'uW1gxfgjYME=');
-INSERT INTO users(username, password ,salt)  VALUES ('31@1.com', '7d29q+4rPlaXEPQ0w8+WYZd2+AA=', 'hRWYx8qdR9A=');
-INSERT INTO users(username, password ,salt)  VALUES ('32@1.com', 'oT5zN69KSYF0wWBJUE3x/dj/Foc=', 'HJpkNEBtmSg=');
-INSERT INTO users(username, password ,salt)  VALUES ('33@1.com', 'NSepkL0+GAeoU8mL6T9R+X7NqWQ=', 'r8n3gDgO3kw=');
-INSERT INTO users(username, password ,salt)  VALUES ('34@1.com', 'UKvl6WSy+aQFAc8lG9hC2JemZoo=', 'AJEa1n1cAzg=');
-INSERT INTO users(username, password ,salt)  VALUES ('35@1.com', 'eFeOdylt1LoYsOvdwwSR8+YWkRQ=', 'brFG27EVUI4=');
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('1@1.com',	'dUQ7LIuKzjJiNYsOSvzS0B5nQQ4=',	'Yk65cf+kbPg=', 1);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('2@1.com',	'15fxnVEz27mM6c42ZOVXXx1lnPc=', 'TfAwiQDlbKY=', 2);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('3@1.com',	'C6GYJziREkRYrwxrfvvIHYc9PLI=', 'sridDRrV8Ss=', 3);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('4@1.com',	'F9IHHMDArLbxbinbRnHRTNqU5yk=', 'e2lPXI3nUhQ=', 4);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('5@1.com',	'o0L+Hw9HXO3eqqI1gJ0asHL3RO0=', 'h2/9FNv4Byo=', 4);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('6@1.com',	'o4T1bTDsvd1C8BkwaEpzH/aLpfE=', 'amPpDDGF4EI=', 6);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('7@1.com',	'C1dsfIGauuR8z3K+5b1rWSX27zU=', 'aPp9rSiz+HU=', 7);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('8@1.com',	'rMmrL/gzr5/LMn9a0ISW+Mj+/yM=', 'FBfbiRk4FII=', 8);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('9@1.com',	'PwajjMu08rBiH5HaNI1loZPY7NM=', 'gGpx026EVe8=', 9);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('10@1.com', 'O0EEoqpg78zAmRhVD8NGqh8hDCo=', 'VwolU1KIuvM=', 10);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('11@1.com', 'vFx2hWoYMVWfYGGX/QxVxip+ihE=', 'oH+LexZCgWE=', 11);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('12@1.com', 'uu/o47aNYQam6d3y+K6/sWWo0Zo=', 'HeUtVRp2H6g=', 12);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('13@1.com', 'gk9gFhbGhAvV4XiH0RpCXQpFhb4=', 'YR4ZQ/Od9oo=', 13);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('14@1.com', 'y3fTSE3Shn9iK+kBDeyJ1RSXyTk=', '3zx+d+DGuEc=', 14);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('15@1.com', 'Ssf1O+W7Y5JJSsstflzTSxdCicI=', '9jV2cTKA18Y=', 15);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('16@1.com', 'W4vcVdkaFe2biRYaC4XMoEgTiAQ=', 'FNi7NNCORHQ=', 16);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('17@1.com', 'EO21OWo7jYCK1Jo4R+7ziBPuvnA=', 'MGEn3rQCT50=', 17);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('18@1.com', 'MQY+8k4th1ygdiO/obOjrcs5d38=', 'tTh+57qxXe0=', 18);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('19@1.com', '/1JR7Ow5K2O9Dp0/1ZF7ny7wxzc=', 'rQ0goxnUusU=', 19);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('20@1.com', 'dB5meWHrXcTyyjZzYmDzNFW/CxI=', '0ckkAxyeczc=', 20);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('21@1.com', 'l8plJ5tnyNdcVI9rP9IwNUaxWJA=', 'UG4cQFZPB6A=', 21);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('22@1.com', 'vEKzh3nxnsa3otLbtCAY/0d4yM8=', 'x8Y7nBRXlhE=', 22);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('23@1.com', '+JeqSW2RFKCfp8wCpdqC9309uq8=', 'lgNdWV0zYZI=', 23);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('24@1.com', 'XEGT4sY0BdZXP6u6zw087ZlJR80=', 'WhJaN9XsbX8=', 24);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('25@1.com', '2kD8FohutJG5lmAbpWQdA7OOZvA=', '/se5j7fZ1eU=', 25);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('26@1.com', 'L5LTg9m0jb+DAxopGCGPL8mXGk4=', '/RW2twF2+iI=', 26);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('27@1.com', 'SXciwoGNG7pfaQ7lOvrXwWbFt5c=', 'FjHgH5JfW64=', 27);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('28@1.com', '+ddJXoHutcyGFgwbr5PMPWrwTfM=', 'topMUnjraRY=', 28);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('29@1.com', 'y2i2uNLDcc7ReS3EuCm2Tat248E=', 'Fb6/EbzeLYA=', 29);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('30@1.com', '1xQx0/Rkm36mb8nBWfQ0uN2ryZM=', 'uW1gxfgjYME=', 30);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('31@1.com', '7d29q+4rPlaXEPQ0w8+WYZd2+AA=', 'hRWYx8qdR9A=', 31);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('32@1.com', 'oT5zN69KSYF0wWBJUE3x/dj/Foc=', 'HJpkNEBtmSg=', 32);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('33@1.com', 'NSepkL0+GAeoU8mL6T9R+X7NqWQ=', 'r8n3gDgO3kw=', 33);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('34@1.com', 'UKvl6WSy+aQFAc8lG9hC2JemZoo=', 'AJEa1n1cAzg=', 34);
+INSERT INTO users(username, password ,salt, teamID)  VALUES ('35@1.com', 'eFeOdylt1LoYsOvdwwSR8+YWkRQ=', 'brFG27EVUI4=', 35);
 
 
 INSERT INTO TEAMS (Name, League, Org, PrimaryVenue, SecondaryVenue, UserID) VALUES ('Chicago Lions', 'Womens Midwest D1', 'USAR', 'Solider Field', 'Mile Drive Park', 2);
