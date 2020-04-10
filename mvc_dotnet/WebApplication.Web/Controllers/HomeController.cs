@@ -126,6 +126,8 @@ namespace WebApplication.Web.Controllers
         [AuthorizationFilter("User", "Admin")]
         public IActionResult ChangeMyTeamInfo(Team team)
         {
+            TempData["Added"] = "Successfully changed team info!";
+
             User user = authProvider.GetCurrentUser();
             team.UserID = user.Id;
             teamDAL.UpdateTeam(team);
@@ -145,8 +147,6 @@ namespace WebApplication.Web.Controllers
         [AuthorizationFilter("User")]
         public IActionResult UpdateUserInfo(User user, string Salt, string NewPassword, string Password)
         {
-            TempData["Added"] = "Successfully updated username/password!";
-
             if (ModelState.IsValid)
             {
                 user = authProvider.GetCurrentUser();

@@ -5,14 +5,27 @@
 
 <div class="page-info">
     <h2>Admin Home Page</h2>
+    @{
+        if (DateTime.Now.Hour < 12 && DateTime.Now.Hour >= 0)
+        {
+            <h3>Good Morning!</h3>
+        }
+        else if (DateTime.Now.Hour >= 12 && DateTime.Now.Hour < 17)
+        {
+            <h3>Good Afternoon!</h3>
+        }
+        else if (DateTime.Now.Hour <= 24 && DateTime.Now.Hour >= 17)
+        {
+            <h3>Good Evening!</h3>
+        }
+    }
 
     <form asp-controller="Home" asp-action="ViewTeam" method="get">
 
-        <label asp-for="League"></label>
-        <input asp-for="League" />
-        @*Make dropdown of leagues*@
+        @*<label asp-for="League"></label>
+            <input asp-for="League" />
 
-        <button type="submit">Search</button>
+            <button type="submit">Search</button>*@
 
     </form>
     <div class="admin-links">

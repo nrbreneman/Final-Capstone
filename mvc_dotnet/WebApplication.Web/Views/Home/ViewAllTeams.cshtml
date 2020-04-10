@@ -4,10 +4,8 @@
     ViewData["Title"] = "ViewAllTeams";
 }
 
-<h2>View All Teams</h2>
-
-<hr />
 <div class="page-info">
+    <h2>View All Teams</h2>
     <table class="team_table">
         <tr>
             <th>Team Name</th>
@@ -20,7 +18,6 @@
         </tr>
         @foreach (Team team in Model)
         {
-
             <tr>
                 <td>@team.Name</td>
                 <td>@team.League</td>
@@ -46,6 +43,8 @@
     </table>
 
     <div>
-        <a asp-action="Index">Back to Home Page</a>
+        <a asp-controller="Home" asp-action="AdminHomePage" method="post">
+            <input type="button" value="Back To User Home Page" class="btn btn-default" />
+        </a>
     </div>
 </div>

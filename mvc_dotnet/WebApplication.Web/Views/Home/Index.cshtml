@@ -2,20 +2,35 @@
     ViewData["Title"] = "Index";
 }
 
+@ViewData["Added"]
+
 <div class="page-info">
-    <h2>Welcome!</h2>
+    @{
+        if (DateTime.Now.Hour < 12 && DateTime.Now.Hour >= 0)
+        {
+            <h2>Good Morning!</h2>
+        }
+        else if (DateTime.Now.Hour >= 12 && DateTime.Now.Hour < 17)
+        {
+            <h2>Good Afternoon!</h2>
+        }
+        else if (DateTime.Now.Hour <= 24 && DateTime.Now.Hour >= 17)
+        {
+            <h2>Good Evening!</h2>
+        }
+    }
 
     <p>Generic message about our product and whatever else we find relevant to put on the home page.</p>
 </div>
 
 @*<nav>
-    <div>
-        <a asp-action="Login" asp-controller="Account">Login</a>
-    </div>
-    <br />
-</nav>
-<nav>
-    <div>
-        <a asp-action="Register" asp-controller="Account">Register New User</a>
-    </div>
-</nav>*@
+        <div>
+            <a asp-action="Login" asp-controller="Account">Login</a>
+        </div>
+        <br />
+    </nav>
+    <nav>
+        <div>
+            <a asp-action="Register" asp-controller="Account">Register New User</a>
+        </div>
+    </nav>*@
