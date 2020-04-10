@@ -4,6 +4,7 @@
 }
 
 <div class="page-info">
+    @TempData["Added"]
     <h2>Admin Home Page</h2>
     @{
         if (DateTime.Now.Hour < 12 && DateTime.Now.Hour >= 0)
@@ -35,6 +36,8 @@
             <li><a asp-action="CreateNewLeague" asp-controller="Home">Create New League</a></li>
             <li><a asp-action="FinalizeEvent" asp-controller="Home">Finalize Events</a></li>
             <li><a asp-action="SeeAvailability" asp-controller="Home">See Team Availability</a></li>
+            <li><a asp-action="CreateNewUser" asp-controller="Home">Add New User</a></li>
+            
         </ul>
     </div>
 </div>
