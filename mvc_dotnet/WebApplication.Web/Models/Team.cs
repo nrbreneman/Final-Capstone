@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using WebApplication.Web.Models.Messages;
 
 namespace WebApplication.Web.Models
 {
@@ -49,6 +50,7 @@ namespace WebApplication.Web.Models
         [DataType(DataType.Date)]
         public DateTime? TravelDate { get; set; }
 
+        public List<MessagesModel> Messages { get; set; }
         //public void AddHomeDate(DateTime HomeDate)
         //{
         //    HomeDates.Add(HomeDate);

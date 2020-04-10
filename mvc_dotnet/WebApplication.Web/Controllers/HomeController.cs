@@ -214,6 +214,7 @@ namespace WebApplication.Web.Controllers
             return RedirectToAction("ChangeATeam", "Home", team);
         }
 
+
         [HttpGet]
         [AuthorizationFilter("Admin")]
         public IActionResult ChangeATeam(Team team)
@@ -256,6 +257,7 @@ namespace WebApplication.Web.Controllers
         [AuthorizationFilter("User")]
         public ActionResult AddAvailableDates(EmpModel empModel)
         {
+            TempData["Added"] = "Successfully updated available dates";
             User user = authProvider.GetCurrentUser();
             teamDAL.AddHomeDateToDB(empModel.HomeDate, user);
             teamDAL.AddTravelDateToDB(empModel.TravelDate, user);
@@ -285,6 +287,7 @@ namespace WebApplication.Web.Controllers
         [AuthorizationFilter("Admin")]
         public ActionResult AdminAddAvailableDates(EmpModel empModel)
         {
+            TempData["Added"] = "Successfully updated available dates";
             User user = new User();
             user.TeamID = empModel.TeamID;
             teamDAL.AddHomeDateToDB(empModel.HomeDate, user);
