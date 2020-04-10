@@ -132,7 +132,7 @@ namespace WebApplication.Web.Controllers
             {
                 teamDAL.InsertTeam(team);
                 
-                return RedirectToAction("AddAvailableDates", "Home");
+                return RedirectToAction("AddAvailableDates", "Home", new { team.League });
             }
 
             return View(team);

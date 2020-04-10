@@ -124,12 +124,8 @@ namespace WebApplication.Web.Controllers
         [AuthorizationFilter("User", "Admin")]
         public IActionResult ChangeMyTeamInfo(Team team)
         {
-<<<<<<< HEAD
             TempData["Added"] = "Successfully changed team info!";
 
-=======
-            TempData["Added"] = "Successfully updated team info!";
->>>>>>> 02355b9b49c13a8c66573e568b418f29cd860507
             User user = authProvider.GetCurrentUser();
             team.UserID = user.Id;
             teamDAL.UpdateTeam(team);
@@ -233,7 +229,7 @@ namespace WebApplication.Web.Controllers
             TempData["Added"] = "Successfully updated " + team.Name + "'s team info";
             teamID = team.TeamID;
             teamDAL.AdminUpdateTeam(team);
-            return RedirectToAction("AdminHomePage", "Home");
+            return RedirectToAction("AdminAddAvailableDates", "Home", teamID);
         }
 
         public ActionResult Calendar()
@@ -244,18 +240,53 @@ namespace WebApplication.Web.Controllers
         }
 
         [HttpGet]
+        [AuthorizationFilter("User")]
         public ActionResult AddAvailableDates()
         {
             EmpModel empModel = new EmpModel();
+            User user = authProvider.GetCurrentUser();
             empModel.HomeDates = new List<System.DateTime?>();
             empModel.TravelDates = new List<System.DateTime?>();
+            empModel.HomeDates = teamDAL.GetHomeDates(user);
+            empModel.TravelDates = teamDAL.GetTravelDates(user);
             return View(empModel);
         }
 
         [HttpPost]
+        [AuthorizationFilter("User")]
         public ActionResult AddAvailableDates(EmpModel empModel)
         {
             User user = authProvider.GetCurrentUser();
+            teamDAL.AddHomeDateToDB(empModel.HomeDate, user);
+            teamDAL.AddTravelDateToDB(empModel.TravelDate, user);
+
+            //empModel.HomeDates = teamDAL.GetHomeDates(user);
+            //empModel.TravelDates = teamDAL.GetTravelDates(user);
+            return View(empModel);
+        }
+
+
+        [HttpGet]
+        [AuthorizationFilter("Admin")]
+        public ActionResult AdminAddAvailableDates(int TeamID)
+        {
+            EmpModel empModel = new EmpModel();
+            empModel.TeamID = TeamID;
+            User user = new User();
+            user.TeamID = empModel.TeamID;
+            empModel.HomeDates = new List<System.DateTime?>();
+            empModel.TravelDates = new List<System.DateTime?>();
+            empModel.HomeDates = teamDAL.GetHomeDates(user);
+            empModel.TravelDates = teamDAL.GetTravelDates(user);
+            return View(empModel);
+        }
+
+        [HttpPost]
+        [AuthorizationFilter("Admin")]
+        public ActionResult AdminAddAvailableDates(EmpModel empModel)
+        {
+            User user = new User();
+            user.TeamID = empModel.TeamID;
             teamDAL.AddHomeDateToDB(empModel.HomeDate, user);
             teamDAL.AddTravelDateToDB(empModel.TravelDate, user);
 

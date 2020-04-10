@@ -19,5 +19,7 @@ namespace WebApplication.Web.DAL.Models
 
         [DataType(DataType.Date)]
         public List<DateTime?> TravelDates { get; set; }
+
+        public int TeamID { get; set; }
     }
 }

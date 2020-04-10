@@ -8,7 +8,7 @@ namespace WebApplication.Web.DAL
     {
         private readonly string connectionString;
 
-        private string CreateUserSQL = "INSERT INTO users VALUES (@username, @password, @salt, @role); ";
+        private string CreateUserSQL = "INSERT INTO users(username, password, salt, role) VALUES (@username, @password, @salt, @role); ";
         private string DeleteUserSQL = "DELETE FROM users WHERE id = @id; ";
         private string GetUserSQL = "SELECT * FROM USERS WHERE username = @username; ";
         private string UpdateUserSQL = "UPDATE users SET password = @password, salt = @salt, role = @role WHERE id = @id; ";
