@@ -34,9 +34,6 @@
         </div>
         <input type="submit" value="RegisterTeam" class="btn btn-default" />
 
-
-
-
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
@@ -55,7 +52,7 @@
             </div>
         }
 
-        @*<a><input type="submit" onclick="@Model.HomeDates.Add(.HomeDate)"/></a>*@
+        @*<a><input type="submit" onclick="@Model.HomeDates.Add(.HomeDate)" /></a>*@
 
         <div>
             @if (Model.HomeDates.Count > 0)
@@ -89,8 +86,6 @@
             <input type="submit" value="AddTravelDate" class="btn btn-default" />
         </a>
 
-
-
         <div>
             @if (Model.TravelDates.Count > 0)
             {
@@ -100,7 +95,5 @@
                 }
             }
         </div>
-
-
     </form>
 </div>

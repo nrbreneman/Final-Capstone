@@ -324,12 +324,11 @@ namespace WebApplication.Web.DAL
                     while (reader.Read())
                     {
                         League league = new League();
-                        
+
                         league.LeagueName = Convert.ToString(reader["leagueName"]);
                         league.Sport = Convert.ToString(reader["sport"]);
                         league.Org = Convert.ToString(reader["org"]);
 
-                        
                         leagues.Add(league);
                     }
                 }
@@ -341,7 +340,6 @@ namespace WebApplication.Web.DAL
                 throw ex;
             }
         }
-
 
         private Team MapRowToTeam(SqlDataReader reader)
         {

@@ -202,6 +202,7 @@ namespace WebApplication.Web.Controllers
             {
                 model.DropDownListTeam.Add(AddTeamToList(team));
             }
+
             return View(model);
         }
 
