@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Diagnostics;
 using WebApplication.Web.DAL;
 using WebApplication.Web.Models;
+using WebApplication.Web.Models.Messages;
 using WebApplication.Web.Providers.Auth;
 
 namespace WebApplication.Web.Controllers
@@ -14,17 +12,31 @@ namespace WebApplication.Web.Controllers
         private readonly IAuthProvider authProvider;
         private readonly TeamSqlDAL teamDAL;
         private readonly IUserDAL userDAL;
+        private readonly MessagesDAL messageDAL;
 
-        public MessageController(IAuthProvider authProvider, TeamSqlDAL teamDAL, IUserDAL userDAL)
+        public MessageController(IAuthProvider authProvider, TeamSqlDAL teamDAL, IUserDAL userDAL, MessagesDAL messageDAL)
         {
             this.authProvider = authProvider;
             this.teamDAL = teamDAL;
             this.userDAL = userDAL;
+            this.messageDAL = messageDAL;
         }
 
         public IActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult SendMessage()
+        {
+            return View();
+        }
+
+        public IActionResult SeeMessages()
+        {
+            User user = authProvider.GetCurrentUser();
+            List<MessagesModel> messages = messageDAL.GetMessagesByUser(user);
+            return View(messages);
         }
     }
 }

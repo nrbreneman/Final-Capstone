@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Diagnostics;
 using WebApplication.Web.DAL;
+using WebApplication.Web.DAL.Models;
 using WebApplication.Web.Models;
 using WebApplication.Web.Models.Account;
 using WebApplication.Web.Providers.Auth;
@@ -75,7 +76,6 @@ namespace WebApplication.Web.Controllers
 
             List<Team> teams = teamDAL.GetTeamsByLeague(League);
             return View(teams);
-
         }
 
         //private Team AddTeamNames(Team model)
@@ -88,14 +88,12 @@ namespace WebApplication.Web.Controllers
         //    return model;
         //}
 
-
         //private SelectListItem AddTeamToList(string teamName)
         //{
         //    SelectListItem selectListItems = new SelectListItem();
         //    selectListItems = new SelectListItem { Text = teamName, Value = teamName };
         //    return selectListItems;
         //}
-
 
         private SelectListItem AddTeamToList(Team Team)
 
@@ -126,8 +124,12 @@ namespace WebApplication.Web.Controllers
         [AuthorizationFilter("User", "Admin")]
         public IActionResult ChangeMyTeamInfo(Team team)
         {
+<<<<<<< HEAD
             TempData["Added"] = "Successfully changed team info!";
 
+=======
+            TempData["Added"] = "Successfully updated team info!";
+>>>>>>> 02355b9b49c13a8c66573e568b418f29cd860507
             User user = authProvider.GetCurrentUser();
             team.UserID = user.Id;
             teamDAL.UpdateTeam(team);
@@ -167,7 +169,6 @@ namespace WebApplication.Web.Controllers
         //        model.DropDownListTeam.Add(AddTeamToList(team.Name));
         //    }
 
-
         [HttpGet]
         [AuthorizationFilter("Admin")]
         public IActionResult SelectLeague()
@@ -205,6 +206,7 @@ namespace WebApplication.Web.Controllers
             {
                 model.DropDownListTeam.Add(AddTeamToList(team));
             }
+
             return View(model);
         }
 
@@ -214,7 +216,6 @@ namespace WebApplication.Web.Controllers
         {
             team = teamDAL.GetTeamByTeamID(team.TeamID.ToString());
             return RedirectToAction("ChangeATeam", "Home", team);
-
         }
 
         [HttpGet]
@@ -229,6 +230,7 @@ namespace WebApplication.Web.Controllers
         [AuthorizationFilter("Admin")]
         public IActionResult ChangeATeam(Team team, int teamID)
         {
+            TempData["Added"] = "Successfully updated " + team.Name + "'s team info";
             teamID = team.TeamID;
             teamDAL.AdminUpdateTeam(team);
             return RedirectToAction("AdminHomePage", "Home");
@@ -237,7 +239,29 @@ namespace WebApplication.Web.Controllers
         public ActionResult Calendar()
         {
             //https://localhost:44392/home/calendar
+            //https://localhost:44392/home/calendar2
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult AddAvailableDates()
+        {
+            EmpModel empModel = new EmpModel();
+            empModel.HomeDates = new List<System.DateTime?>();
+            empModel.TravelDates = new List<System.DateTime?>();
+            return View(empModel);
+        }
+
+        [HttpPost]
+        public ActionResult AddAvailableDates(EmpModel empModel)
+        {
+            User user = authProvider.GetCurrentUser();
+            teamDAL.AddHomeDateToDB(empModel.HomeDate, user);
+            teamDAL.AddTravelDateToDB(empModel.TravelDate, user);
+
+            empModel.HomeDates = teamDAL.GetHomeDates(user);
+            empModel.TravelDates = teamDAL.GetTravelDates(user);
+            return View(empModel);
         }
 
         //public ActionResult ClickTravelButton(Team team, DateTime TravelDate)
@@ -263,12 +287,12 @@ namespace WebApplication.Web.Controllers
         [AuthorizationFilter("Admin")]
         public IActionResult CreateNewLeague(League league)
         {
+            TempData["Added"] = "Successfully created new league!";
             if (ModelState.IsValid)
             {
                 teamDAL.CreateLeague(league);
 
                 return RedirectToAction("AdminHomePage", "Home");
-
             }
 
             return View(league);
@@ -290,11 +314,12 @@ namespace WebApplication.Web.Controllers
         [AuthorizationFilter("Admin")]
         public IActionResult CreateNewUser(User user)
         {
+            TempData["Added"] = "Successfully created new user!";
             RegisterViewModel model = new RegisterViewModel();
             model.Email = user.Username;
             model.ConfirmPassword = user.Password;
             model.Password = user.Password;
-            
+
             if (ModelState.IsValid)
             {
                 if (user.IsAdmin)
@@ -309,12 +334,10 @@ namespace WebApplication.Web.Controllers
                 //userDAL.CreateUser(user);
 
                 return RedirectToAction("AdminHomePage", "Home");
-
             }
 
             return View(user);
         }
-
 
         public IActionResult About()
         {

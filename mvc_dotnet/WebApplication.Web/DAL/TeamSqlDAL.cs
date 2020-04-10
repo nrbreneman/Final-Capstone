@@ -192,6 +192,107 @@ namespace WebApplication.Web.DAL
                 throw ex;
             }
         }
+        public void AddTravelDateToDB(DateTime? TravelDate, User user)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("INSERT into EventDates(TeamID, Date, Home) VALUES (@TeamID, @Date, @Home)", conn);
+                    cmd.Parameters.AddWithValue("@TeamID", 1);
+                    cmd.Parameters.AddWithValue("@Date", TravelDate);
+                    cmd.Parameters.AddWithValue("@Home", 0);
+
+                    cmd.ExecuteNonQuery();
+
+                }
+
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+        public void AddHomeDateToDB(DateTime? HomeDate, User user)
+        {
+           
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("INSERT into EventDates(TeamID, Date, Home) VALUES (@TeamID, @Date, @Home)", conn);
+                    cmd.Parameters.AddWithValue("@TeamID", 1);
+                    cmd.Parameters.AddWithValue("@Date", HomeDate);
+                    cmd.Parameters.AddWithValue("@Home", 1);
+
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+        public List<DateTime?> GetHomeDates(User user)
+        {
+            List<DateTime?> dates = new List<DateTime?>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("Select * from EventDates WHERE TeamID = @TeamID and Home = 1", conn);
+                    cmd.Parameters.AddWithValue("@TeamID", 1);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        DateTime date = Convert.ToDateTime(reader["Date"]);
+
+                        dates.Add(date);
+                        
+                    }
+                }
+
+                return dates;
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<DateTime?> GetTravelDates(User user)
+        {
+            List<DateTime?> dates = new List<DateTime?>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("Select * from EventDates WHERE TeamID = @TeamID and Home = 0", conn);
+                    cmd.Parameters.AddWithValue("@TeamID", 1);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        DateTime date = Convert.ToDateTime(reader["Date"]);
+
+                        dates.Add(date);
+
+                    }
+                }
+
+                return dates;
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
 
         public void InsertTeam(Team team)
         {
@@ -324,12 +425,11 @@ namespace WebApplication.Web.DAL
                     while (reader.Read())
                     {
                         League league = new League();
-                        
+
                         league.LeagueName = Convert.ToString(reader["leagueName"]);
                         league.Sport = Convert.ToString(reader["sport"]);
                         league.Org = Convert.ToString(reader["org"]);
 
-                        
                         leagues.Add(league);
                     }
                 }
@@ -341,7 +441,6 @@ namespace WebApplication.Web.DAL
                 throw ex;
             }
         }
-
 
         private Team MapRowToTeam(SqlDataReader reader)
         {
