@@ -109,6 +109,20 @@ input[type=button] {
     padding: 5px;
 }
 
+.dropbtn {
+    background-color: lightgray;
+    color: black;
+    padding: 16px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+}
+
+    .dropbtn:hover {
+        background-color: white;
+        display:block;
+    }
+
 ul {
     list-style: none;
 }
