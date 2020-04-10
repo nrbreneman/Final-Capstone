@@ -14,7 +14,10 @@ namespace WebApplication.Web.DAL.Models
         [DataType(DataType.Date)]
         public DateTime? TravelDate { get; set; }
 
-        public List<DateTime?> HomeDates { get; set; } 
+        [DataType(DataType.Date)]
+        public List<DateTime?> HomeDates { get; set; }
+
+        [DataType(DataType.Date)]
         public List<DateTime?> TravelDates { get; set; }
     }
 }
