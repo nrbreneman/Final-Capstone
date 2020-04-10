@@ -370,6 +370,27 @@ namespace WebApplication.Web.Controllers
             return View(user);
         }
 
+        public IActionResult SeeSchedule()
+        {
+            return View();
+        }
+
+        public IActionResult SeeAvailability()
+        {
+            return View();
+        }
+
+        public IActionResult FinalizeEvent()
+        {
+            return View();
+        }
+
+        public IActionResult ApproveUser()
+        {
+            return View();
+        }
+        
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";

@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewData["Title"] = "SeeSchedule";
+}
+<div class="page-info">
+    <h2>Schedule</h2>
+
+    <table>
+        <tr>
+            <th>
+                Date
+            </th>
+            <th>
+                Home Team
+            </th>
+            <th>
+                Away Team
+            </th>
+            <th>
+                Location
+            </th>
+        </tr>
+    </table>
+
+    <a asp-controller="Home" asp-action="UserHomePage" method="post">
+        <input type="button" value="Back To User Home Page" class="btn btn-default" />
+    </a>
+</div>
