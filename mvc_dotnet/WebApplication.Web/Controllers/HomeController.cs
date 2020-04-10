@@ -124,12 +124,8 @@ namespace WebApplication.Web.Controllers
         [AuthorizationFilter("User", "Admin")]
         public IActionResult ChangeMyTeamInfo(Team team)
         {
-<<<<<<< HEAD
             TempData["Added"] = "Successfully changed team info!";
 
-=======
-            TempData["Added"] = "Successfully updated team info!";
->>>>>>> 02355b9b49c13a8c66573e568b418f29cd860507
             User user = authProvider.GetCurrentUser();
             team.UserID = user.Id;
             teamDAL.UpdateTeam(team);

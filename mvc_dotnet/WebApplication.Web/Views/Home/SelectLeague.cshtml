@@ -3,18 +3,20 @@
     ViewData["Title"] = "SelectLeague";
 }
 
-<h2>SelectLeague</h2>
 <div class="page-info">
+    <h2>Modify Teams</h2>
     <form asp-controller="Home" asp-action="SelectLeague" method="post">
-        <div class="form-group">
-            <label asp-for="League" class="control-label">League</label>
-            <select asp-for="League" asp-items="Model.LeagueDropDown"></select>
-        </div>
+        <p>
+            <label asp-for="League" class="control-label">Select Your League</label>
+        </p>
+            <p>
+                <select asp-for="League" asp-items="Model.LeagueDropDown" class="dropbtn"></select>
+            </p>
 
         <input type="submit" value="Select League" class="btn btn-default" />
 
         <a asp-controller="Home" asp-action="AdminHomePage" method="post">
-            <input type="button" value="Back To Admin Home Page" class="btn btn-default" />
+            <input type="button" value="Back to Home Page" class="btn btn-default" />
         </a>
     </form>
 </div>
