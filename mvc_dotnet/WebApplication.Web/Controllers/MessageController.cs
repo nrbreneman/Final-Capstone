@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebApplication.Web.DAL;
-using WebApplication.Web.Models;
-using WebApplication.Web.Models.Messages;
 using WebApplication.Web.Providers.Auth;
 
 namespace WebApplication.Web.Controllers

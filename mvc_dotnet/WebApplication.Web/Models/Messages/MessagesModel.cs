@@ -1,4 +1,6 @@
-﻿namespace WebApplication.Web.Models.Messages
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace WebApplication.Web.Models.Messages
 {
     public class MessagesModel
     {

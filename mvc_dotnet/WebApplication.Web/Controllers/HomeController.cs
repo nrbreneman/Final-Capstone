@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Diagnostics;
 using WebApplication.Web.DAL;
+using WebApplication.Web.DAL.Models;
 using WebApplication.Web.Models;
 using WebApplication.Web.Models.Account;
 using WebApplication.Web.Providers.Auth;
@@ -233,6 +234,20 @@ namespace WebApplication.Web.Controllers
         }
 
         public ActionResult Calendar()
+        {
+            //https://localhost:44392/home/calendar
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Calendar2()
+        {
+            //https://localhost:44392/home/calendar
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Calendar2(EmpModel empModel)
         {
             //https://localhost:44392/home/calendar
             return View();
