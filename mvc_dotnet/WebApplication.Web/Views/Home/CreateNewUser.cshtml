@@ -8,20 +8,7 @@
 
     <form asp-controller="Home" asp-action="CreateNewUser" method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <p>
-            <label asp-for="Username" class="control-label"></label>
-        </p>
-        <p>
-            <input asp-for="Username" class="form-control" />
-            <span asp-validation-for="Username" class="text-danger" placeholder="enter email address"></span>
-        </p>
-        <p>
-            <label asp-for="Password" class="control-label"></label>
-        </p>
-        <p>
-            <input asp-for="Password" class="form-control" />
-            <span asp-validation-for="Password" class="text-danger" placeholder="enter password"></span>
-        </p>
+
         <p>
             <label asp-for="League" class="control-label">League</label>
         </p>
@@ -35,6 +22,24 @@
             </label>
         </div>
 
+        <p>
+            <label asp-for="Username" class="control-label"></label>
+        </p>
+        <p>
+            <input asp-for="Username" class="form-control" />
+            <span asp-validation-for="Username" class="text-danger" placeholder="enter email address"></span>
+        </p>
+        <p>
+            <label asp-for="Password" class="control-label"></label>
+        </p>
+        <p>
+            <input asp-for="Password" class="form-control" id="myInput" type="password" />
+            <span asp-validation-for="Password" class="text-danger" placeholder="enter password"></span>
+        </p>
+        <p>
+            <input type="checkbox" onclick="seePassword()">Show Password
+        </p>
+
         <input type="submit" value="Create" class="btn btn-default" />
 
         <a asp-controller="Home" asp-action="AdminHomePage" method="post">
@@ -42,4 +47,16 @@
         </a>
 
     </form>
+
 </div>
+
+<script>
+    function seePassword() {
+        var x = document.getElementById("myInput");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>

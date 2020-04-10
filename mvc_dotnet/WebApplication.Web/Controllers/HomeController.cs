@@ -210,7 +210,7 @@ namespace WebApplication.Web.Controllers
         [AuthorizationFilter("Admin")]
         public IActionResult ChangeATeamInfo(Team team)
         {
-            team = teamDAL.GetTeamByTeamID(team.TeamID.ToString());
+            team = teamDAL.GetTeamByTeamID(team.Name);
             return RedirectToAction("ChangeATeam", "Home", team);
         }
 
@@ -369,6 +369,27 @@ namespace WebApplication.Web.Controllers
 
             return View(user);
         }
+
+        public IActionResult SeeSchedule()
+        {
+            return View();
+        }
+
+        public IActionResult SeeAvailability()
+        {
+            return View();
+        }
+
+        public IActionResult FinalizeEvent()
+        {
+            return View();
+        }
+
+        public IActionResult ApproveUser()
+        {
+            return View();
+        }
+        
 
         public IActionResult About()
         {
