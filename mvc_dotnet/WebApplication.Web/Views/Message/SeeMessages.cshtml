@@ -1,7 +1,16 @@
-﻿
+﻿@model List<WebApplication.Web.Models.Messages.MessagesModel>
 @{
     ViewData["Title"] = "SeeMessages";
 }
 <div class="page-info">
-    <h2>SeeMessages</h2>
+    <h2>See Messages</h2>
+
+    @foreach (WebApplication.Web.Models.Messages.MessagesModel message in Model)
+    {
+        <p>@message.MessageBody</p>
+
+    <input type="button" value="Accept Proposed Event" class="btn btn-default" />
+
+    <input type="button" value="Decline Proposed Event" class="btn btn-default" />
+    }
 </div>

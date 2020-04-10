@@ -92,6 +92,34 @@ namespace WebApplication.Web.Controllers
             return View(team);
         }
 
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult RegisterTeam(Team team)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        teamDAL.InsertTeam(team);
+
+        //        return RedirectToAction("UserHomePage", "Home", new { team.League });
+        //    }
+
+        //    return View(team);
+        //}
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult RegisterTeam(Team team)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        teamDAL.InsertTeam(team);
+
+        //        return RedirectToAction("UserHomePage", "Home", new { team.League });
+        //    }
+
+        //    return View(team);
+        //}
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult RegisterTeam(Team team)
@@ -99,8 +127,8 @@ namespace WebApplication.Web.Controllers
             if (ModelState.IsValid)
             {
                 teamDAL.InsertTeam(team);
-
-                return RedirectToAction("UserHomePage", "Home", new { team.League });
+                
+                return RedirectToAction("AddAvailableDates", "Home");
             }
 
             return View(team);

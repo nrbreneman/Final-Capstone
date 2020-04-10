@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
 using WebApplication.Web.Models;
 using WebApplication.Web.Models.Messages;
 
@@ -43,6 +41,5 @@ namespace WebApplication.Web.DAL
                 throw ex;
             }
         }
-
     }
 }

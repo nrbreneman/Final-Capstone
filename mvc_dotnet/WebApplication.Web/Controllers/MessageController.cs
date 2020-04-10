@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using WebApplication.Web.DAL;
 using WebApplication.Web.Models;
 using WebApplication.Web.Models.Messages;
@@ -31,11 +32,11 @@ namespace WebApplication.Web.Controllers
             return View();
         }
 
-        //public IActionResult SeeMessages()
-        //{
-        //    User user = authProvider.GetCurrentUser();
-        //    List<MessagesModel> messages = messageDAL.GetMessagesByUser(user);
-        //    return View(messages);
-        //}
+        public IActionResult SeeMessages()
+        {
+            User user = authProvider.GetCurrentUser();
+            List<MessagesModel> messages = messageDAL.GetMessagesByUser(user);
+            return View(messages);
+        }
     }
 }

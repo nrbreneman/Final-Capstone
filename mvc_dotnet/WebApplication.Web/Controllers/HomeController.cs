@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Diagnostics;
 using WebApplication.Web.DAL;
+using WebApplication.Web.DAL.Models;
 using WebApplication.Web.Models;
 using WebApplication.Web.Models.Account;
 using WebApplication.Web.Providers.Auth;
@@ -235,7 +236,29 @@ namespace WebApplication.Web.Controllers
         public ActionResult Calendar()
         {
             //https://localhost:44392/home/calendar
+            //https://localhost:44392/home/calendar2
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult AddAvailableDates()
+        {
+            EmpModel empModel = new EmpModel();
+            empModel.HomeDates = new List<System.DateTime?>();
+            empModel.TravelDates = new List<System.DateTime?>();
+            return View(empModel);
+        }
+
+        [HttpPost]
+        public ActionResult AddAvailableDates(EmpModel empModel)
+        {
+            User user = authProvider.GetCurrentUser();
+            teamDAL.AddHomeDateToDB(empModel.HomeDate, user);
+            teamDAL.AddTravelDateToDB(empModel.TravelDate, user);
+
+            empModel.HomeDates = teamDAL.GetHomeDates(user);
+            empModel.TravelDates = teamDAL.GetTravelDates(user);
+            return View(empModel);
         }
 
         //public ActionResult ClickTravelButton(Team team, DateTime TravelDate)
@@ -288,7 +311,7 @@ namespace WebApplication.Web.Controllers
         [AuthorizationFilter("Admin")]
         public IActionResult CreateNewUser(User user)
         {
-            TempData["Added"] = "Successfully creaed new user!";
+            TempData["Added"] = "Successfully created new user!";
             RegisterViewModel model = new RegisterViewModel();
             model.Email = user.Username;
             model.ConfirmPassword = user.Password;
