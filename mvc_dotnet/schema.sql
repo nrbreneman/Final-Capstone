@@ -48,7 +48,7 @@ CREATE TABLE EventDates
  id int identity(1,1),
  TeamName varchar(50),
  TeamID int not null,
- Date DateTime,
+ Date Date,
  Home bit not null,
 
  constraint pk_dates primary key (id),
@@ -75,6 +75,17 @@ messageBody varchar(300),
 constraint pk_messageID primary key (id)
 );
 
+CREATE TABLE Schedule
+(
+matchID int identity(1,1),
+homeTeam varchar(50) not null,
+awayTeam varchar(50) not null,
+date Date not null,
+venue varchar(50) not null,
+
+constraint pk_gameID primary key (matchID)
+);
+
 ALTER TABLE EventDates
 ADD CONSTRAINT fk_dates
 FOREIGN KEY (TeamID) REFERENCES TEAMS(id);
@@ -86,6 +97,7 @@ FOREIGN KEY (UserID) REFERENCES users(id);
 ALTER TABLE Messages
 ADD CONSTRAINT fk_userTo
 FOREIGN KEY (toUserID) REFERENCES users(id);
+
 
 
 INSERT INTO users(username, password ,salt ,role)  VALUES ('admin@gmail.com','Zn3FdCdRkqZbUxfSoc1o7aCEkVk=','/NWc+euho+Y=', 'Admin');
@@ -143,11 +155,11 @@ INSERT INTO TEAMS (Name, League, Org, PrimaryVenue, SecondaryVenue, UserID) VALU
 INSERT INTO TEAMS (Name, League, Org, PrimaryVenue, SecondaryVenue, UserID) VALUES ('Grand Rapids Rugby', 'Womens Midwest D2', 'USAR', 'Hammer Field', 'Grand Rapids Park', 16);
 INSERT INTO TEAMS (Name, League, Org, PrimaryVenue, SecondaryVenue, UserID) VALUES ('Dayton Flying Pigs', 'Womens Midwest D2', 'USAR', 'Wright Field', 'First Flight Park', 17);
 INSERT INTO TEAMS (Name, League, Org, PrimaryVenue, SecondaryVenue, UserID) VALUES ('Louisville Riversharks', 'Womens Midwest D2', 'USAR', 'Bourbon Field', 'Lake Park', 18);
-INSERT INTO TEAMS (Name, League, Org, PrimaryVenue, SecondaryVenue, UserID) VALUES ('Chicgao Lions', 'Mens Midwest D1', 'USAR', 'Solider Field', 'Mile Drive Park', 19);
+INSERT INTO TEAMS (Name, League, Org, PrimaryVenue, SecondaryVenue, UserID) VALUES ('Chicago Lions', 'Mens Midwest D1', 'USAR', 'Solider Field', 'Mile Drive Park', 19);
 INSERT INTO TEAMS (Name, League, Org, PrimaryVenue, SecondaryVenue, UserID) VALUES ('Detroit Tradesmen', 'Mens Midwest D1', 'USAR', 'Detroit Field', 'Ford Park', 20);
 INSERT INTO TEAMS (Name, League, Org, PrimaryVenue, SecondaryVenue, UserID) VALUES ('Cincinnati Wolfhounds', 'Mens Midwest D1', 'USAR', 'Great American Field', 'Richard Ford Park', 21);
 INSERT INTO TEAMS (Name, League, Org, PrimaryVenue, SecondaryVenue, UserID) VALUES ('Columbus Rugby', 'Mens Midwest D1', 'USAR', 'OSU Field', 'Beekman Park', 22);
-INSERT INTO TEAMS (Name, League, Org, PrimaryVenue, SecondaryVenue, UserID) VALUES ('Chicgao Griffins', 'Mens Midwest D1', 'USAR', 'Solider Field', 'Mile Drive Park', 23);
+INSERT INTO TEAMS (Name, League, Org, PrimaryVenue, SecondaryVenue, UserID) VALUES ('Chicago Griffins', 'Mens Midwest D1', 'USAR', 'Solider Field', 'Mile Drive Park', 23);
 INSERT INTO TEAMS (Name, League, Org, PrimaryVenue, SecondaryVenue, UserID) VALUES ('Glendale Merlins', 'Womens Frontier D1', 'USAR', 'Glendale Field', 'Mile Drive Park', 24);
 INSERT INTO TEAMS (Name, League, Org, PrimaryVenue, SecondaryVenue, UserID) VALUES ('Austin Valkyries', 'Womens Frontier D1', 'USAR', 'Cowboy Field', 'Steer Drive Park', 25);
 INSERT INTO TEAMS (Name, League, Org, PrimaryVenue, SecondaryVenue, UserID) VALUES ('Houston Athletic', 'Womens Frontier D1', 'USAR', 'Crew Field', 'Hammock Park', 26);
@@ -314,5 +326,15 @@ INSERT INTO EventDates(TeamID, Date, Home) VALUES(33, '2020-09-19', 0);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(34, '2020-09-19', 0);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(35, '2020-09-19', 0);
 
+INSERT INTO Schedule(homeTeam, awayTeam, date, venue) VALUES ('Minnesota Valkyries' , 'Detroit Rugby' , '2020-09-05', 'Chase Field');
+INSERT INTO Schedule(homeTeam, awayTeam, date, venue) VALUES ('Minnesota Valkyries' , 'Wisconsin Rugby' , '2020-09-06', 'Chase Field');
+INSERT INTO Schedule(homeTeam, awayTeam, date, venue) VALUES ('Minnesota Valkyries' , 'Chicago Lions' , '2020-09-07', 'Chase Field');
+INSERT INTO Schedule(homeTeam, awayTeam, date, venue) VALUES ('Minnesota Valkyries' , 'Detroit Rugby' , '2020-09-08', 'Chase Field');
+INSERT INTO Schedule(homeTeam, awayTeam, date, venue) VALUES ('Chicago Lions' , 'Minnesota Valkyries' , '2020-09-09', 'Solider Field');
+INSERT INTO Schedule(homeTeam, awayTeam, date, venue) VALUES ('Detroit Rugby', 'Minnesota Valkyries' , '2020-09-10', 'Detroit Field');
+INSERT INTO Schedule(homeTeam, awayTeam, date, venue) VALUES ('Wisconsin Rugby' , 'Minnesota Valkyries' , '2020-09-11',  'Lambeau Field');
+INSERT INTO Schedule(homeTeam, awayTeam, date, venue) VALUES ('Chicago Lions' , 'Minnesota Valkyries' , '2020-09-12', 'Solider Field');
+
 
 COMMIT TRANSACTION;
+
