@@ -32,10 +32,10 @@
     <div>
         @if (Model.HomeDates.Count > 0)
         {
-            <p>Home Dates:</p>
+            <p><strong>Home Dates:</strong></p>
             @foreach (DateTime date in Model.HomeDates)
             {
-                <p>@date</p>
+                <p>@date.ToString("MM/dd/yyy")</p>
             }
         }
     </div>
@@ -49,10 +49,10 @@
     <div>
         @if (Model.TravelDates.Count > 0)
         {
-            <p>Travel Dates:</p>
+            <p><strong>Travel Dates:</strong></p>
             @foreach (DateTime date in Model.TravelDates)
             {
-                <p>@date</p>
+                <p>@date.ToString("MM/dd/yyy")</p>
             }
         }
     </div>
