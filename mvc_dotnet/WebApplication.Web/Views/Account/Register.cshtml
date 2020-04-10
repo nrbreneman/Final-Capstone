@@ -33,6 +33,7 @@
                 <input type="password" asp-for="ConfirmPassword" class="input" placeholder="confirm password" />
                 <span asp-validation-for="ConfirmPassword"></span>
             </p>
+            <p>Already a member? Login <a asp-action="Login" asp-controller="Account">here!</a></p>
         </div>
 
         <input type="submit" value="Register" class="btn btn-default" />

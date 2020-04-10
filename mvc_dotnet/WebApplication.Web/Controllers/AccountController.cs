@@ -60,6 +60,7 @@ namespace WebApplication.Web.Controllers
         [HttpGet]
         public IActionResult LogOff()
         {
+            TempData["Added"] = "Successfully logged out";
             authProvider.LogOff();
 
             return RedirectToAction("Index", "Home");
@@ -75,6 +76,8 @@ namespace WebApplication.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Register(RegisterViewModel registerViewModel)
         {
+            TempData["Added"] = "Successfully added user!";
+
             if (ModelState.IsValid)
             {
                 authProvider.Register(registerViewModel.Email, registerViewModel.Password, role: "User");
@@ -124,11 +127,12 @@ namespace WebApplication.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult RegisterTeam(Team team)
         {
+
             if (ModelState.IsValid)
             {
                 teamDAL.InsertTeam(team);
                 
-                return RedirectToAction("AddAvailableDates", "Home");
+                return RedirectToAction("AddAvailableDates", "Home", new { team.League });
             }
 
             return View(team);

@@ -5,7 +5,7 @@
 
 <div class="page-info">
     <h2>ViewTeam</h2>
-    <table class="team_table">
+    <table>
         <tr>
             <th>Team Name</th>
             <th>League</th>
@@ -15,9 +15,9 @@
             @*<th>Home Dates Available</th>
                 <th>Travel Dates Available</th>*@
         </tr>
+
         @foreach (Team team in Model)
         {
-
             <tr>
                 <td>@team.Name</td>
                 <td>@team.League</td>

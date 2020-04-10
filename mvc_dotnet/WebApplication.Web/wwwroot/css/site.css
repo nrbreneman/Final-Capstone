@@ -31,9 +31,15 @@
     list-style: none;
     text-decoration: none;
     color: black;
+    padding:10px;
 }
 
-    .admin-links:hover {
+    .admin-links a {
+        list-style: none;
+        text-decoration: none;
+    }
+
+    .admin-links a:hover {
         text-decoration: underline;
     }
 
@@ -41,16 +47,17 @@
     border: 1px solid black;
     list-style: none;
     text-decoration: none;
+    padding:10px;
 }
 
-    .user-links  a {
+    .user-links a {
         list-style: none;
         text-decoration: none;
     }
 
-    .user-links a:hover {
-        text-decoration: underline;
-    }
+        .user-links a:hover {
+            text-decoration: underline;
+        }
 
 /*a {
     list-style: none;
@@ -109,5 +116,5 @@ ul {
 footer {
     padding-left: 22%;
     bottom: 0;
-  position:relative;
+    position: relative;
 }

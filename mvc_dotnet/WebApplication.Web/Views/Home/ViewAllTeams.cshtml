@@ -4,47 +4,48 @@
     ViewData["Title"] = "ViewAllTeams";
 }
 
-<h2>View All Teams</h2>
-
-<hr />
-
-<table class="team_table">
-    <tr>
-        <th>Team Name</th>
-        <th>League</th>
-        <th>Organization</th>
-        <th>Primary Venue</th>
-        <th>Secondary Venue</th>
-        <th>Home Dates Available</th>
-        <th>Travel Dates Available</th>
-    </tr>
-    @foreach (Team team in Model)
-    {
-
+<div class="page-info">
+    <h2>View All Teams</h2>
+    <table class="team_table">
         <tr>
-            <td>@team.Name</td>
-            <td>@team.League</td>
-            <td>@team.Org</td>
-            <td>@team.PrimaryVenue</td>
-            <td>@team.SecondaryVenue</td>
-            <td>
-                @foreach (DateTime date in team.HomeDates)
-                {
-                    @date.ToString("MM/dd/yyyy")
-
-                }
-            </td>
-            <td>
-                @foreach (DateTime date in team.TravelDates)
-                {
-                    @date.ToString("MM/dd/yyyy")
-
-                }
-            </td>
+            <th>Team Name</th>
+            <th>League</th>
+            <th>Organization</th>
+            <th>Primary Venue</th>
+            <th>Secondary Venue</th>
+            <th>Home Dates Available</th>
+            <th>Travel Dates Available</th>
         </tr>
-    }
-</table>
 
-<div>
-    <a asp-action="Index">Back to Home Page</a>
+        @foreach (Team team in Model)
+        {
+            <tr>
+                <td>@team.Name</td>
+                <td>@team.League</td>
+                <td>@team.Org</td>
+                <td>@team.PrimaryVenue</td>
+                <td>@team.SecondaryVenue</td>
+                <td>
+                    @foreach (DateTime date in team.HomeDates)
+                    {
+                        @date.ToString("MM/dd/yyyy")
+
+                    }
+                </td>
+                <td>
+                    @foreach (DateTime date in team.TravelDates)
+                    {
+                        @date.ToString("MM/dd/yyyy")
+
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+
+    <div>
+        <a asp-controller="Home" asp-action="AdminHomePage" method="post">
+            <input type="button" value="Back To User Home Page" class="btn btn-default" />
+        </a>
+    </div>
 </div>
