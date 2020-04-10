@@ -5,8 +5,8 @@
 }
 
 <div class="page-info">
-<h2>View All Teams</h2>
-    <table class="team_table">
+    <h2>View All Teams</h2>
+    <table class="team-table">
         <tr>
             <th>Team Name</th>
             <th>League</th>
@@ -16,8 +16,9 @@
             <th>Home Dates Available</th>
             <th>Travel Dates Available</th>
         </tr>
-        @foreach (Team team in Model)
-        {
+
+            @foreach (Team team in Model)
+            {
             <tr>
                 <td>@team.Name</td>
                 <td>@team.League</td>
@@ -40,7 +41,8 @@
                 </td>
             </tr>
         }
-    </table>
+
+        </table>
 
     <div>
         <a asp-controller="Home" asp-action="AdminHomePage" method="post">

@@ -123,6 +123,22 @@ input[type=button] {
         display:block;
     }
 
+table {
+    border-collapse: collapse;
+    border: 1px solid black;
+    margin-bottom: 20px;
+}
+
+th, td {
+    border: 1px solid black;
+    padding:10px;
+}
+
+table.team-table {
+    table-layout: auto;
+    width: 100%;
+}
+
 ul {
     list-style: none;
 }
