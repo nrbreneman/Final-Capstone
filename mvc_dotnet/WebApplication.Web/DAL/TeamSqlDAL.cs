@@ -192,6 +192,7 @@ namespace WebApplication.Web.DAL
                 throw ex;
             }
         }
+
         public void AddTravelDateToDB(DateTime? TravelDate, User user)
         {
             try
@@ -205,18 +206,16 @@ namespace WebApplication.Web.DAL
                     cmd.Parameters.AddWithValue("@Home", 0);
 
                     cmd.ExecuteNonQuery();
-
                 }
-
             }
             catch (SqlException ex)
             {
                 throw ex;
             }
         }
+
         public void AddHomeDateToDB(DateTime? HomeDate, User user)
         {
-           
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -228,7 +227,6 @@ namespace WebApplication.Web.DAL
                     cmd.Parameters.AddWithValue("@Home", 1);
 
                     cmd.ExecuteNonQuery();
-
                 }
             }
             catch (SqlException ex)
@@ -236,6 +234,7 @@ namespace WebApplication.Web.DAL
                 throw ex;
             }
         }
+
         public List<DateTime?> GetHomeDates(User user)
         {
             List<DateTime?> dates = new List<DateTime?>();
@@ -253,7 +252,6 @@ namespace WebApplication.Web.DAL
                         DateTime date = Convert.ToDateTime(reader["Date"]);
 
                         dates.Add(date);
-                        
                     }
                 }
 
@@ -282,7 +280,6 @@ namespace WebApplication.Web.DAL
                         DateTime date = Convert.ToDateTime(reader["Date"]);
 
                         dates.Add(date);
-
                     }
                 }
 
