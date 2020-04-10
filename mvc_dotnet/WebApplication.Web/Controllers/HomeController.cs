@@ -373,9 +373,13 @@ namespace WebApplication.Web.Controllers
             return View(user);
         }
 
+        
         public IActionResult SeeSchedule()
         {
-            return View();
+            User user = authProvider.GetCurrentUser();
+            user.UserTeam = teamDAL.GetTeamByTeamID(user.TeamID.ToString());
+            List<Game> games = teamDAL.GetScheduleByTeam(user.UserTeam);
+            return View(games);
         }
 
         public IActionResult SeeAvailability()

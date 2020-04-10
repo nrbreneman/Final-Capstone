@@ -48,29 +48,29 @@ namespace WebApplication.Web.Controllers
             return selectListItems;
         }
 
-        [HttpGet]
-        [AuthorizationFilter("User")]
-        public IActionResult SendMessages()
-        {
-            Team model = new Team();
-            User user = authProvider.GetCurrentUser();
-            model.League = user.League.LeagueName;
-            List<Team> teamsByLeague = teamDAL.GetTeamsByLeague(model.League);
+        //[HttpGet]
+        //[AuthorizationFilter("User")]
+        //public IActionResult SendMessages()
+        //{
+        //    Team model = new Team();
+        //    User user = authProvider.GetCurrentUser();
+        //    model.League = user.League.LeagueName;
+        //    List<Team> teamsByLeague = teamDAL.GetTeamsByLeague(model.League);
 
-            foreach (Team team in teamsByLeague)
-            {
-                model.DropDownListTeam.Add(AddTeamToList(team));
-            }
+        //    foreach (Team team in teamsByLeague)
+        //    {
+        //        model.DropDownListTeam.Add(AddTeamToList(team));
+        //    }
 
-            return View(model);
-        }
+        //    return View(model);
+        //}
 
-        [HttpPost]
-        [AuthorizationFilter("User")]
-        public IActionResult SendMessages(Team team)
-        {
-            team = teamDAL.GetTeamByTeamID(team.Name);
-            return RedirectToAction("ChangeATeam", "Home", team);
-        }
+        //[HttpPost]
+        //[AuthorizationFilter("User")]
+        //public IActionResult SendMessages(Team team)
+        //{
+        //    team = teamDAL.GetTeamByTeamID(team.Name);
+        //    return RedirectToAction("ChangeATeam", "Home", team);
+        //}
     }
 }

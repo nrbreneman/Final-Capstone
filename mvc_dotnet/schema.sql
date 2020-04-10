@@ -338,4 +338,3 @@ INSERT INTO Schedule(homeTeam, awayTeam, date, venue) VALUES ('Chicago Lions' , 
 
 COMMIT TRANSACTION;
 
---("SELECT * FROM Schedule where homeTeam = @team.Name  OR awayTeam = @team.Name" conn);
