@@ -79,10 +79,10 @@ namespace WebApplication.Web.DAL
                     if (reader.Read())
                     {
                         user = MapRowToUser(reader);
-                        if (user.Role == "User")
-                        {
-                            user.TeamID = Convert.ToInt32(reader["teamID"]);
-                        }
+                        //if (user.Role == "User")
+                        //{
+                        //    user.TeamID = Convert.ToInt32(reader["teamID"]);
+                        //}
                     }
                 }
 

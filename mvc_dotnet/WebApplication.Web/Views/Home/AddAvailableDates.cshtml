@@ -33,12 +33,17 @@
             <p>
                 <input type="submit" value="Add Date(s)" class="btn btn-default" />
             </p>
-            <p>
-                <a asp-controller="Home" asp-action="UserHomePage" method="post">
-                    <input type="button" value="Back to Home Page" class="btn btn-default" />
-                </a>
-            </p>
         </form>
+        <p>
+            <a asp-controller="Account" asp-action="Login" method="get">
+                <input type="submit" value="Complete Registration" class="btn btn-success" />
+            </a>
+        </p>
+        <p>
+            <a asp-controller="Home" asp-action="Index" method="post">
+                <input type="button" value="Cancel" class="btn btn-default" />
+            </a>
+        </p>
     </div>
 
     <div class="home-dates">
