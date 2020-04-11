@@ -10,15 +10,15 @@ namespace WebApplication.Web.DAL
     {
         private readonly string connectionString;
 
-        private string GetTeamsByLeagueSQL = "SELECT * from TEAMS WHERE League = @LeagueName Order by Name; ";
-        private string GetLeagueByUserSQL = "SELECT League from TEAMS JOIN users on users.id = TEAMS.UserID WHERE users.id = @id; ";
-        private string GetAllTeamsSQL = "SELECT * from TEAMS; ";
-        private string GetTeamByUserIDSQL = "SELECT * from TEAMS WHERE UserID = @UserID; ";
-        private string GetTeamByTeamIDSQL = "SELECT * from TEAMS WHERE id = @TeamID; ";
-        private string GetDatesByTeamIDSQL = "SELECT * from TEAMS JOIN EventDates on EventDates.TeamID = TEAMS.id  WHERE TeamID = @TeamID; ";
+        private string GetTeamsByLeagueSQL = "SELECT * from Teams WHERE League = @LeagueName Order by Name; ";
+        private string GetLeagueByUserSQL = "SELECT League from Teams JOIN users on users.id = TEAMS.UserID WHERE users.id = @id; ";
+        private string GetAllTeamsSQL = "SELECT * from Teams; ";
+        private string GetTeamByUserIDSQL = "SELECT * from Teams WHERE UserID = @UserID; ";
+        private string GetTeamByTeamIDSQL = "SELECT * from Teams WHERE id = @TeamID; ";
+        private string GetDatesByTeamIDSQL = "SELECT * from Teams JOIN EventDates on EventDates.TeamID = TEAMS.id  WHERE TeamID = @TeamID; ";
         private string InsertTeamSQL = "SELECT MAX(id) as max from users";
-        private string InsertIntoTeamsSQL = "INSERT INTO TEAMS (Name, League, Org, PrimaryVenue, SecondaryVenue, UserID) VALUES (@Name, @League, @Org, @PrimaryVenue, @SecondaryVenue, @userID); ";
-        private string UpdateTeamSQL = "UPDATE TEAMS SET Name = @Name, League = @League, Org = @Org, PrimaryVenue = @Pvenue, SecondaryVenue = @SVenue WHERE UserID = @UserID; ";
+        private string InsertIntoTeamsSQL = "INSERT INTO Teams (Name, League, Org, PrimaryVenue, SecondaryVenue, UserID) VALUES (@Name, @League, @Org, @PrimaryVenue, @SecondaryVenue, @userID); ";
+        private string UpdateTeamSQL = "UPDATE Teams SET Name = @Name, League = @League, Org = @Org, PrimaryVenue = @Pvenue, SecondaryVenue = @SVenue WHERE UserID = @UserID; ";
         private string AddTravelDateToDBSQL = "INSERT into EventDates(TeamID, Date, Home) VALUES (@TeamID, @Date, @Home); ";
         private string AddHomeDateToDBSQL = "INSERT into EventDates(TeamID, Date, Home) VALUES (@TeamID, @Date, @Home); ";
         private string GetHomeDatesSQL = "Select * from EventDates WHERE TeamID = @TeamID and Home = 1; ";
