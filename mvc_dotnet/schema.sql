@@ -341,11 +341,20 @@ INSERT INTO EventDates(TeamID, Date, Home) VALUES(35, '2020-09-19', 0);
 INSERT INTO Schedule(homeTeam, awayTeam, date, venue) VALUES ('Minnesota Valkyries' , 'Detroit Rugby' , '2020-09-05', 'Chase Field');
 INSERT INTO Schedule(homeTeam, awayTeam, date, venue) VALUES ('Minnesota Valkyries' , 'Wisconsin Rugby' , '2020-09-06', 'Chase Field');
 INSERT INTO Schedule(homeTeam, awayTeam, date, venue) VALUES ('Minnesota Valkyries' , 'Chicago Lions' , '2020-09-07', 'Chase Field');
-INSERT INTO Schedule(homeTeam, awayTeam, date, venue) VALUES ('Minnesota Valkyries' , 'Detroit Rugby' , '2020-09-08', 'Chase Field');
+INSERT INTO Schedule(homeTeam, awayTeam, date, venue) VALUES ('Minnesota Valkyries' , 'Wisconsin Rugby' , '2020-09-08', 'Chase Field');
 INSERT INTO Schedule(homeTeam, awayTeam, date, venue) VALUES ('Chicago Lions' , 'Minnesota Valkyries' , '2020-09-09', 'Solider Field');
 INSERT INTO Schedule(homeTeam, awayTeam, date, venue) VALUES ('Detroit Rugby', 'Minnesota Valkyries' , '2020-09-10', 'Detroit Field');
 INSERT INTO Schedule(homeTeam, awayTeam, date, venue) VALUES ('Wisconsin Rugby' , 'Minnesota Valkyries' , '2020-09-11',  'Lambeau Field');
-INSERT INTO Schedule(homeTeam, awayTeam, date, venue) VALUES ('Chicago Lions' , 'Minnesota Valkyries' , '2020-09-12', 'Solider Field');
+INSERT INTO Schedule(homeTeam, awayTeam, date, venue) VALUES ('Chicago Rugby' , 'Minnesota Valkyries' , '2020-09-12', 'Solider Field');
+
+INSERT INTO Messages(SentByUserID, toUserID, messageBody) VALUES (1,5, 'Minnesota Valkyries would like to play you on 09/05/2020 at Chase Field')
+INSERT INTO Messages(SentByUserID, toUserID, messageBody) VALUES (1,6, 'Minnesota Valkyries would like to play you on 09/06/2020 at Chase Field')
+INSERT INTO Messages(SentByUserID, toUserID, messageBody) VALUES (1,2, 'Minnesota Valkyries would like to play you on 09/07/2020 at Chase Field')
+INSERT INTO Messages(SentByUserID, toUserID, messageBody) VALUES (1,6, 'Minnesota Valkyries would like to play you on 09/08/2020 at Chase Field')
+INSERT INTO Messages(SentByUserID, toUserID, messageBody) VALUES (2,1, 'Chicago Lions would like to play you on 09/09/2020 at Solider Field')
+INSERT INTO Messages(SentByUserID, toUserID, messageBody) VALUES (5,1, 'Detroit Rugby would like to play you on 09/10/2020 at Detroit Field')
+INSERT INTO Messages(SentByUserID, toUserID, messageBody) VALUES (6,1, 'Wisconsin Rugby would like to play you on 09/11/2020 at Lambeau Field')
+INSERT INTO Messages(SentByUserID, toUserID, messageBody) VALUES (2,1, 'Chicago Rugby would like to play you on 09/12/2020 at Solider Field')
 
 
 COMMIT TRANSACTION;
