@@ -93,7 +93,7 @@ firstName varchar(50) not null,
 lastName varchar(50) not null,
 email varchar(50),
 phone varchar(10),
-teamName varchar(50) not null,
+teamID int not null,
 
 constraint pk_rosterID primary key (rosterID)
 );
@@ -111,7 +111,7 @@ ADD CONSTRAINT fk_userTo
 FOREIGN KEY (toUserID) REFERENCES users(id);
 
 
-
+INSERT INTO Roster(firstName, lastName, email, phone, teamID) VALUES('Nathan', 'Breneman', 'nrbreneman@gmail.com', '6149052372', 21);
 INSERT INTO users(username, password ,salt ,role)  VALUES ('admin@gmail.com','Zn3FdCdRkqZbUxfSoc1o7aCEkVk=','/NWc+euho+Y=', 'Admin');
 INSERT INTO users(username, password ,salt, teamID)  VALUES ('1@1.com',	'dUQ7LIuKzjJiNYsOSvzS0B5nQQ4=',	'Yk65cf+kbPg=', 1);
 INSERT INTO users(username, password ,salt, teamID)  VALUES ('2@1.com',	'15fxnVEz27mM6c42ZOVXXx1lnPc=', 'TfAwiQDlbKY=', 2);
@@ -349,4 +349,6 @@ INSERT INTO Schedule(homeTeam, awayTeam, date, venue) VALUES ('Chicago Lions' , 
 
 
 COMMIT TRANSACTION;
+
+--Roster SQL to get all "SELECT firstName, lastName, email, phone, TEAMS.Name FROM Roster JOIN TEAMS on Roster.teamID = TEAMS.id WHERE TEAMS.id = @teamID";
 
