@@ -355,6 +355,7 @@ INSERT INTO Messages(SentByUserID, toUserID, messageBody) VALUES (2,1, 'Chicago 
 INSERT INTO Messages(SentByUserID, toUserID, messageBody) VALUES (5,1, 'Detroit Rugby would like to play you on 09/10/2020 at Detroit Field')
 INSERT INTO Messages(SentByUserID, toUserID, messageBody) VALUES (6,1, 'Wisconsin Rugby would like to play you on 09/11/2020 at Lambeau Field')
 INSERT INTO Messages(SentByUserID, toUserID, messageBody) VALUES (2,1, 'Chicago Rugby would like to play you on 09/12/2020 at Solider Field')
+INSERT INTO Messages(SentByUserID, toUserID, messageBody) VALUES (2,3, 'Chicago Rugby would like to play you on 09/12/2020 at Solider Field')
 
 
 COMMIT TRANSACTION;
