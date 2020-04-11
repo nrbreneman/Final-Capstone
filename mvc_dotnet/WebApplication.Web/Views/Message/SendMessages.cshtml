@@ -1,13 +1,48 @@
-﻿@model Team
+﻿@model User
 @{
     ViewData["Title"] = "SendMessages";
 }
 <div class="page-info">
     <h2>Send Messages</h2>
+    <form asp-controller="Message" asp-action="SendMessages" method="post">
+        <p>
+            <select asp-for="UserTeam.Name" asp-items="Model.UserTeam.DropDownListTeam" class="dropbtn"></select>
+        </p>
+        @*<div class="row">
+            <div class="col-md-4">
+                <form asp-action="Calendar2" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="HomeDate" class="control-label"></label>
+                        <input asp-for="HomeDate" class="form-control" />
+                        <span asp-validation-for="HomeDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TravelDate" class="control-label"></label>
+                        <input asp-for="TravelDate" class="form-control" />
+                        <span asp-validation-for="TravelDate" class="text-danger"></span>
+                    </div>
+                </form>
+            </div>
+        </div>*@
 
-    <p>
-        <select asp-for="Name" asp-items="Model.DropDownListTeam" class="dropbtn"></select>
-    </p>
+        <p>Select a location:</p>
+        <p><strong>@Model.UserTeam.PrimaryVenue</strong></p>
+        <p><strong>@Model.UserTeam.SecondaryVenue</strong></p>
+        <p>Select from your available Home Dates:</p>
+        @foreach (DateTime date in Model.UserTeam.HomeDates)
+        {
+            <p>@date.ToString("MM/dd/yyyy")</p>
+        }
 
-    <input type="submit" value="Select Team" class="btn btn-default" />
+        <p><strong>Away</strong></p>
+        <p>Select from your available Travel Dates:</p>
+        @foreach (DateTime date in Model.UserTeam.TravelDates)
+        {
+            <p>@date.ToString("MM/dd/yyyy")</p>
+        }
+
+
+        <input type="submit" value="Submit Message" class="btn btn-default" />
+    </form>
 </div>

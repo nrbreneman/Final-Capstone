@@ -24,7 +24,7 @@ namespace WebApplication.Web.Models
 
         public string Role { get; set; }
 
-        public int TeamID { get; set; }
+        public int? TeamID { get; set; }
         public Team UserTeam { get; set; }
 
         [DisplayName("Admin")]

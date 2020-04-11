@@ -41,5 +41,25 @@ namespace WebApplication.Web.DAL
                 throw ex;
             }
         }
+        public void AddMessageToDB(string message, int? userToID, int? userFromID)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("", conn);
+                    cmd.Parameters.AddWithValue("@messageBody", message);
+                    cmd.Parameters.AddWithValue("@UserTo", userToID);
+                    cmd.Parameters.AddWithValue("@UserFrom", userFromID);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

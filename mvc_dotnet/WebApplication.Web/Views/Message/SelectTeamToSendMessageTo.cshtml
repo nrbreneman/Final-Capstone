@@ -1,0 +1,11 @@
+﻿@model Team
+@{
+    ViewData["Title"] = "SelectTeamToSendMessageTo";
+}
+<div class="page-info">
+    <h2>SelectTeamToSendMessageTo</h2>
+    <p>
+        <select asp-for="Name" asp-items="Model.DropDownListTeam" class="dropbtn"></select>
+    </p>
+    <input type="submit" value="Submit Message" class="btn btn-default" />
+</div>

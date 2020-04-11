@@ -94,6 +94,60 @@ namespace WebApplication.Web.DAL
             }
         }
 
+        public string GetUserLeagueName(User user)
+        {
+            string league = null;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT League FROM teams JOIN users on users.teamID = teams.id WHERE UserID = @userID;", conn);
+                    cmd.Parameters.AddWithValue("@userID", user.Id);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        league = Convert.ToString(reader["League"]);
+                    }
+                }
+
+                return league;
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int GetUserFromTeamID(int? TeamID)
+        {
+            int userID = 0;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT userID from TEAMS where id = @teamID; ", conn);
+                    cmd.Parameters.AddWithValue("@teamID", TeamID);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        userID = Convert.ToInt32(reader["userID"]);
+                    }
+                }
+
+                return userID;
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+
         public void UpdateUser(User user)
         {
             try

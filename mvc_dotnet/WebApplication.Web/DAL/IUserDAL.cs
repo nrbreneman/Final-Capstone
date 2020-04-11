@@ -11,5 +11,9 @@ namespace WebApplication.Web.DAL
         void UpdateUser(User user);
 
         void DeleteUser(User user);
+
+        string GetUserLeagueName(User user);
+
+        int GetUserFromTeamID(int? TeamID);
     }
 }

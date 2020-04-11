@@ -4,14 +4,22 @@
 }
 <div class="page-info">
     <h2>See Messages</h2>
-    @foreach (WebApplication.Web.Models.Messages.MessagesModel message in Model)
+    @if (Model.Count > 0)
     {
-        <p>@message.MessageBody</p>
+        @foreach (WebApplication.Web.Models.Messages.MessagesModel message in Model)
+        {
+            <p>@message.MessageBody</p>
 
-        <input type="button" value="Accept Proposed Event" class="btn btn-default" />
+            <input type="button" value="Accept Proposed Event" class="btn btn-default" />
 
-        <input type="button" value="Decline Proposed Event" class="btn btn-default" />
+            <input type="button" value="Decline Proposed Event" class="btn btn-default" />
+        }
     }
+    else
+    {
+        <p>You have no new messages!</p>
+    }
+
     <br />
     <br />
     <a asp-controller="Home" asp-action="UserHomePage" method="post">
