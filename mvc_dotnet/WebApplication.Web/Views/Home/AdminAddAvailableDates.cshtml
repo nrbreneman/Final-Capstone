@@ -11,21 +11,20 @@
         <div class="col-md-4">
             <form asp-action="AdminAddAvailableDates" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
+
                     <label asp-for="HomeDate" class="control-label"></label>
                     <input asp-for="HomeDate" class="form-control" />
                     <span asp-validation-for="HomeDate" class="text-danger"></span>
-                </div>
-                <div class="form-group">
+
                     <label asp-for="TravelDate" class="control-label"></label>
                     <input asp-for="TravelDate" class="form-control" />
                     <span asp-validation-for="TravelDate" class="text-danger"></span>
-                </div>
+
                 <input type="hidden" asp-for="TravelDates" class="form-control" />
                 <input type="hidden" asp-for="HomeDates" class="form-control" />
-                <div class="form-group">
+
                     <input type="submit" value="Add Date(s)" class="btn btn-default" />
-                </div>
+
                 <a asp-controller="Home" asp-action="AdminHomePage" method="post">
                     <input type="button" value="No More Dates to Add" class="btn btn-default" />
                 </a>
