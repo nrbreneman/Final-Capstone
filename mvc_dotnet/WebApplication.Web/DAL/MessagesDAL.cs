@@ -10,6 +10,8 @@ namespace WebApplication.Web.DAL
     {
         private readonly string connectionString;
 
+        private string GetMessagesByUserSQL = "SELECT * from Messages WHERE toUserID = @SentTo; ";
+
         public MessagesDAL(string connectionString)
         {
             this.connectionString = connectionString;
@@ -23,7 +25,7 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("SELECT * from Messages WHERE toUserID = @SentTo", conn);
+                    SqlCommand cmd = new SqlCommand(GetMessagesByUserSQL, conn);
                     cmd.Parameters.AddWithValue("@SentTo", user.Id);
                     SqlDataReader reader = cmd.ExecuteReader();
 

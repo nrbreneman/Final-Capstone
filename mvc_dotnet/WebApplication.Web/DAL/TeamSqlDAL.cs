@@ -26,7 +26,7 @@ namespace WebApplication.Web.DAL
         private string CreateLeagueSQL = "INSERT INTO Leagues (leagueName, org, sport) VALUES (@LeagueName, @Org, @Sport); ";
         private string GetAllLeaguesSQL = "SELECT * from Leagues; ";
         private string AdminUpdateTeamSQL = "UPDATE TEAMS SET Name = @Name, League = @League, Org = @Org, PrimaryVenue = @Pvenue, SecondaryVenue = @SVenue WHERE id = @TeamID; ";
-
+        private string GetScheduleByTeamSQL = "SELECT * FROM Schedule where homeTeam = @teamName  OR awayTeam = @teamName; ";
 
 
         public TeamSqlDAL(string connectionString)
@@ -309,7 +309,7 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("SELECT * FROM Schedule where homeTeam = @teamName  OR awayTeam = @teamName;", conn);
+                    SqlCommand cmd = new SqlCommand(GetScheduleByTeamSQL, conn);
                     cmd.Parameters.AddWithValue("@teamName", team.Name);
                     SqlDataReader reader = cmd.ExecuteReader();
 
