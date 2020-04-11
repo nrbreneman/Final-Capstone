@@ -79,7 +79,7 @@ namespace WebApplication.Web.DAL
                     if (reader.Read())
                     {
                         user = MapRowToUser(reader);
-                        if(user.Role == "User")
+                        if (user.Role == "User")
                         {
                             user.TeamID = Convert.ToInt32(reader["teamID"]);
                         }
@@ -120,14 +120,22 @@ namespace WebApplication.Web.DAL
 
         private User MapRowToUser(SqlDataReader reader)
         {
-            return new User()
+            User user = new User();
+            user.Id = Convert.ToInt32(reader["id"]);
+            user.Username = Convert.ToString(reader["username"]);
+            user.Password = Convert.ToString(reader["password"]);
+            user.Salt = Convert.ToString(reader["salt"]);
+            user.Role = Convert.ToString(reader["role"]);
+            if (!DBNull.Value.Equals(reader["teamID"]))
             {
-                Id = Convert.ToInt32(reader["id"]),
-                Username = Convert.ToString(reader["username"]),
-                Password = Convert.ToString(reader["password"]),
-                Salt = Convert.ToString(reader["salt"]),
-                Role = Convert.ToString(reader["role"]),
-            };
+                user.TeamID= Convert.ToInt32(reader["teamId"]);
+            }
+            else
+            {
+                user.TeamID = 0;
+            }
+            return user;
+
         }
     }
 }
