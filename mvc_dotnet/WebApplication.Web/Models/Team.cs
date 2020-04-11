@@ -29,6 +29,14 @@ namespace WebApplication.Web.Models
         [Display(Name = "Secondary Venue")]
         public string SecondaryVenue { get; set; }
 
+        [Display(Name = "Home Date")]
+        [DataType(DataType.Date)]
+        public DateTime? HomeDate { get; set; }
+
+        [Display(Name = "Travel Date")]
+        [DataType(DataType.Date)]
+        public DateTime? TravelDate { get; set; }
+
         [Display(Name = "Available Home Dates")]
         [DataType(DataType.Date)]
         public List<DateTime> HomeDates { get; set; } = new List<DateTime>();
@@ -42,22 +50,7 @@ namespace WebApplication.Web.Models
         public IList<SelectListItem> DropDownListTeam = new List<SelectListItem>();
         public IList<SelectListItem> LeagueDropDown = new List<SelectListItem>();
 
-        [Display(Name = "Home Date")]
-        [DataType(DataType.Date)]
-        public DateTime? HomeDate { get; set; }
-
-        [Display(Name = "Travel Date")]
-        [DataType(DataType.Date)]
-        public DateTime? TravelDate { get; set; }
-
         public List<MessagesModel> Messages { get; set; }
-        //public void AddHomeDate(DateTime HomeDate)
-        //{
-        //    HomeDates.Add(HomeDate);
-        //}
-        //public void AddTravelDate(DateTime TravelDate)
-        //{
-        //    TravelDates.Add(TravelDate);
-        //}
+  
     }
 }

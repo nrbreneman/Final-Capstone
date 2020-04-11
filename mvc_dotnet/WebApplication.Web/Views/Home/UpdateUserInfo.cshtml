@@ -9,7 +9,7 @@
     <p>If you would not like to change this information, please input your current username and/or password</p>
     <form asp-controller="Home" asp-action="UpdateUserInfo" method="post">
         <p>
-            <label asp-for="Username">New Username</label>
+            <label asp-for="Username">Email</label>
         </p>
         <p>
             <input type="email" asp-for="Username" value="@Model.Username" />

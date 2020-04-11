@@ -170,16 +170,10 @@ namespace WebApplication.Web.Controllers
         public IActionResult SelectLeague()
         {
             Team model = new Team();
-            IList<Team> teams = teamDAL.GetAllTeams();
-            HashSet<string> teamHash = new HashSet<string>();
-            foreach (Team team in teams)
+            IList<League> leagues = teamDAL.GetAllLeagues();
+            foreach (League league in leagues)
             {
-                teamHash.Add(team.League);
-            }
-
-            foreach (string league in teamHash)
-            {
-                model.LeagueDropDown.Add(AddLeagueToList(league));
+                model.LeagueDropDown.Add(AddLeagueToList(league.LeagueName));
             }
             return View(model);
         }
@@ -298,18 +292,6 @@ namespace WebApplication.Web.Controllers
             return View(empModel);
         }
 
-        //public ActionResult ClickTravelButton(Team team, DateTime TravelDate)
-        //{
-        //    team.TravelDates.Add(TravelDate);
-        //    return View(TravelDate);
-        //}
-
-        //public ActionResult ClickHomeButton(Team team, DateTime HomeDate)
-        //{
-        //    team.HomeDates.Add(HomeDate);
-        //    return c
-        //}
-
         [HttpGet]
         [AuthorizationFilter("Admin")]
         public IActionResult CreateNewLeague()
@@ -363,9 +345,7 @@ namespace WebApplication.Web.Controllers
                 else
                 {
                     authProvider.Register(model.Email, model.Password, role: "User");
-                }
-
-                //userDAL.CreateUser(user);
+                }                
 
                 return RedirectToAction("AdminHomePage", "Home");
             }

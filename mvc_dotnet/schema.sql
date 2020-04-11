@@ -86,6 +86,18 @@ venue varchar(50) not null,
 constraint pk_gameID primary key (matchID)
 );
 
+CREATE TABLE Roster
+(
+rosterID int identity(1,1),
+firstName varchar(50) not null,
+lastName varchar(50) not null,
+email varchar(50),
+phone varchar(10),
+teamName varchar(50) not null,
+
+constraint pk_rosterID primary key (rosterID)
+);
+
 ALTER TABLE EventDates
 ADD CONSTRAINT fk_dates
 FOREIGN KEY (TeamID) REFERENCES TEAMS(id);
