@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebApplication.Web.Providers.Auth;
+using SportsClubOrganizer.Web.Providers.Auth;
 
-namespace WebApplication.Web.ViewComponents
+namespace SportsClubOrganizer.Web.ViewComponents
 {
     /// <summary>
     /// A view component is a reusable or "isolated" piece of our app.

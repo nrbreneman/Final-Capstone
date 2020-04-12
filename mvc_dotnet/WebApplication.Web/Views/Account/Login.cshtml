@@ -1,5 +1,4 @@
-﻿@using WebApplication.Web.Models.Account;
-@model LoginViewModel
+﻿@model SportsClubOrganizer.Web.Models.Account.LoginViewModel
 
 @{
     ViewData["Title"] = "Login";
@@ -8,7 +7,7 @@
 <div class="page-info">
     <h2>Login</h2>
 
-    <form asp-controller="account" asp-action="Login" method="post">
+    <form asp-controller="Account" asp-action="Login" method="post">
         <div class="Login">
             <p>
                 <label asp-for="Email"></label>

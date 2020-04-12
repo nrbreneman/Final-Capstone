@@ -1,4 +1,4 @@
-namespace WebApplication.Web.Models
+namespace SportsClubOrganizer.Web.Models
 {
     public class ErrorViewModel
     {

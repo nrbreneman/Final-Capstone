@@ -1,13 +1,7 @@
-
-﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebApplication.Web.Models
+namespace SportsClubOrganizer.Web.Models
 {
     public class League
     {

@@ -1,8 +1,8 @@
-﻿using System;
+﻿using SportsClubOrganizer.Web.Models;
+using System;
 using System.Data.SqlClient;
-using WebApplication.Web.Models;
 
-namespace WebApplication.Web.DAL
+namespace SportsClubOrganizer.Web.DAL
 {
     public class UserSqlDAL : IUserDAL
     {
@@ -182,14 +182,13 @@ namespace WebApplication.Web.DAL
             user.Role = Convert.ToString(reader["role"]);
             if (!DBNull.Value.Equals(reader["teamID"]))
             {
-                user.TeamID= Convert.ToInt32(reader["teamId"]);
+                user.TeamID = Convert.ToInt32(reader["teamId"]);
             }
             else
             {
                 user.TeamID = 0;
             }
             return user;
-
         }
     }
 }

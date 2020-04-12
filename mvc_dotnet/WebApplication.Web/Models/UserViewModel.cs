@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebApplication.Web.Models
+namespace SportsClubOrganizer.Web.Models
 {
     public class UserViewModel
     {

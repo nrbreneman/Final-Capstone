@@ -1,6 +1,6 @@
-﻿using WebApplication.Web.Models;
+﻿using SportsClubOrganizer.Web.Models;
 
-namespace WebApplication.Web.Providers.Auth
+namespace SportsClubOrganizer.Web.Providers.Auth
 {
     public interface IAuthProvider
     {

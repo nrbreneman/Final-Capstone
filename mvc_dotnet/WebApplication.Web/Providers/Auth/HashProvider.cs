@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 
-namespace WebApplication.Web.Providers.Auth
+namespace SportsClubOrganizer.Web.Providers.Auth
 {
     /// <summary>
     /// The hash provider provides functionality to hash a plain text password and validate

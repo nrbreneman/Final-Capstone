@@ -1,4 +1,5 @@
-﻿@model List<Team>
+﻿@using SportsClubOrganizer.Web.Models
+@model List<SportsClubOrganizer.Web.Models.Team>
 
 @{
     ViewData["Title"] = "ViewAllTeams";
@@ -43,7 +44,7 @@
             </tr>
         }
     </table>
-    <a asp-controller="Home" asp-action="AdminHomePage" method="post">
+    <a asp-controller="Admin" asp-action="AdminHomePage" method="post">
         <input type="button" value="Back to Home Page" class="btn btn-default" />
     </a>
 </div>

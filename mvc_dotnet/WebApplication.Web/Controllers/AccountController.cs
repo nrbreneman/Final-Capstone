@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebApplication.Web.DAL;
-using WebApplication.Web.Models;
-using WebApplication.Web.Models.Account;
-using WebApplication.Web.Providers.Auth;
+using SportsClubOrganizer.Web.DAL;
+using SportsClubOrganizer.Web.Models;
+using SportsClubOrganizer.Web.Models.Account;
+using SportsClubOrganizer.Web.Providers.Auth;
 
-namespace WebApplication.Web.Controllers
+namespace SportsClubOrganizer.Web.Controllers
 {
     public class AccountController : Controller
     {
@@ -43,12 +43,12 @@ namespace WebApplication.Web.Controllers
                 {
                     if (user.Role == "Admin")
                     {
-                        return RedirectToAction("AdminHomePage", "Home");
+                        return RedirectToAction("AdminHomePage", "Admin");
                         //Admin login: madi.kohr@gmail.com, Password
                     }
                     else
                     {
-                        return RedirectToAction("UserHomePage", "Home");
+                        return RedirectToAction("UserHomePage", "User");
                     }
                 }
             }
@@ -103,7 +103,7 @@ namespace WebApplication.Web.Controllers
             {
                 teamDAL.InsertTeam(team);
 
-                return RedirectToAction("AddAvailableDates", "Home", new { team.League });
+                return RedirectToAction("AddAvailableDates", "User", new { team.League });
             }
 
             return View(team);

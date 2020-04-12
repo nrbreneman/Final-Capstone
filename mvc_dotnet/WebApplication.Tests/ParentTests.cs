@@ -1,18 +1,15 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Transactions;
 using System.Data.SqlClient;
+using System.Transactions;
 
 namespace WebApplication.Tests
 {
-    class ParentTests
+    internal class ParentTests
     {
         private TransactionScope trans;
 
         protected string connectionString = "Data Source=.\\sqlexpress;Initial Catalog=DemoDB;Integrated Security=True";
-
 
         [TestInitialize]
         public void Setup()

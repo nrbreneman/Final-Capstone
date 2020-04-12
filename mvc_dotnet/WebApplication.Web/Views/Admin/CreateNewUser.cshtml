@@ -1,4 +1,4 @@
-﻿@model WebApplication.Web.Models.User
+﻿@model SportsClubOrganizer.Web.Models.User
 
 @{
     ViewData["Title"] = "CreateNewUser";
@@ -6,7 +6,7 @@
 <div class="page-info">
     <h2>Create New User</h2>
 
-    <form asp-controller="Home" asp-action="CreateNewUser" method="post">
+    <form asp-controller="Admin" asp-action="CreateNewUser" method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
         <p>
@@ -42,12 +42,10 @@
 
         <input type="submit" value="Create" class="btn btn-default" />
 
-        <a asp-controller="Home" asp-action="AdminHomePage" method="post">
+        <a asp-controller="Admin" asp-action="AdminHomePage" method="post">
             <input type="button" value="Back to Home Page" class="btn btn-default" />
         </a>
-
     </form>
-
 </div>
 
 <script>

@@ -1,7 +1,4 @@
-using System;
-using System.ComponentModel.DataAnnotations;
-
-namespace WebApplication.Web.Models.Messages
+namespace SportsClubOrganizer.Web.Models.Messages
 {
     public class MessagesModel
     {

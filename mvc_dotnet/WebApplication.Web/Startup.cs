@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SportsClubOrganizer.Web.DAL;
+using SportsClubOrganizer.Web.Providers.Auth;
 using System;
-using WebApplication.Web.DAL;
-using WebApplication.Web.Providers.Auth;
 
-namespace WebApplication.Web
+namespace SportsClubOrganizer.Web
 {
     public class Startup
     {
@@ -18,7 +18,7 @@ namespace WebApplication.Web
         }
 
         public IConfiguration Configuration { get; }
-        
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
@@ -33,9 +33,9 @@ namespace WebApplication.Web
                 options.IdleTimeout = TimeSpan.FromMinutes(20);
                 options.Cookie.HttpOnly = true;
             });
-            
+
             string connectionString = Configuration.GetConnectionString("Database");
-            
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IAuthProvider, SessionAuthProvider>();
             services.AddTransient<IUserDAL>(m => new UserSqlDAL(connectionString));
@@ -44,7 +44,7 @@ namespace WebApplication.Web
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
-        
+
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())

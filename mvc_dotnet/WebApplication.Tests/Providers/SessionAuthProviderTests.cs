@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using SportsClubOrganizer.Web.DAL;
+using SportsClubOrganizer.Web.Models;
+using SportsClubOrganizer.Web.Providers.Auth;
 using System.Text;
-using WebApplication.Web.DAL;
-using WebApplication.Web.Models;
-using WebApplication.Web.Providers.Auth;
 
 namespace WebApplication.Tests.Providers
 {

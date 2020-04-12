@@ -1,11 +1,11 @@
-﻿@model League
+﻿@model SportsClubOrganizer.Web.Models.League
 @{
     ViewData["Title"] = "CreateNewLeague";
 }
 
 <div class="page-info">
     <h2>Create New League</h2>
-    <form asp-controller="Home" asp-action="CreateNewLeague" method="post">
+    <form asp-controller="Admin" asp-action="CreateNewLeague" method="post">
         <p>
             <label asp-for="LeagueName"></label>
         </p>
@@ -30,7 +30,7 @@
 
         <input type="submit" value="Create League" class="btn btn-default" />
 
-        <a asp-controller="Home" asp-action="AdminHomePage" method="post">
+        <a asp-controller="Admin" asp-action="AdminHomePage" method="post">
             <input type="button" value="Back To Home Page" class="btn btn-default" />
         </a>
     </form>

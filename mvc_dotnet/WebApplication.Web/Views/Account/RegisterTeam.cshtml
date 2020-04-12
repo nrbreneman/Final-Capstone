@@ -1,4 +1,4 @@
-﻿@model Team
+﻿@model SportsClubOrganizer.Web.Models.Team
 @{
     ViewData["Title"] = "RegisterTeam";
 }
@@ -6,7 +6,7 @@
 <div class="page-info">
     <h2>Register Your Team</h2>
 
-    <form asp-controller="account" asp-action="RegisterTeam" method="post">
+    <form asp-controller="Account" asp-action="RegisterTeam" method="post">
         <p>
             <label asp-for="Name"></label>
         </p>
@@ -42,12 +42,11 @@
             <input type="text" asp-for="SecondaryVenue" />
             <span asp-validation-for="SecondaryVenue"></span>
         </p>
-   
+
         <input type="submit" value="Continue" class="btn btn-default" />
     </form>
 
     <a asp-controller="Home" asp-action="Index" method="post">
         <input type="button" value="Cancel" class="btn btn-default" />
     </a>
-   
 </div>

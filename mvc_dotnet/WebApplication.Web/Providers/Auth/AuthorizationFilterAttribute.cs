@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
-namespace WebApplication.Web.Providers.Auth
+namespace SportsClubOrganizer.Web.Providers.Auth
 {
     /// <summary>
     /// The authorization filter is used to indicate whether a controller action needs

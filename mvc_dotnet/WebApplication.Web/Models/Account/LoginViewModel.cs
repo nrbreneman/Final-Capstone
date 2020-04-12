@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebApplication.Web.Models.Account
+namespace SportsClubOrganizer.Web.Models.Account
 {
     public class LoginViewModel
     {

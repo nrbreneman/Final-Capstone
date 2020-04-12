@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using SportsClubOrganizer.Web.DAL;
+using SportsClubOrganizer.Web.Models;
+using SportsClubOrganizer.Web.Models.Messages;
+using SportsClubOrganizer.Web.Providers.Auth;
 using System.Collections.Generic;
-using WebApplication.Web.DAL;
-using WebApplication.Web.DAL.Models;
-using WebApplication.Web.Models;
-using WebApplication.Web.Models.Messages;
-using WebApplication.Web.Providers.Auth;
 
-namespace WebApplication.Web.Controllers
+namespace SportsClubOrganizer.Web.Controllers
 {
     public class MessageController : Controller
     {
@@ -41,14 +40,6 @@ namespace WebApplication.Web.Controllers
             return View(messages);
         }
 
-        private SelectListItem AddTeamToList(Team Team)
-
-        {
-            SelectListItem selectListItems = new SelectListItem();
-            selectListItems = new SelectListItem { Text = Team.Name, Value = Team.TeamID.ToString() };
-            return selectListItems;
-        }
-
         [HttpGet]
         [AuthorizationFilter("User")]
         public IActionResult SelectTeamToSendMessageTo()
@@ -70,7 +61,6 @@ namespace WebApplication.Web.Controllers
         [AuthorizationFilter("User")]
         public IActionResult SelectTeamToSendMessageTo(Team team)
         {
-
             return RedirectToAction("SelectHomeOrAwayVenue", "Message", team);
         }
 
@@ -120,7 +110,39 @@ namespace WebApplication.Web.Controllers
             User userFrom = authProvider.GetCurrentUser();
             int userToTeamID = userDAL.GetUserFromTeamID(userTo.TeamID);
             messageDAL.AddMessageToDB(message, userTo.TeamID, userFrom.TeamID);
-            return RedirectToAction("UserHomePage", "Home");
+            return RedirectToAction("UserHomePage", "User");
+        }
+
+        public IActionResult SeeAvailability()
+        {
+            return View();
+        }
+
+        [AuthorizationFilter("Admin")]
+        public IActionResult FinalizeEvent()
+        {
+            return View();
+        }
+
+        [AuthorizationFilter("Admin")]
+        public IActionResult ApproveUser()
+        {
+            return View();
+        }
+
+        private SelectListItem AddTeamToList(Team Team)
+
+        {
+            SelectListItem selectListItems = new SelectListItem();
+            selectListItems = new SelectListItem { Text = Team.Name, Value = Team.TeamID.ToString() };
+            return selectListItems;
+        }
+
+        private SelectListItem AddLeagueToList(string leagueName)
+        {
+            SelectListItem selectListItems = new SelectListItem();
+            selectListItems = new SelectListItem { Text = leagueName, Value = leagueName };
+            return selectListItems;
         }
     }
 }

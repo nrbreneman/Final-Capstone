@@ -1,10 +1,10 @@
-﻿using System;
+﻿using SportsClubOrganizer.Web.Models;
+using SportsClubOrganizer.Web.Models.Messages;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using WebApplication.Web.Models;
-using WebApplication.Web.Models.Messages;
 
-namespace WebApplication.Web.DAL
+namespace SportsClubOrganizer.Web.DAL
 {
     public class MessagesDAL
     {
@@ -43,6 +43,7 @@ namespace WebApplication.Web.DAL
                 throw ex;
             }
         }
+
         public void AddMessageToDB(string message, int? userToID, int? userFromID)
         {
             try

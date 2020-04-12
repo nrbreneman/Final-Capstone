@@ -2,11 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using WebApplication.Web.Models;
 
-namespace WebApplication.Web.DAL.Models
+namespace SportsClubOrganizer.Web.Models.Calendar
 {
-    public class EmpModel
+    public class Calendar
     {
         [Display(Name = "Home Date")]
         [DataType(DataType.Date)]

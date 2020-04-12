@@ -1,6 +1,6 @@
-﻿using WebApplication.Web.Models;
+﻿using SportsClubOrganizer.Web.Models;
 
-namespace WebApplication.Web.DAL
+namespace SportsClubOrganizer.Web.DAL
 {
     public interface IUserDAL
     {

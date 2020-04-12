@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using SportsClubOrganizer.Web.Models.Messages;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using WebApplication.Web.Models.Messages;
 
-namespace WebApplication.Web.Models
+namespace SportsClubOrganizer.Web.Models
 {
     public class Team
     {
@@ -51,6 +51,5 @@ namespace WebApplication.Web.Models
         public IList<SelectListItem> LeagueDropDown = new List<SelectListItem>();
 
         public List<MessagesModel> Messages { get; set; }
-  
     }
 }

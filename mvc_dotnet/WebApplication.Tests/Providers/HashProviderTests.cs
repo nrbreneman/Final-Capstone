@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WebApplication.Web.Providers.Auth;
+using SportsClubOrganizer.Web.Providers.Auth;
 
 namespace WebApplication.Providers.Tests
 {

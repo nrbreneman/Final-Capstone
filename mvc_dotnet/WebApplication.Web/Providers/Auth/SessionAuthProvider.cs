@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
+using SportsClubOrganizer.Web.DAL;
+using SportsClubOrganizer.Web.Models;
 using System;
 using System.Linq;
-using WebApplication.Web.DAL;
-using WebApplication.Web.Models;
 
-namespace WebApplication.Web.Providers.Auth
+namespace SportsClubOrganizer.Web.Providers.Auth
 {
     /// <summary>
     /// An implementation of the IAuthProvider that saves data within session.

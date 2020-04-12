@@ -1,15 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using SportsClubOrganizer.Web.DAL;
+using SportsClubOrganizer.Web.Models;
+using SportsClubOrganizer.Web.Providers.Auth;
 using System.Collections.Generic;
 using System.Diagnostics;
-using WebApplication.Web.DAL;
-using WebApplication.Web.DAL.Models;
-using WebApplication.Web.Models;
-using WebApplication.Web.Models.Account;
-using WebApplication.Web.Providers.Auth;
 
-namespace WebApplication.Web.Controllers
+namespace SportsClubOrganizer.Web.Controllers
 {
     public class HomeController : Controller
     {
@@ -29,12 +26,6 @@ namespace WebApplication.Web.Controllers
             return View();
         }
 
-        [AuthorizationFilter("Admin")]
-        public IActionResult AdminHomePage()
-        {
-            return View();
-        }
-
         public IActionResult Login()
         {
             return View();
@@ -45,13 +36,6 @@ namespace WebApplication.Web.Controllers
             return View();
         }
 
-        [AuthorizationFilter("Admin")]
-        public IActionResult ViewAllTeams()
-        {
-            List<Team> teams = teamDAL.GetAllTeams();
-            return View(teams);
-        }
-
         [HttpGet]
         [AuthorizationFilter("Admin", "User")]
         public IActionResult ViewTeam(string League)
@@ -60,24 +44,18 @@ namespace WebApplication.Web.Controllers
             return View(teams);
         }
 
-        [HttpGet]
-        [AuthorizationFilter("User")]
-        public IActionResult UserHomePage()
-        {
-            return View();
-        }
 
-        [HttpGet]
-        [AuthorizationFilter("Admin", "User")]
-        public IActionResult ViewMyLeague()
-        {
-            User user = authProvider.GetCurrentUser();
-            string League = teamDAL.GetLeagueByUser(user);
 
-            List<Team> teams = teamDAL.GetTeamsByLeague(League);
-            return View(teams);
-        }
-
+        //Moved to AdminController
+        //[HttpGet]--------Moved to UserController
+        //[AuthorizationFilter("Admin", "User")]
+        //public IActionResult ViewMyLeague()
+        //{
+        //    User user = authProvider.GetCurrentUser();
+        //    string League = teamDAL.GetLeagueByUser(user);
+        //    List<Team> teams = teamDAL.GetTeamsByLeague(League);
+        //    return View(teams);
+        //}
         //private Team AddTeamNames(Team model)
         //{
         //    IList<Team> teamNames = teamDAL.GetAllTeams();
@@ -87,73 +65,24 @@ namespace WebApplication.Web.Controllers
         //    }
         //    return model;
         //}
-
         //private SelectListItem AddTeamToList(string teamName)
         //{
         //    SelectListItem selectListItems = new SelectListItem();
         //    selectListItems = new SelectListItem { Text = teamName, Value = teamName };
         //    return selectListItems;
         //}
-
-        private SelectListItem AddTeamToList(Team Team)
-
-        {
-            SelectListItem selectListItems = new SelectListItem();
-            selectListItems = new SelectListItem { Text = Team.Name, Value = Team.TeamID.ToString() };
-            return selectListItems;
-        }
-
-        private SelectListItem AddLeagueToList(string leagueName)
-        {
-            SelectListItem selectListItems = new SelectListItem();
-            selectListItems = new SelectListItem { Text = leagueName, Value = leagueName };
-            return selectListItems;
-        }
-
-        [HttpGet]
-        [AuthorizationFilter("User", "Admin")]
-        public IActionResult ChangeMyTeamInfo()
-        {
-            User user = authProvider.GetCurrentUser();
-            user.UserTeam = teamDAL.GetTeamByUserID(user);
-            user.UserTeam = teamDAL.GetDatesByTeamID(user);
-            return View(user.UserTeam);
-        }
-
-        [HttpPost]
-        [AuthorizationFilter("User", "Admin")]
-        public IActionResult ChangeMyTeamInfo(Team team)
-        {
-            TempData["Added"] = "Successfully changed team info!";
-
-            User user = authProvider.GetCurrentUser();
-            team.UserID = user.Id;
-            teamDAL.UpdateTeam(team);
-            return RedirectToAction("UserHomePage", "Home");
-        }
-
-        [HttpGet]
-        [AuthorizationFilter("User")]
-        public IActionResult UpdateUserInfo()
-        {
-            User user = authProvider.GetCurrentUser();
-            user = userDAL.GetUser(user.Username);
-            return View(user);
-        }
-
-        [HttpPost]
-        [AuthorizationFilter("User")]
-        public IActionResult UpdateUserInfo(User user, string Salt, string NewPassword, string Password)
-        {
-            if (ModelState.IsValid)
-            {
-                user = authProvider.GetCurrentUser();
-                authProvider.ChangePassword(Password, NewPassword);
-                return RedirectToAction("UserHomePage", "Home");
-            }
-            return View(user);
-        }
-
+        //private SelectListItem AddTeamToList(Team Team)
+        //{
+        //    SelectListItem selectListItems = new SelectListItem();
+        //    selectListItems = new SelectListItem { Text = Team.Name, Value = Team.TeamID.ToString() };
+        //    return selectListItems;
+        //}
+        //private SelectListItem AddLeagueToList(string leagueName)
+        //{
+        //    SelectListItem selectListItems = new SelectListItem();
+        //    selectListItems = new SelectListItem { Text = leagueName, Value = leagueName };
+        //    return selectListItems;
+        //}
         //[HttpGet]
         //[AuthorizationFilter("Admin")]
         //public IActionResult ChangeATeamInfo()
@@ -165,237 +94,44 @@ namespace WebApplication.Web.Controllers
         //        model.DropDownListTeam.Add(AddTeamToList(team.Name));
         //    }
 
-        [HttpGet]
-        [AuthorizationFilter("Admin")]
-        public IActionResult SelectLeague()
-        {
-            Team model = new Team();
-            IList<League> leagues = teamDAL.GetAllLeagues();
-            foreach (League league in leagues)
-            {
-                model.LeagueDropDown.Add(AddLeagueToList(league.LeagueName));
-            }
-            return View(model);
-        }
 
-        [HttpPost]
-        [AuthorizationFilter("Admin")]
-        public IActionResult SelectLeague(Team team)
-        {
-            return RedirectToAction("ChangeATeamInfo", "Home", new { team.League });
-        }
+            
 
-        [HttpGet]
-        [AuthorizationFilter("Admin")]
-        public IActionResult ChangeATeamInfo(string League)
-        {
-            Team model = new Team();
-            List<Team> teamsByLeague = teamDAL.GetTeamsByLeague(League);
-
-            foreach (Team team in teamsByLeague)
-            {
-                model.DropDownListTeam.Add(AddTeamToList(team));
-            }
-
-            return View(model);
-        }
-
-        [HttpPost]
-        [AuthorizationFilter("Admin")]
-        public IActionResult ChangeATeamInfo(Team team)
-        {
-            team = teamDAL.GetTeamByTeamID(team.Name);
-            return RedirectToAction("ChangeATeam", "Home", team);
-        }
+        //Moved To UserController
+        //public IActionResult SeeSchedule()
+        //{
+        //    User user = authProvider.GetCurrentUser();
+        //    user.UserTeam = teamDAL.GetTeamByTeamID(user.TeamID.ToString());
+        //    List<Game> games = teamDAL.GetScheduleByTeam(user.UserTeam);
+        //    return View(games);
+        //}
 
 
-        [HttpGet]
-        [AuthorizationFilter("Admin")]
-        public IActionResult ChangeATeam(Team team)
-        {
-            //team = teamDAL.GetTeamByTeamID(team.TeamID.ToString());
-            return View(team);
-        }
+            
 
-        [HttpPost]
-        [AuthorizationFilter("Admin")]
-        public IActionResult ChangeATeam(Team team, int teamID)
-        {
-            TempData["Added"] = "Successfully updated " + team.Name + "'s team info";
-            teamID = team.TeamID;
-            teamDAL.AdminUpdateTeam(team);
-            return RedirectToAction("AdminAddAvailableDates", "Home", teamID);
-        }
+        //NOT USED
+        //public IActionResult About()
+        //{
+        //    ViewData["Message"] = "Your application description page.";
+        //    return View();
+        //}
+        //public IActionResult Contact()
+        //{
+        //    ViewData["Message"] = "Your contact page.";
+        //    return View();
+        //}
+        //public IActionResult Privacy()
+        //{
+        //    return View();
+        //}
+        //NOT USED
+        //public ActionResult Calendar()
+        //{
+        //    //https://localhost:44392/home/calendar
+        //    //https://localhost:44392/home/calendar2
+        //    return View();
+        //}
 
-        public ActionResult Calendar()
-        {
-            //https://localhost:44392/home/calendar
-            //https://localhost:44392/home/calendar2
-            return View();
-        }
-
-        [HttpGet]
-        [AuthorizationFilter("User")]
-        public ActionResult AddAvailableDates()
-        {
-            EmpModel empModel = new EmpModel();
-            User user = authProvider.GetCurrentUser();
-            empModel.HomeDates = new List<System.DateTime?>();
-            empModel.TravelDates = new List<System.DateTime?>();
-            empModel.HomeDates = teamDAL.GetHomeDates(user);
-            empModel.TravelDates = teamDAL.GetTravelDates(user);
-            return View(empModel);
-        }
-
-        [HttpPost]
-        [AuthorizationFilter("User")]
-        public ActionResult AddAvailableDates(EmpModel empModel)
-        {
-            TempData["Added"] = "Successfully updated available dates";
-            User user = authProvider.GetCurrentUser();
-            teamDAL.AddHomeDateToDB(empModel.HomeDate, user);
-            teamDAL.AddTravelDateToDB(empModel.TravelDate, user);
-
-            //empModel.HomeDates = teamDAL.GetHomeDates(user);
-            //empModel.TravelDates = teamDAL.GetTravelDates(user);
-            return View(empModel);
-        }
-
-
-        [HttpGet]
-        [AuthorizationFilter("Admin")]
-        public ActionResult AdminAddAvailableDates(int TeamID)
-        {
-            EmpModel empModel = new EmpModel();
-            empModel.TeamID = TeamID;
-            User user = new User();
-            user.TeamID = empModel.TeamID;
-            empModel.HomeDates = new List<System.DateTime?>();
-            empModel.TravelDates = new List<System.DateTime?>();
-            empModel.HomeDates = teamDAL.GetHomeDates(user);
-            empModel.TravelDates = teamDAL.GetTravelDates(user);
-            return View(empModel);
-        }
-
-        [HttpPost]
-        [AuthorizationFilter("Admin")]
-        public ActionResult AdminAddAvailableDates(EmpModel empModel)
-        {
-            TempData["Added"] = "Successfully updated available dates";
-            User user = new User();
-            user.TeamID = empModel.TeamID;
-            teamDAL.AddHomeDateToDB(empModel.HomeDate, user);
-            teamDAL.AddTravelDateToDB(empModel.TravelDate, user);
-
-            empModel.HomeDates = teamDAL.GetHomeDates(user);
-            empModel.TravelDates = teamDAL.GetTravelDates(user);
-            return View(empModel);
-        }
-
-        [HttpGet]
-        [AuthorizationFilter("Admin")]
-        public IActionResult CreateNewLeague()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [AuthorizationFilter("Admin")]
-        public IActionResult CreateNewLeague(League league)
-        {
-            TempData["Added"] = "Successfully created new league!";
-            if (ModelState.IsValid)
-            {
-                teamDAL.CreateLeague(league);
-
-                return RedirectToAction("AdminHomePage", "Home");
-            }
-
-            return View(league);
-        }
-
-        [HttpGet]
-        [AuthorizationFilter("Admin")]
-        public IActionResult CreateNewUser()
-        {
-            User user = new User();
-            foreach (League league in teamDAL.GetAllLeagues())
-            {
-                user.LeagueDropDown.Add(AddLeagueToList(league.LeagueName));
-            }
-            return View(user);
-        }
-
-        [HttpPost]
-        [AuthorizationFilter("Admin")]
-        public IActionResult CreateNewUser(User user)
-        {
-            TempData["Added"] = "Successfully created new user!";
-            RegisterViewModel model = new RegisterViewModel();
-            model.Email = user.Username;
-            model.ConfirmPassword = user.Password;
-            model.Password = user.Password;
-
-            if (ModelState.IsValid)
-            {
-                if (user.IsAdmin)
-                {
-                    authProvider.Register(model.Email, model.Password, role: "Admin");
-                }
-                else
-                {
-                    authProvider.Register(model.Email, model.Password, role: "User");
-                }                
-
-                return RedirectToAction("AdminHomePage", "Home");
-            }
-
-            return View(user);
-        }
-
-        
-        public IActionResult SeeSchedule()
-        {
-            User user = authProvider.GetCurrentUser();
-            user.UserTeam = teamDAL.GetTeamByTeamID(user.TeamID.ToString());
-            List<Game> games = teamDAL.GetScheduleByTeam(user.UserTeam);
-            return View(games);
-        }
-
-        public IActionResult SeeAvailability()
-        {
-            return View();
-        }
-
-        public IActionResult FinalizeEvent()
-        {
-            return View();
-        }
-
-        public IActionResult ApproveUser()
-        {
-            return View();
-        }
-        
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

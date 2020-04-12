@@ -1,13 +1,12 @@
-﻿@model Team
+﻿@model SportsClubOrganizer.Web.Models.Team
 @{
-    ViewData["Title"] = "ChangeATeam";
+    ViewData["Title"] = "ChangeTeamInfo";
 }
 
 <div class="page-info">
-    <h2>Change Team Information</h2>
-    <form asp-controller="Home" asp-action="ChangeATeam" method="post">
-        <input type="hidden" asp-for="TeamID" value="@Model.TeamID" />
+    <h2>Change Team Info</h2>
 
+    <form asp-controller="User" asp-action="ChangeMyTeamInfo" method="post">
         <p>
             <label asp-for="Name"></label>
         </p>
@@ -46,31 +45,23 @@
 
         @foreach (DateTime date in @Model.HomeDates)
         {
-            <p>
-                <label asp-for="@date">Home Dates</label>
-            </p>
-            <p>
-                <input type="text" asp-for="@date" value="@date.ToString("MM/dd/yyy")" />
-            </p>
+            <label asp-for="@date">Home Dates</label>
+            <input type="text" asp-for="@date" value="@date.ToString("MM/dd/yyy")" />
             @*<span asp-validation-for="HomeDates"></span>*@
         }
 
         @foreach (DateTime date in @Model.TravelDates)
         {
-            <p>
-                <label asp-for="@date">Travel Dates</label>
-            </p>
-            <p>
-                <input type="text" asp-for="@date" value="@date.ToString("MM/dd/yyy")" />
-            </p>
+
+            <label asp-for="@date">Travel Dates</label>
+            <input type="text" asp-for="@date" value="@date.ToString("MM/dd/yyy")" />
             @*<span asp-validation-for="TravelDates"></span>*@
         }
 
-        <input type="submit" value="Change Team" class="btn btn-default" />
+        <input type="submit" value="Change Team Info" class="btn btn-default" />
 
-        <a asp-controller="Home" asp-action="AdminHomePage" method="post">
-
-            <input type="button" value="Back To Home Page" class="btn btn-default" />
+        <a asp-controller="User" asp-action="UserHomePage" method="post">
+            <input type="button" value="Back to Home Page" class="btn btn-default" />
         </a>
     </form>
 </div>

@@ -1,10 +1,9 @@
-﻿using System;
+﻿using SportsClubOrganizer.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Globalization;
-using WebApplication.Web.Models;
 
-namespace WebApplication.Web.DAL
+namespace SportsClubOrganizer.Web.DAL
 {
     public class TeamSqlDAL
     {
@@ -27,7 +26,6 @@ namespace WebApplication.Web.DAL
         private string GetAllLeaguesSQL = "SELECT * from Leagues; ";
         private string AdminUpdateTeamSQL = "UPDATE TEAMS SET Name = @Name, League = @League, Org = @Org, PrimaryVenue = @Pvenue, SecondaryVenue = @SVenue WHERE id = @TeamID; ";
         private string GetScheduleByTeamSQL = "SELECT * FROM Schedule where homeTeam = @teamName  OR awayTeam = @teamName; ";
-
 
         public TeamSqlDAL(string connectionString)
         {
@@ -301,6 +299,7 @@ namespace WebApplication.Web.DAL
                 throw ex;
             }
         }
+
         public List<Game> GetScheduleByTeam(Team team)
         {
             List<Game> games = new List<Game>();
