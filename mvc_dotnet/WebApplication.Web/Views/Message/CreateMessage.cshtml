@@ -12,6 +12,7 @@
             <p>@date.ToString("MM/dd/yyyy")</p>
         }
         <p>Dates That @Model.Name can travel</p>
+
         @foreach (DateTime date in Model.TravelDates)
         {
             <p>@date.ToString("MM/dd/yyyy")</p>
@@ -27,3 +28,4 @@
         <input type="submit" value="Send Message" class="btn btn-default" />
     </form>
 </div>
+

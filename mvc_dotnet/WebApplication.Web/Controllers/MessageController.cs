@@ -57,7 +57,7 @@ namespace SportsClubOrganizer.Web.Controllers
             {
                 user.UserTeam.DropDownListTeam.Add(AddTeamToList(team));
             }
-            
+
             return View(user.UserTeam);
         }
 
@@ -65,7 +65,7 @@ namespace SportsClubOrganizer.Web.Controllers
         [AuthorizationFilter("User")]
         public IActionResult SelectTeamToSendMessageTo(Team team)
         {
-            return RedirectToAction("CreateMessage", "Message",  new { team.Name });
+            return RedirectToAction("CreateMessage", "Message", new { team.Name });
         }
 
         [HttpGet]
@@ -91,6 +91,35 @@ namespace SportsClubOrganizer.Web.Controllers
             messageDAL.AddMessageToDB(message);
             return RedirectToAction("UserHomePage", "User");
         }
+
+//        [HttpGet]
+//        [AuthorizationFilter("User")]
+//        public IActionResult SelectHomeOrAwayVenue(string Name)
+//        {
+//            User user = authProvider.GetCurrentUser();
+//            user.UserTeam = teamDAL.GetTeamByTeamID(user.TeamID.ToString());
+//            Team OpponentTeam = teamDAL.GetTeamByTeamID(Name);
+//            Venue SelectedVenue = new Venue();
+//            SelectedVenue.Team = user.UserTeam;
+//            SelectedVenue.PrimaryVenueName = user.UserTeam.PrimaryVenue;
+//            SelectedVenue.SecondaryVenueName = user.UserTeam.SecondaryVenue;
+//            return View(SelectedVenue);
+//        }
+
+//        [HttpPost]
+//        [AuthorizationFilter("User")]
+//        public IActionResult SelectHomeOrAwayVenue(Venue SelectedVenue)
+//>>>>>>> 79bbadc5b0518e78c6f71561679ab2fcb0d90452
+//        {
+//            TempData["Added"] = "Your Message Has Been Sent!";
+//            User user = authProvider.GetCurrentUser();
+//            MessagesModel message = new MessagesModel();
+//            message.MessageBody = Message;
+//            message.SentToID = UserID;
+//            message.SentByID = user.TeamID;
+//            messageDAL.AddMessageToDB(message);
+//            return RedirectToAction("UserHomePage", "User");
+//        }
         
         [AuthorizationFilter("User")]
         public IActionResult UserAcceptEvent(int id)
