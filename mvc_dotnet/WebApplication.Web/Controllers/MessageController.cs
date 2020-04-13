@@ -28,11 +28,7 @@ namespace SportsClubOrganizer.Web.Controllers
             return View();
         }
 
-        [AuthorizationFilter("User")]
-        public IActionResult SendMessage()
-        {
-            return View();
-        }
+        
 
         [AuthorizationFilter("User")]
         public IActionResult SeeMessages()
@@ -88,17 +84,21 @@ namespace SportsClubOrganizer.Web.Controllers
         {
             TempData["Added"] = "Your Message Has Been Sent!";
             User user = authProvider.GetCurrentUser();
-            messageDAL.AddMessageToDB(Message, UserID, user.Id);
+            MessagesModel message = new MessagesModel();
+            message.MessageBody = Message;
+            message.SentToID = UserID;
+            message.SentByID = user.TeamID;
+            messageDAL.AddMessageToDB(message);
             return RedirectToAction("UserHomePage", "User");
         }
         
         [AuthorizationFilter("User")]
-        public IActionResult UserAcceptEvent(int ID)
+        public IActionResult UserAcceptEvent(int id)
         {
-            TempData["Accepted"] = "You have approved this event, now pending Admin approval";
-            MessagesModel message = messageDAL.GetMessagebyID(ID);
-            message.UserAccepted = "Accepted";
-            messageDAL.AddMessageToDB(message.MessageBody, message.SentToID, message.SentByID);
+            TempData["Final"] = "You have approved this event, now pending Admin approval";
+            MessagesModel Message = messageDAL.GetMessagebyID(id);
+            Message.UserAccepted = "Accepted";
+            messageDAL.UpdateMessage(Message);
             return RedirectToAction("SeeMessages", "Message");
         }
 
@@ -106,9 +106,10 @@ namespace SportsClubOrganizer.Web.Controllers
         [AuthorizationFilter("User")]
         public IActionResult UserDeclineEvent(int ID)
         {
-            TempData["Declined"] = "You have declined this event, the other team will be notified";
+            TempData["Final"] = "You have declined this event, the other team will be notified";
             MessagesModel message = messageDAL.GetMessagebyID(ID);
             message.UserAccepted = "Declined";
+            messageDAL.UpdateMessage(message);
             return RedirectToAction("SeeMessages", "Message");
         }
 
@@ -167,7 +168,11 @@ namespace SportsClubOrganizer.Web.Controllers
         {
             User userFrom = authProvider.GetCurrentUser();
             int userToTeamID = userDAL.GetUserFromTeamID(userTo.TeamID);
-            messageDAL.AddMessageToDB(message, userTo.TeamID, userFrom.TeamID);
+            MessagesModel Message = new MessagesModel();
+            Message.MessageBody = message;
+            Message.SentToID = userTo.TeamID;
+            Message.SentByID = userFrom.TeamID;
+            messageDAL.AddMessageToDB(Message);
             return RedirectToAction("UserHomePage", "User");
         }
 

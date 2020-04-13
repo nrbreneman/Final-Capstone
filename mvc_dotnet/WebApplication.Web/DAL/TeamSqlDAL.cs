@@ -110,7 +110,7 @@ namespace SportsClubOrganizer.Web.DAL
             }
         }
 
-        public Team GetTeamByUserID(int userID)
+        public Team GetTeamByUserID(int? userID)
         {
             Team team = new Team();
             try
