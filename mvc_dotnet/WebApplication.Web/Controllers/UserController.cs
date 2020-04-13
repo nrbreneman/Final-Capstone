@@ -43,7 +43,7 @@ namespace SportsClubOrganizer.Web.Controllers
         public IActionResult ChangeMyTeamInfo()
         {
             User user = authProvider.GetCurrentUser();
-            user.UserTeam = teamDAL.GetTeamByUserID(user);
+            user.UserTeam = teamDAL.GetTeamByUserID(user.Id);
             user.UserTeam = teamDAL.GetDatesByTeamID(user);
             return View(user.UserTeam);
         }

@@ -3,15 +3,27 @@
     ViewData["Title"] = "CreateMessage";
 }
 <div class="page-info">
-    <h2>CreateMessage</h2>
-    <p>Dates That @Model.Name can play at their home field</p>
-    @foreach (DateTime date in Model.HomeDates)
-    {
-        <p>@date.ToString("MM/dd/yyyy")</p>
-    }
+    <h2>Create Message</h2>
+    
+    <form asp-controller="Message" asp-action="CreateMessage" method="post">
+        <p>Dates That @Model.Name can play at their home field</p>
+        @foreach (DateTime date in Model.HomeDates)
+        {
+            <p>@date.ToString("MM/dd/yyyy")</p>
+        }
         <p>Dates That @Model.Name can travel</p>
-    @foreach (DateTime date in Model.TravelDates)
-    {
-    <p>@date.ToString("MM/dd/yyyy")</p>
-    }
+        @foreach (DateTime date in Model.TravelDates)
+        {
+            <p>@date.ToString("MM/dd/yyyy")</p>
+        }
+
+        @*<input type="radio" id="Away" name="HomeOrAway" value="Away">
+        <label for="Away">Play at  @(Model.Name)'s field</label><br>
+        <input type="radio" id="Home" name="HomeOrAway" value="Home">
+        <label for="Home">Play at My Home Field</label><br>*@
+        <p>Please type your message below:</p>
+        <input type="text" value="@Model.Message" name="Message" class="text-box" />
+        <input type="hidden" asp-for="@Model.UserID" name="UserID" class="form-control" />
+        <input type="submit" value="Send Message" class="btn btn-default" />
+    </form>
 </div>

@@ -110,7 +110,7 @@ namespace SportsClubOrganizer.Web.DAL
             }
         }
 
-        public Team GetTeamByUserID(User user)
+        public Team GetTeamByUserID(int userID)
         {
             Team team = new Team();
             try
@@ -119,7 +119,7 @@ namespace SportsClubOrganizer.Web.DAL
                 {
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(GetTeamByUserIDSQL, conn);
-                    cmd.Parameters.AddWithValue("@UserID", user.Id);
+                    cmd.Parameters.AddWithValue("@UserID", userID);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
@@ -151,6 +151,7 @@ namespace SportsClubOrganizer.Web.DAL
                     while (reader.Read())
                     {
                         team = (MapRowToTeam(reader));
+                        team.UserID = Convert.ToInt32(reader["UserID"]);
                     }
                 }
 

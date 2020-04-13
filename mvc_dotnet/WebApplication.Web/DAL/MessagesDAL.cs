@@ -33,6 +33,9 @@ namespace SportsClubOrganizer.Web.DAL
                     {
                         MessagesModel message = new MessagesModel();
                         message.MessageBody = Convert.ToString(reader["messageBody"]);
+                        message.SentByID = Convert.ToInt32(reader["SentByUserID"]);
+                        message.SentToID = Convert.ToInt32(reader["toUserID"]);
+                        message.ID = Convert.ToInt32(reader["id"]);
                         messages.Add(message);
                     }
                 }
@@ -58,6 +61,34 @@ namespace SportsClubOrganizer.Web.DAL
 
                     cmd.ExecuteNonQuery();
                 }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public MessagesModel GetMessagebyID(int ID)
+        {
+            MessagesModel message = new MessagesModel();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT * from messages where id = @ID", conn);
+                    cmd.Parameters.AddWithValue("@ID", ID);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        
+                        message.MessageBody = Convert.ToString(reader["messageBody"]);
+                        message.SentByID = Convert.ToInt32(reader["SentByUserID"]);
+                        message.SentToID = Convert.ToInt32(reader["toUserID"]);
+                    }
+                }
+                return message;
             }
             catch (SqlException ex)
             {

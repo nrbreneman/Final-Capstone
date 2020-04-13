@@ -28,15 +28,23 @@ namespace SportsClubOrganizer.Web.Controllers
             return View();
         }
 
+        [AuthorizationFilter("User")]
         public IActionResult SendMessage()
         {
             return View();
         }
 
+        [AuthorizationFilter("User")]
         public IActionResult SeeMessages()
         {
             User user = authProvider.GetCurrentUser();
             List<MessagesModel> messages = messageDAL.GetMessagesByUser(user);
+            Team team = new Team();
+            foreach (MessagesModel message in messages)
+            {
+                team = teamDAL.GetTeamByUserID(message.SentByID);
+                message.SentByName = team.Name;
+            }
             return View(messages);
         }
 
@@ -76,53 +84,75 @@ namespace SportsClubOrganizer.Web.Controllers
 
         [HttpPost]
         [AuthorizationFilter("User")]
-        public IActionResult CreateMessage(Team OpposingTeam)
+        public IActionResult CreateMessage(int UserID, string Message)
         {
-            return View();
-        }
-
-
-        [HttpGet]
-        [AuthorizationFilter("User")]
-        public IActionResult SelectHomeOrAwayVenue(string Name)
-        {
+            TempData["Added"] = "Your Message Has Been Sent!";
             User user = authProvider.GetCurrentUser();
-            user.UserTeam = teamDAL.GetTeamByTeamID(user.TeamID.ToString());
-            Team OpponentTeam = teamDAL.GetTeamByTeamID(Name);
-            Venue SelectedVenue = new Venue();
-            SelectedVenue.Team = user.UserTeam;
-            SelectedVenue.PrimaryVenueName = user.UserTeam.PrimaryVenue;
-            SelectedVenue.SecondaryVenueName = user.UserTeam.SecondaryVenue;
-            return View(SelectedVenue);
+            messageDAL.AddMessageToDB(Message, UserID, user.Id);
+            return RedirectToAction("UserHomePage", "User");
+        }
+        
+        [AuthorizationFilter("User")]
+        public IActionResult UserAcceptEvent(int ID)
+        {
+            TempData["Accepted"] = "You have approved this event, now pending Admin approval";
+            MessagesModel message = messageDAL.GetMessagebyID(ID);
+            message.UserAccepted = "Accepted";
+            messageDAL.AddMessageToDB(message.MessageBody, message.SentToID, message.SentByID);
+            return RedirectToAction("SeeMessages", "Message");
         }
 
         [HttpPost]
         [AuthorizationFilter("User")]
-        public IActionResult SelectHomeOrAwayVenue(Venue SelectedVenue)
+        public IActionResult UserDeclineEvent(int ID)
         {
-            User user = authProvider.GetCurrentUser();
-            user.UserTeam = teamDAL.GetTeamByTeamID(user.TeamID.ToString());
-            user.UserTeam.SelectedVenue = SelectedVenue.SelectedVenueName;
-            return RedirectToAction("SelectDate", "Message", user);
+            TempData["Declined"] = "You have declined this event, the other team will be notified";
+            MessagesModel message = messageDAL.GetMessagebyID(ID);
+            message.UserAccepted = "Declined";
+            return RedirectToAction("SeeMessages", "Message");
         }
 
-        [HttpGet]
-        [AuthorizationFilter("User")]
-        public IActionResult SelectDate(User user)
-        {
-            //user.UserTeam = teamDAL.GetTeamByTeamID(user.TeamID.ToString());
-            user.UserTeam.HomeDates = teamDAL.GetHomeDates(user.TeamID.ToString());
-            user.UserTeam.TravelDates = teamDAL.GetTravelDates(user.TeamID.ToString());
-            return View(user);
-        }
+        //[HttpGet]
+        //[AuthorizationFilter("User")]
+        //public IActionResult SelectHomeOrAwayVenue(string Name)
+        //{
+        //    User user = authProvider.GetCurrentUser();
+        //    user.UserTeam = teamDAL.GetTeamByTeamID(user.TeamID.ToString());
+        //    Team OpponentTeam = teamDAL.GetTeamByTeamID(Name);
+        //    Venue SelectedVenue = new Venue();
+        //    SelectedVenue.Team = user.UserTeam;
+        //    SelectedVenue.PrimaryVenueName = user.UserTeam.PrimaryVenue;
+        //    SelectedVenue.SecondaryVenueName = user.UserTeam.SecondaryVenue;
+        //    return View(SelectedVenue);
+        //}
 
-        [HttpPost]
-        [AuthorizationFilter("User")]
-        public IActionResult SelectDate()
-        {
-            User user = authProvider.GetCurrentUser();
-            return RedirectToAction("SendMessages", "Message", user);
-        }
+        //[HttpPost]
+        //[AuthorizationFilter("User")]
+        //public IActionResult SelectHomeOrAwayVenue(Venue SelectedVenue)
+        //{
+        //    User user = authProvider.GetCurrentUser();
+        //    user.UserTeam = teamDAL.GetTeamByTeamID(user.TeamID.ToString());
+        //    user.UserTeam.SelectedVenue = SelectedVenue.SelectedVenueName;
+        //    return RedirectToAction("SelectDate", "Message", user);
+        //}
+
+        //[HttpGet]
+        //[AuthorizationFilter("User")]
+        //public IActionResult SelectDate(User user)
+        //{
+        //    //user.UserTeam = teamDAL.GetTeamByTeamID(user.TeamID.ToString());
+        //    user.UserTeam.HomeDates = teamDAL.GetHomeDates(user.TeamID.ToString());
+        //    user.UserTeam.TravelDates = teamDAL.GetTravelDates(user.TeamID.ToString());
+        //    return View(user);
+        //}
+
+        //[HttpPost]
+        //[AuthorizationFilter("User")]
+        //public IActionResult SelectDate()
+        //{
+        //    User user = authProvider.GetCurrentUser();
+        //    return RedirectToAction("SendMessages", "Message", user);
+        //}
 
         [HttpGet]
         [AuthorizationFilter("User")]

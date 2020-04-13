@@ -9,11 +9,15 @@
     {
         @foreach (MessagesModel message in Model)
         {
-            <p>@message.MessageBody</p>
-
-            <input type="button" value="Accept Proposed Event" class="btn btn-default" />
-
-            <input type="button" value="Decline Proposed Event" class="btn btn-default" />
+            <p>@message.SentByName</p>
+            <p name="MessageBody">@message.MessageBody</p>
+            <input type="hidden" asp-for="@message.ID" name="ID" class="form-control" />
+            <a asp-controller="Message" asp-action="UserAcceptEvent" method="post">
+                <input type="button" name="Accept" value="Accept Proposed Event" class="btn btn-default" />
+            </a>
+            <a asp-controller="Message" asp-action="UserDeclineEvent" method="post">
+                <input type="button" name="Decline" value="Decline Proposed Event" class="btn btn-default" />
+            </a>
         }
     }
     else
