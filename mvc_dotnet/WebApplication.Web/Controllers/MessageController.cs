@@ -53,46 +53,74 @@ namespace SportsClubOrganizer.Web.Controllers
             {
                 user.UserTeam.DropDownListTeam.Add(AddTeamToList(team));
             }
-            Team team1 = new Team();
-            return View(team1);
+            
+            return View(user.UserTeam);
         }
 
         [HttpPost]
         [AuthorizationFilter("User")]
         public IActionResult SelectTeamToSendMessageTo(Team team)
         {
-            return RedirectToAction("SelectHomeOrAwayVenue", "Message", team);
+            return RedirectToAction("CreateMessage", "Message",  new { team.Name });
         }
 
         [HttpGet]
         [AuthorizationFilter("User")]
-        public IActionResult SelectHomeOrAwayVenue(Team team)
+        public IActionResult CreateMessage(string Name)
         {
-            User user = authProvider.GetCurrentUser();
-            return View(user);
+            Team OpposingTeam = teamDAL.GetTeamByTeamID(Name);
+            OpposingTeam.HomeDates = teamDAL.GetHomeDates(Name);
+            OpposingTeam.TravelDates = teamDAL.GetTravelDates(Name);
+            return View(OpposingTeam);
         }
 
         [HttpPost]
         [AuthorizationFilter("User")]
-        public IActionResult SelectHomeOrAwayVenue(User user)
+        public IActionResult CreateMessage(Team OpposingTeam)
         {
+            return View();
+        }
+
+
+        [HttpGet]
+        [AuthorizationFilter("User")]
+        public IActionResult SelectHomeOrAwayVenue(string Name)
+        {
+            User user = authProvider.GetCurrentUser();
+            user.UserTeam = teamDAL.GetTeamByTeamID(user.TeamID.ToString());
+            Team OpponentTeam = teamDAL.GetTeamByTeamID(Name);
+            Venue SelectedVenue = new Venue();
+            SelectedVenue.Team = user.UserTeam;
+            SelectedVenue.PrimaryVenueName = user.UserTeam.PrimaryVenue;
+            SelectedVenue.SecondaryVenueName = user.UserTeam.SecondaryVenue;
+            return View(SelectedVenue);
+        }
+
+        [HttpPost]
+        [AuthorizationFilter("User")]
+        public IActionResult SelectHomeOrAwayVenue(Venue SelectedVenue)
+        {
+            User user = authProvider.GetCurrentUser();
+            user.UserTeam = teamDAL.GetTeamByTeamID(user.TeamID.ToString());
+            user.UserTeam.SelectedVenue = SelectedVenue.SelectedVenueName;
             return RedirectToAction("SelectDate", "Message", user);
         }
 
         [HttpGet]
         [AuthorizationFilter("User")]
-        public IActionResult SelectDate()
+        public IActionResult SelectDate(User user)
         {
-            User user = authProvider.GetCurrentUser();
-            user.UserTeam.HomeDates = teamDAL.GetHomeDates(user);
-            user.UserTeam.TravelDates = teamDAL.GetTravelDates(user);
+            //user.UserTeam = teamDAL.GetTeamByTeamID(user.TeamID.ToString());
+            user.UserTeam.HomeDates = teamDAL.GetHomeDates(user.TeamID.ToString());
+            user.UserTeam.TravelDates = teamDAL.GetTravelDates(user.TeamID.ToString());
             return View(user);
         }
 
         [HttpPost]
         [AuthorizationFilter("User")]
-        public IActionResult SelectDate(User user)
+        public IActionResult SelectDate()
         {
+            User user = authProvider.GetCurrentUser();
             return RedirectToAction("SendMessages", "Message", user);
         }
 

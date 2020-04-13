@@ -1,5 +1,20 @@
-﻿@{
+﻿@model SportsClubOrganizer.Web.Models.Venue
+@{
     ViewData["Title"] = "SelectHomeOrAwayVenue";
 }
+<div class="page-info">
+    <h2>SelectHomeOrAwayVenue</h2>
+    <form asp-controller="Message" asp-action="SelectHomeOrAwayVenue" method="post">
 
-<h2>SelectHomeOrAwayVenue</h2>
+        <input type="radio" id="@Model.Team.PrimaryVenue" checked="checked" name ="SelectedVenueName" value="@Model.Team.PrimaryVenue">
+        <label for="@Model.Team.PrimaryVenue">@Model.Team.PrimaryVenue</label><br>
+
+        <input type="radio" id="@Model.Team.SecondaryVenue" name ="SelectedVenueName" value="@Model.Team.SecondaryVenue">
+        <label for="@Model.Team.SecondaryVenue">@Model.Team.SecondaryVenue</label><br>
+
+        <input type="radio" id="Away" name ="SelectedVenueName" value="Away">
+        <label for="Away">Away</label><br>
+
+        <input type="submit" value="Select Venue" name ="SelectedVenueName" class="btn btn-default" />
+    </form>
+</div>
