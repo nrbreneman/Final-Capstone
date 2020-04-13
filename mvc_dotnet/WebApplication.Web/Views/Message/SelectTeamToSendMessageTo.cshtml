@@ -4,8 +4,10 @@
 }
 <div class="page-info">
     <h2>SelectTeamToSendMessageTo</h2>
-    <p>
-        <select asp-for="Name" asp-items="Model.DropDownListTeam" class="dropbtn"></select>
-    </p>
-    <input type="submit" value="Submit Message" class="btn btn-default" />
+    <form asp-controller="Message" asp-action="SelectTeamToSendMessageTo" method="post">
+        <p>
+            <select asp-for="Name" asp-items="Model.DropDownListTeam" class="dropbtn"></select>
+        </p>
+        <input type="submit" value="Select Team" class="btn btn-default" />
+    </form>
 </div>

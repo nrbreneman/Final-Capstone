@@ -51,7 +51,7 @@ namespace SportsClubOrganizer.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("", conn);
+                    SqlCommand cmd = new SqlCommand("INSERT INTO Messages(SentByUserID, toUserID, messageBody) VALUES (@UserFrom, @UserTo, @messageBody)", conn);
                     cmd.Parameters.AddWithValue("@messageBody", message);
                     cmd.Parameters.AddWithValue("@UserTo", userToID);
                     cmd.Parameters.AddWithValue("@UserFrom", userFromID);

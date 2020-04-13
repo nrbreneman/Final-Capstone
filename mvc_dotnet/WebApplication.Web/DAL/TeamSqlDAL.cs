@@ -244,7 +244,7 @@ namespace SportsClubOrganizer.Web.DAL
             }
         }
 
-        public List<DateTime?> GetHomeDates(User user)
+        public List<DateTime?> GetHomeDates(string TeamID)
         {
             List<DateTime?> dates = new List<DateTime?>();
             try
@@ -253,7 +253,7 @@ namespace SportsClubOrganizer.Web.DAL
                 {
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(GetHomeDatesSQL, conn);
-                    cmd.Parameters.AddWithValue("@TeamID", 1);
+                    cmd.Parameters.AddWithValue("@TeamID", TeamID);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
@@ -272,7 +272,7 @@ namespace SportsClubOrganizer.Web.DAL
             }
         }
 
-        public List<DateTime?> GetTravelDates(User user)
+        public List<DateTime?> GetTravelDates(string TeamID)
         {
             List<DateTime?> dates = new List<DateTime?>();
             try
@@ -281,7 +281,7 @@ namespace SportsClubOrganizer.Web.DAL
                 {
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(GetTravelDatesSQL, conn);
-                    cmd.Parameters.AddWithValue("@TeamID", 1);
+                    cmd.Parameters.AddWithValue("@TeamID", TeamID);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())

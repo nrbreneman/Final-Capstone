@@ -1,0 +1,17 @@
+﻿@model SportsClubOrganizer.Web.Models.Team
+@{
+    ViewData["Title"] = "CreateMessage";
+}
+<div class="page-info">
+    <h2>CreateMessage</h2>
+    <p>Dates That @Model.Name can play at their home field</p>
+    @foreach (DateTime date in Model.HomeDates)
+    {
+        <p>@date.ToString("MM/dd/yyyy")</p>
+    }
+        <p>Dates That @Model.Name can travel</p>
+    @foreach (DateTime date in Model.TravelDates)
+    {
+    <p>@date.ToString("MM/dd/yyyy")</p>
+    }
+</div>
