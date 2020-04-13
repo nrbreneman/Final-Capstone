@@ -53,7 +53,7 @@ namespace SportsClubOrganizer.Web.Controllers
             {
                 user.UserTeam.DropDownListTeam.Add(AddTeamToList(team));
             }
-            
+
             return View(user.UserTeam);
         }
 
@@ -61,7 +61,7 @@ namespace SportsClubOrganizer.Web.Controllers
         [AuthorizationFilter("User")]
         public IActionResult SelectTeamToSendMessageTo(Team team)
         {
-            return RedirectToAction("CreateMessage", "Message",  new { team.Name });
+            return RedirectToAction("CreateMessage", "Message", new { team.Name });
         }
 
         [HttpGet]
@@ -80,7 +80,6 @@ namespace SportsClubOrganizer.Web.Controllers
         {
             return View();
         }
-
 
         [HttpGet]
         [AuthorizationFilter("User")]
