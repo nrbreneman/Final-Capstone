@@ -71,7 +71,7 @@
     }*/
 
 nav {
-    position: fixed;
+    position:absolute;
 }
 
 .nav-buttons {

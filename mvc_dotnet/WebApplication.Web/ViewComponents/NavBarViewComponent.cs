@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SportsClubOrganizer.Web.Models;
 using SportsClubOrganizer.Web.Providers.Auth;
 
 namespace SportsClubOrganizer.Web.ViewComponents
@@ -21,9 +22,9 @@ namespace SportsClubOrganizer.Web.ViewComponents
         /// This is the method that is invoked when the component is told to "render".
         /// </summary>
         /// <returns></returns>
-        public IViewComponentResult Invoke()
+        public IViewComponentResult Invoke(User user)
         {
-            var user = authProvider.GetCurrentUser();
+            user = authProvider.GetCurrentUser();
             return View("_NavBar", user);
         }
     }

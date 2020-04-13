@@ -5,21 +5,13 @@
 }
 <div class="page-info">
     <h2>Schedule</h2>
-    <a asp-controller="User" asp-action="SeeSchedule" methods="get">
+
         <table class="team-table">
             <tr>
-                <th>
-                    Date
-                </th>
-                <th>
-                    Home Team
-                </th>
-                <th>
-                    Away Team
-                </th>
-                <th>
-                    Location
-                </th>
+                <th>Date</th>
+                <th>Home Team</th>
+                <th>Away Team</th>
+                <th>Location</th>
             </tr>
             @foreach (Game game in Model)
             {
@@ -31,7 +23,7 @@
                 </tr>
             }
         </table>
-    </a>
+
     <a asp-controller="User" asp-action="UserHomePage" method="post">
         <input type="button" value="Back to Home Page" class="btn btn-default" />
     </a>

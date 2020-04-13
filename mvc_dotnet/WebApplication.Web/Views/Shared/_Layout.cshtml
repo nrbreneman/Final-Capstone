@@ -8,23 +8,18 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
+    @*<div class="nav-bar">
+            @Html.Partial("_NavBar")
+        </div>*@
+
     <div class="header">
         <img src="~/images/title.png" />
         <img src="~/images/whoop.jpg" />
     </div>
+
     <nav>
         <ul>
             <li><a asp-action="Index" asp-controller="Home" class="nav-buttons">Home</a></li>
-            @*@{
-            if (Model.Role == "User")
-            {
-                <li><a asp-action="UserHomePage" asp-controller="Home" class="nav-buttons">My Account</a></li>
-            }
-            else if (Model.Role == "Admin")
-            {
-                <li><a asp-action="AdminHomePage" asp-controller="Home" class="nav-buttons">My Account</a></li>
-            }
-        }*@
             <li><a asp-action="Login" asp-controller="Account" class="nav-buttons">Login</a></li>
             <li><a asp-action="Register" asp-controller="Account" class="nav-buttons">Register</a></li>
             <li><a asp-action="Logoff" asp-controller="Account" class="nav-buttons">Logout</a></li>
@@ -33,6 +28,7 @@
 
     <div class="container">
         @RenderBody()
+
         <footer>
             <p>&copy; 2020 - TN Enterprises</p>
         </footer>
