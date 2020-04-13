@@ -36,6 +36,7 @@ namespace SportsClubOrganizer.Web.DAL
                         message.SentByID = Convert.ToInt32(reader["SentByUserID"]);
                         message.SentToID = Convert.ToInt32(reader["toUserID"]);
                         message.ID = Convert.ToInt32(reader["id"]);
+                        message.UserAccepted = Convert.ToString(reader["userAccepted"]);
                         messages.Add(message);
                     }
                 }
@@ -121,6 +122,7 @@ namespace SportsClubOrganizer.Web.DAL
         public MessagesModel GetMessagebyID(int ID)
         {
             MessagesModel message = new MessagesModel();
+            message.ID = ID;
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))

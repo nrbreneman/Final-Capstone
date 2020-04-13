@@ -92,35 +92,36 @@ namespace SportsClubOrganizer.Web.Controllers
             return RedirectToAction("UserHomePage", "User");
         }
 
-//        [HttpGet]
-//        [AuthorizationFilter("User")]
-//        public IActionResult SelectHomeOrAwayVenue(string Name)
-//        {
-//            User user = authProvider.GetCurrentUser();
-//            user.UserTeam = teamDAL.GetTeamByTeamID(user.TeamID.ToString());
-//            Team OpponentTeam = teamDAL.GetTeamByTeamID(Name);
-//            Venue SelectedVenue = new Venue();
-//            SelectedVenue.Team = user.UserTeam;
-//            SelectedVenue.PrimaryVenueName = user.UserTeam.PrimaryVenue;
-//            SelectedVenue.SecondaryVenueName = user.UserTeam.SecondaryVenue;
-//            return View(SelectedVenue);
-//        }
+        //        [HttpGet]
+        //        [AuthorizationFilter("User")]
+        //        public IActionResult SelectHomeOrAwayVenue(string Name)
+        //        {
+        //            User user = authProvider.GetCurrentUser();
+        //            user.UserTeam = teamDAL.GetTeamByTeamID(user.TeamID.ToString());
+        //            Team OpponentTeam = teamDAL.GetTeamByTeamID(Name);
+        //            Venue SelectedVenue = new Venue();
+        //            SelectedVenue.Team = user.UserTeam;
+        //            SelectedVenue.PrimaryVenueName = user.UserTeam.PrimaryVenue;
+        //            SelectedVenue.SecondaryVenueName = user.UserTeam.SecondaryVenue;
+        //            return View(SelectedVenue);
+        //        }
 
-//        [HttpPost]
-//        [AuthorizationFilter("User")]
-//        public IActionResult SelectHomeOrAwayVenue(Venue SelectedVenue)
-//>>>>>>> 79bbadc5b0518e78c6f71561679ab2fcb0d90452
-//        {
-//            TempData["Added"] = "Your Message Has Been Sent!";
-//            User user = authProvider.GetCurrentUser();
-//            MessagesModel message = new MessagesModel();
-//            message.MessageBody = Message;
-//            message.SentToID = UserID;
-//            message.SentByID = user.TeamID;
-//            messageDAL.AddMessageToDB(message);
-//            return RedirectToAction("UserHomePage", "User");
-//        }
-        
+        //        [HttpPost]
+        //        [AuthorizationFilter("User")]
+        //        public IActionResult SelectHomeOrAwayVenue(Venue SelectedVenue)
+        //>>>>>>> 79bbadc5b0518e78c6f71561679ab2fcb0d90452
+        //        {
+        //            TempData["Added"] = "Your Message Has Been Sent!";
+        //            User user = authProvider.GetCurrentUser();
+        //            MessagesModel message = new MessagesModel();
+        //            message.MessageBody = Message;
+        //            message.SentToID = UserID;
+        //            message.SentByID = user.TeamID;
+        //            messageDAL.AddMessageToDB(message);
+        //            return RedirectToAction("UserHomePage", "User");
+        //        }
+
+        [HttpPost]
         [AuthorizationFilter("User")]
         public IActionResult UserAcceptEvent(int id)
         {
@@ -133,12 +134,12 @@ namespace SportsClubOrganizer.Web.Controllers
 
         [HttpPost]
         [AuthorizationFilter("User")]
-        public IActionResult UserDeclineEvent(int ID)
+        public IActionResult UserDeclineEvent(int id)
         {
             TempData["Final"] = "You have declined this event, the other team will be notified";
-            MessagesModel message = messageDAL.GetMessagebyID(ID);
-            message.UserAccepted = "Declined";
-            messageDAL.UpdateMessage(message);
+            MessagesModel Message = messageDAL.GetMessagebyID(id);
+            Message.UserAccepted = "Declined";
+            messageDAL.UpdateMessage(Message);
             return RedirectToAction("SeeMessages", "Message");
         }
 
