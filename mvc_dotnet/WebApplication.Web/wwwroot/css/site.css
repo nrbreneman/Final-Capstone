@@ -48,7 +48,7 @@
 
         .admin-links a:hover {
             text-decoration: underline;
-            color: gray;
+            color: dimgray;
         }
 
 .user-links {
@@ -66,7 +66,7 @@
 
         .user-links a:hover {
             text-decoration: underline;
-            color: gray;
+            color: dimgray;
         }
 
 .sched-links {
@@ -81,10 +81,27 @@
         text-decoration: none;
     }
 
-        .sched-links:hover {
-            text-decoration: underline;
-            color: gray;
-        }
+    .sched-links:hover {
+        text-decoration: underline;
+        color: dimgray;
+    }
+
+.extra-links {
+    list-style: none;
+    text-decoration: none;
+    color: #233772;
+    padding: 10px;
+}
+
+    .extra-links a {
+        list-style: none;
+        text-decoration: none;
+    }
+
+    .extra-links:hover {
+        text-decoration: underline;
+        color: dimgray;
+    }
 
 nav {
     overflow: hidden;
@@ -212,5 +229,5 @@ ul {
 footer {
     bottom: 0;
     position: relative;
-    color: gray;
+    color: dimgray;
 }
