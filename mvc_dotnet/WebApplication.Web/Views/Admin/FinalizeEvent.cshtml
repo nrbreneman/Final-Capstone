@@ -12,14 +12,14 @@
         <p name="MessageBody">@message.MessageBody</p>
         <input type="hidden" asp-for="@message.ID" name="ID" class="form-control" />
 
-        <a asp-controller="Admin" asp-action="AdminAcceptEvent" method="post">
+        <form asp-controller="Admin" asp-action="AdminAcceptEvent" method="post">
             <input type="submit" name="Accept" value="Finalize Proposed Event" class="btn btn-default" />
             <input type="hidden" asp-for="@message.ID" name="id" class="form-control" />
-        </a>
-        <a asp-controller="Admin" asp-action="AdminDeclineEvent" method="post">
+        </form>
+        <form asp-controller="Admin" asp-action="AdminDeclineEvent" method="post">
             <input type="submit" name="Decline" value="Decline Proposed Event" class="btn btn-default" />
             <input type="hidden" asp-for="@message.ID" name="id" class="form-control" />
-        </a>
+        </form>
     }
     <a asp-controller="Admin" asp-action="AdminHomePage" method="post">
         <input type="button" value="Back to Home Page" class="btn btn-default" />
