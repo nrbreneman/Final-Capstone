@@ -38,7 +38,6 @@
     list-style: none;
     text-decoration: none;
     color: #233772;
-    padding: 10px;
 }
 
     .admin-links a {
@@ -48,7 +47,7 @@
 
         .admin-links a:hover {
             text-decoration: underline;
-            color: gray;
+            color: dimgray;
         }
 
 .user-links {
@@ -66,7 +65,7 @@
 
         .user-links a:hover {
             text-decoration: underline;
-            color: gray;
+            color: dimgray;
         }
 
 .sched-links {
@@ -81,10 +80,27 @@
         text-decoration: none;
     }
 
-        .sched-links:hover {
-            text-decoration: underline;
-            color: gray;
-        }
+    .sched-links:hover {
+        text-decoration: underline;
+        color: dimgray;
+    }
+
+.extra-links {
+    list-style: none;
+    text-decoration: none;
+    color: #233772;
+    padding: 10px;
+}
+
+    .extra-links a {
+        list-style: none;
+        text-decoration: none;
+    }
+
+    .extra-links:hover {
+        text-decoration: underline;
+        color: dimgray;
+    }
 
 nav {
     overflow: hidden;
@@ -94,6 +110,10 @@ nav {
     background-color: lightgrey;
     border: 5px solid #233772;
 }
+
+    nav ul {
+        padding-left: 15%;
+    }
 
     nav li {
         display: inline;
@@ -212,10 +232,5 @@ ul {
 footer {
     bottom: 0;
     position: relative;
-<<<<<<< HEAD
-    color: lightgray;
+    color: dimgray;
 }
-=======
-    color: gray;
-}
->>>>>>> e9d8bd8baf480a9227353e05911f0e4f228301a4

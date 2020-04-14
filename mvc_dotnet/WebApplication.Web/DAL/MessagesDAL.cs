@@ -10,12 +10,13 @@ namespace SportsClubOrganizer.Web.DAL
     {
         private readonly string connectionString;
 
-        private string GetMessagesByUserSQL = "SELECT * from Messages WHERE toUserID = @SentTo; ";
-        private string GetMessagesForAdminSQL = "SELECT * FROM Messages WHERE adminAccepted != 'Accepted' AND userAccepted = 'Accepted'; ";
-        private string AddMessageToDBSQL = "INSERT INTO Messages(SentByUserID, toUserID, messageBody) VALUES (@UserFrom, @UserTo, @messageBody); ";
-        private string UpdateMessageAdminSQL = "UPDATE Messages SET adminAccepted = @AdminAccepted WHERE id = @messageID; ";
-        private string UpdateMessageUSQL = "UPDATE Messages SET userAccepted = @UserAccepted WHERE id = @messageID; ";
-        private string GetMessagebyIDSQL = "SELECT * from Messages where id = @ID; ";
+        private readonly string GetMessagesByUserSQL = "SELECT * from Messages WHERE toUserID = @SentTo; ";
+        private readonly string GetMessagesResponsesSQL = "SELECT * from Messages WHERE SentByUserID = @Sentby AND userAccepted != 'no'; ";
+        private readonly string GetMessagesForAdminSQL = "SELECT * FROM Messages WHERE adminAccepted != 'Accepted' AND userAccepted = 'Accepted'; ";
+        private readonly string AddMessageToDBSQL = "INSERT INTO Messages(SentByUserID, toUserID, messageBody) VALUES (@UserFrom, @UserTo, @messageBody); ";
+        private readonly string UpdateMessageAdminSQL = "UPDATE Messages SET adminAccepted = @AdminAccepted WHERE id = @messageID; ";
+        private readonly string UpdateMessageUSQL = "UPDATE Messages SET userAccepted = @UserAccepted WHERE id = @messageID; ";
+        private readonly string GetMessagebyIDSQL = "SELECT * from Messages where id = @ID; ";
 
         public MessagesDAL(string connectionString)
         {
@@ -42,6 +43,39 @@ namespace SportsClubOrganizer.Web.DAL
                         message.SentToID = Convert.ToInt32(reader["toUserID"]);
                         message.ID = Convert.ToInt32(reader["id"]);
                         message.UserAccepted = Convert.ToString(reader["userAccepted"]);
+                        message.AdminAccepted = Convert.ToString(reader["adminAccepted"]);
+                        messages.Add(message);
+                    }
+                }
+                return messages;
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<MessagesModel> GetMessagesResponses(User user)
+        {
+            List<MessagesModel> messages = new List<MessagesModel>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(GetMessagesResponsesSQL, conn);
+                    cmd.Parameters.AddWithValue("@Sentby", user.Id);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        MessagesModel message = new MessagesModel();
+                        message.MessageBody = Convert.ToString(reader["messageBody"]);
+                        message.SentByID = Convert.ToInt32(reader["SentByUserID"]);
+                        message.SentToID = Convert.ToInt32(reader["toUserID"]);
+                        message.ID = Convert.ToInt32(reader["id"]);
+                        message.UserAccepted = Convert.ToString(reader["userAccepted"]);
+                        message.AdminAccepted = Convert.ToString(reader["adminAccepted"]);
                         messages.Add(message);
                     }
                 }

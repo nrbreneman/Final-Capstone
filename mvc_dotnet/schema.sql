@@ -1,4 +1,8 @@
+﻿<<<<<<< HEAD
+﻿﻿-- Switch to the system (aka master) database
+=======
 -- Switch to the system (aka master) database
+>>>>>>> fc83a7b03e13eb6da099f4778c7d587ceeb06797
 USE master;
 GO
 
@@ -359,6 +363,27 @@ INSERT INTO Messages(SentByUserID, toUserID, messageBody) VALUES (2,1, 'Chicago 
 INSERT INTO Messages(SentByUserID, toUserID, messageBody) VALUES (2,3, 'Chicago Rugby would like to play you on 09/12/2020 at Solider Field')
 INSERT INTO Messages(SentByUserID, toUserID, messageBody, userAccepted) VALUES (2,3, 'Chicago Rugby would like to play you on 09/14/2020 at Solider Field', 'Accepted')
 INSERT INTO Messages(SentByUserID, toUserID, messageBody, userAccepted) VALUES (2,4, 'Chicago Rugby would like to play you on 09/19/2020 at Solider Field', 'Accepted')
+
+INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES( 'Bowers', 'Stephanie', 'sBowers@TNE.com', '6141002000', 2);
+INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES( 'Day', 'Taylor', 'tDay@TNE.com', '6141002000', 2);
+INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES( 'George', 'Jenna', 'jGeorge@TNE.com', '6141002000', 2);
+INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES( 'Handziak', 'Juliann', 'jHandziak@TNE.com', '6141002000', 2);
+INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES( 'Hughes', 'Chelsea', 'cHughes@TNE.com', '6141002000', 2);
+INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES( 'Johnston', 'Ashley', 'aJohnston@TNE.com', '6141002000', 2);
+INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES( 'Kohr', 'Madeline', 'mKohr@TNE.com', '6141002000', 2);
+INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES(  'Latham', 'Brittany', 'bLatham@TNE.com', '6141002000', 2);
+INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES(  'Marlow', 'Katherine', 'kMarlow@TNE.com', '6141002000', 2);
+INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES( 'Martin', 'Caitlin', 'cMartin@TNE.com', '6141002000', 2);
+INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES( 'McClain', 'Traci', 'tMcClain@TNE.com', '6141002000', 2);
+INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES(  'Schneider', 'Leah', 'lSchneider@TNE.com', '6141002000', 2);
+INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES(  'Francis', 'DeVonna', 'dFrancis@TNE.com', '6141002000', 2);
+INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES(  'Johnson', 'Taylor', 'tJohnson@TNE.com', '6141002000', 2);
+INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES(  'Reese', 'Kelsey', 'kReese@TNE.com', '6141002000', 2);
+INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES(  'Loy', 'Tara', 'tLoy@TNE.com', '6141002000', 2);
+INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES(   'Roodhouse', 'Hannah', 'hRoodhouse@TNE.com', '6141002000', 2);
+INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES(  'Jones', 'Emma', 'eJones@TNE.com', '6141002000', 2);
+INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES(  'Schafer', 'Lorena', 'lSchafer@TNE.com', '6141002000', 2);
+INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES(  'Willis', 'Emily', 'eWillis@TNE.com', '6141002000', 2);
 
 
 COMMIT TRANSACTION;
