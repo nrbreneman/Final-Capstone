@@ -1,0 +1,29 @@
+﻿@using SportsClubOrganizer.Web.Models
+@model List<SportsClubOrganizer.Web.Models.Game>
+@{
+    ViewData["Title"] = "AdminSeeSchedule";
+}
+<div class="page-info">
+    <h2>Schedule</h2>
+    <table class="team-table">
+        <tr>
+            <th>Date</th>
+            <th>Home Team</th>
+            <th>Away Team</th>
+            <th>Location</th>
+        </tr>
+        @foreach (Game game in Model)
+        {
+            <tr>
+                <td>@game.Date.ToString("MM/dd/yyyy")</td>
+                <td>@game.HomeTeam</td>
+                <td>@game.AwayTeam</td>
+                <td>@game.Venue</td>
+            </tr>
+        }
+    </table>
+
+    <a asp-controller="Admin" asp-action="AdminHomePage" method="post">
+        <input type="button" value="Back to Home Page" class="btn btn-default" />
+    </a>
+</div>
