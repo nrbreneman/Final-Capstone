@@ -18,12 +18,8 @@
             <p>@date.ToString("MM/dd/yyyy")</p>
         }
 
-        @*<input type="radio" id="Away" name="HomeOrAway" value="Away">
-        <label for="Away">Play at  @(Model.Name)'s field</label><br>
-        <input type="radio" id="Home" name="HomeOrAway" value="Home">
-        <label for="Home">Play at My Home Field</label><br>*@
         <p>Please type your message below:</p>
-        <input type="text" value="@Model.Message" name="Message" class="text-box" />
+        <textarea name="Message" style="margin: 0px; width: 448px; height: 150px;"></textarea>
         <input type="hidden" asp-for="@Model.UserID" name="UserID" class="form-control" />
         <input type="submit" value="Send Message" class="btn btn-default" />
     </form>

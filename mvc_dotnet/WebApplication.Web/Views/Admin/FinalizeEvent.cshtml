@@ -11,7 +11,6 @@
         {
             @if (message.AdminAccepted == "no")
             {
-                <p>@TempData["Final"]</p>
                 <p>Sent by: @message.SentByName</p>
                 <p>Sent to: @message.SentToName</p>
                 <p name="MessageBody">@message.MessageBody</p>
@@ -25,6 +24,20 @@
                     <input type="hidden" asp-for="@message.ID" name="id" class="form-control" />
                 </form>
 
+            }
+            else if (message.AdminAccepted == "Accepted")
+            {
+                <p>Sent by: @message.SentByName</p>
+                <p>Sent to: @message.SentToName</p>
+                <p name="MessageBody">@message.MessageBody</p>
+                <p>You have approved this event</p>
+            }
+            else
+            {
+                <p>Sent by: @message.SentByName</p>
+                <p>Sent to: @message.SentToName</p>
+                <p name="MessageBody">@message.MessageBody</p>
+                <p>You have declined this event</p>
             }
         }
 
