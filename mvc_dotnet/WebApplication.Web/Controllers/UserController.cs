@@ -123,6 +123,7 @@ namespace SportsClubOrganizer.Web.Controllers
             return View(teams);
         }
 
+        [AuthorizationFilter("User")]
         public IActionResult SeeSchedule()
         {
             User user = authProvider.GetCurrentUser();

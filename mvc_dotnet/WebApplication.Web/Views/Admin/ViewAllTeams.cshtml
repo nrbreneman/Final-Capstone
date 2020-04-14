@@ -22,7 +22,7 @@
         @foreach (Team team in Model)
         {
             <tr>
-                <td>@team.Name</td>
+                <td><a asp-action="AdminSeeSchedule" asp-controller="Admin" asp-route-id="@team.TeamID">@team.Name</a></td>
                 <td>@team.League</td>
                 <td>@team.Org</td>
                 <td>@team.PrimaryVenue</td>
@@ -30,14 +30,14 @@
                 <td>
                     @foreach (DateTime date in team.HomeDates)
                     {
-                        @date.ToString("MM/dd/yyyy")
+                        @date.ToString("MM/dd/yyyy")<br/>
 
                     }
                 </td>
                 <td>
                     @foreach (DateTime date in team.TravelDates)
                     {
-                        @date.ToString("MM/dd/yyyy")
+                        @date.ToString("MM/dd/yyyy")<br/>
 
                     }
                 </td>

@@ -35,6 +35,7 @@ namespace SportsClubOrganizer.Web.Controllers
         public IActionResult ViewAllTeams()
         {
             List<Team> teams = teamDAL.GetAllTeams();
+            foreach (Team team in teams)            {                team.HomeDates = teamDAL.GetHomeDates(team.TeamID.ToString());                team.TravelDates = teamDAL.GetTravelDates(team.TeamID.ToString());            }
             return View(teams);
         }
 
@@ -258,6 +259,16 @@ namespace SportsClubOrganizer.Web.Controllers
             Message.AdminAccepted = "Declined";
             messageDAL.UpdateMessage(Message);
             return RedirectToAction("FinalizeEvent", "Admin");
+        }
+
+        [HttpGet]
+        [AuthorizationFilter("Admin")]
+        public IActionResult AdminSeeSchedule(int id)
+        {
+            Team team = new Team();
+            team = teamDAL.GetTeamByTeamID(id.ToString());
+            List<Game> games = teamDAL.GetScheduleByTeam(team);
+            return View(games);
         }
     }
 }
