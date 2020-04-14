@@ -11,6 +11,7 @@ namespace SportsClubOrganizer.Web.DAL
         private string CreateUserSQL = "INSERT INTO Users(username, password, salt, role) VALUES (@username, @password, @salt, @role); ";
         private string DeleteUserSQL = "DELETE FROM Users WHERE id = @id; ";
         private string GetUserSQL = "SELECT * FROM Users WHERE username = @username; ";
+        private string GetUserByIDSQL = "SELECT * FROM Users WHERE id = @id; ";
         private string UpdateUserSQL = "UPDATE Users SET password = @password, salt = @salt, role = @role WHERE id = @id; ";
 
         public UserSqlDAL(string connectionString)
@@ -165,6 +166,33 @@ namespace SportsClubOrganizer.Web.DAL
 
                     return;
                 }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public User GetUserByID(int userID)
+        {
+            User user = null;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(GetUserByIDSQL, conn);
+                    cmd.Parameters.AddWithValue("@id", userID);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        user = MapRowToUser(reader);
+                    }
+                }
+
+                return user;
             }
             catch (SqlException ex)
             {

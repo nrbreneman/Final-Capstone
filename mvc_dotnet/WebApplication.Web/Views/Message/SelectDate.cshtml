@@ -1,5 +1,15 @@
-﻿@{
+﻿@model SportsClubOrganizer.Web.Models.User
+@{
     ViewData["Title"] = "SelectDate";
 }
-
-<h2>SelectDate</h2>
+<div class="page-info">
+    <h2>SelectDate</h2>
+    @foreach (DateTime date in @Model.UserTeam.HomeDates)
+    {
+        <p>@date</p>
+    }
+    @foreach (DateTime date in @Model.UserTeam.TravelDates)
+    {
+        <p>@date</p>
+    }
+</div>

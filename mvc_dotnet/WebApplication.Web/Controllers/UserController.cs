@@ -98,8 +98,8 @@ namespace SportsClubOrganizer.Web.Controllers
             User user = authProvider.GetCurrentUser();
             calendar.HomeDates = new List<System.DateTime?>();
             calendar.TravelDates = new List<System.DateTime?>();
-            calendar.HomeDates = teamDAL.GetHomeDates(user);
-            calendar.TravelDates = teamDAL.GetTravelDates(user);
+            calendar.HomeDates = teamDAL.GetHomeDates(user.TeamID.ToString());
+            calendar.TravelDates = teamDAL.GetTravelDates(user.TeamID.ToString());
             return View(calendar);
         }
 

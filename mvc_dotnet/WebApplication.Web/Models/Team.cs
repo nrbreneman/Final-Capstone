@@ -51,5 +51,7 @@ namespace SportsClubOrganizer.Web.Models
         public IList<SelectListItem> LeagueDropDown = new List<SelectListItem>();
 
         public List<MessagesModel> Messages { get; set; }
+
+        public string SelectedVenue { get; set; }
     }
 }

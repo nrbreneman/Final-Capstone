@@ -121,8 +121,8 @@ namespace SportsClubOrganizer.Web.Controllers
             user.TeamID = calendar.TeamID;
             calendar.HomeDates = new List<System.DateTime?>();
             calendar.TravelDates = new List<System.DateTime?>();
-            calendar.HomeDates = teamDAL.GetHomeDates(user);
-            calendar.TravelDates = teamDAL.GetTravelDates(user);
+            calendar.HomeDates = teamDAL.GetHomeDates(user.TeamID.ToString());
+            calendar.TravelDates = teamDAL.GetTravelDates(user.TeamID.ToString());
             return View(calendar);
         }
 
@@ -136,8 +136,8 @@ namespace SportsClubOrganizer.Web.Controllers
             teamDAL.AddHomeDateToDB(calendar.HomeDate, user);
             teamDAL.AddTravelDateToDB(calendar.TravelDate, user);
 
-            calendar.HomeDates = teamDAL.GetHomeDates(user);
-            calendar.TravelDates = teamDAL.GetTravelDates(user);
+            calendar.HomeDates = teamDAL.GetHomeDates(user.TeamID.ToString());
+            calendar.TravelDates = teamDAL.GetTravelDates(user.TeamID.ToString());
             return View(calendar);
         }
 
