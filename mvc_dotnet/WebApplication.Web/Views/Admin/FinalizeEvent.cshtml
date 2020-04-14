@@ -5,20 +5,23 @@
 }
 <div class="page-info">
     <h2>Finalize Requested Event</h2>
-        @foreach (MessagesModel message in Model)
-        {
-            <p>Sent by: @message.SentByName</p>
-            <p>Sent to: @message.SentToName</p>
-            <p name="MessageBody">@message.MessageBody</p>
-            <input type="hidden" asp-for="@message.ID" name="ID" class="form-control" />
-            <a asp-controller="Message" asp-action="AdminAcceptEvent" method="post">
-                <input type="button" name="Accept" value="Finalize Proposed Event" class="btn btn-default" />
-            </a>
-            <a asp-controller="Message" asp-action="AdminDeclineEvent" method="post">
-                <input type="button" name="Decline" value="Decline Proposed Event" class="btn btn-default" />
-            </a>
-        }
-        <a asp-controller="Admin" asp-action="AdminHomePage" method="post">
-            <input type="button" value="Back to Home Page" class="btn btn-default" />
+    @foreach (MessagesModel message in Model)
+    {
+        <p>Sent by: @message.SentByName</p>
+        <p>Sent to: @message.SentToName</p>
+        <p name="MessageBody">@message.MessageBody</p>
+        <input type="hidden" asp-for="@message.ID" name="ID" class="form-control" />
+
+        <a asp-controller="Admin" asp-action="AdminAcceptEvent" method="post">
+            <input type="submit" name="Accept" value="Finalize Proposed Event" class="btn btn-default" />
+            <input type="hidden" asp-for="@message.ID" name="id" class="form-control" />
         </a>
+        <a asp-controller="Admin" asp-action="AdminDeclineEvent" method="post">
+            <input type="submit" name="Decline" value="Decline Proposed Event" class="btn btn-default" />
+            <input type="hidden" asp-for="@message.ID" name="id" class="form-control" />
+        </a>
+    }
+    <a asp-controller="Admin" asp-action="AdminHomePage" method="post">
+        <input type="button" value="Back to Home Page" class="btn btn-default" />
+    </a>
 </div>
