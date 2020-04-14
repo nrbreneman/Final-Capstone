@@ -5,34 +5,40 @@
 .header {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    border-bottom: 2px solid black;
+    justify-content: flex-start;
+    /*border-bottom: 2px solid #233772;*/
 }
 
-    .header img {
-        width: 30%;
-    }
+#logo {
+    max-width: 100%;
+}
 
-    .header > img {
-        padding-right: 20px;
-    }
+#footer {
+    max-width: 100%;
+}
 
 .page-info {
-    margin-left: 22%;
-    margin-right: 20%;
-    background-color:white;
+    margin-left: 15%;
+    margin-right: 15%;
+    background-color: white;
+    padding:20px;
 }
 
     .page-info h2 {
         font-size: 200%;
+        color: #233772;
+    }
+
+    .page-info h3 {
+        color:red;
     }
 
 .admin-links {
-    border: 1px solid black;
+    border-left: 3px solid #233772;
     list-style: none;
     text-decoration: none;
     color: black;
-    padding:10px;
+    padding: 10px;
 }
 
     .admin-links a {
@@ -40,15 +46,16 @@
         text-decoration: none;
     }
 
-    .admin-links a:hover {
-        text-decoration: underline;
-    }
+        .admin-links a:hover {
+            text-decoration: underline;
+            color: lightgray;
+        }
 
 .user-links {
-    border: 1px solid black;
+    border-left: 3px solid #233772;
     list-style: none;
     text-decoration: none;
-    padding:10px;
+    padding: 10px;
 }
 
     .user-links a {
@@ -58,34 +65,33 @@
 
         .user-links a:hover {
             text-decoration: underline;
+            color: lightgray;
         }
 
-/*a {
-    list-style: none;
-    text-decoration: none;
-    color: black;
-}
-
-    a:hover {
-        text-decoration: underline;
-    }*/
-
 nav {
-    position:absolute;
+    overflow: hidden;
+    position: relative;
+    top: 0;
+    width: 100%;
+    background-color: lightgrey;
+    border: 5px solid #233772;
 }
+
+    nav li {
+        display: inline;
+    }
 
 .nav-buttons {
     background-color: lightgrey;
-    color: black;
-    border: 1px solid black;
+    color: #ee2e29;
+    font-weight: bold;
     padding: 15px 20px;
     text-align: center;
     text-decoration: none;
     font-size: 20px;
     cursor: pointer;
     width: 130px;
-    display: inline-block;
-    margin: 10px;
+    margin: 5px;
 }
 
     .nav-buttons:hover {
@@ -94,37 +100,41 @@ nav {
 
 input[class=input] {
     background-color: white;
-    border: 1px solid black;
+    border: 2px solid #233772;
     padding: 10px;
 }
 
 input[type=text] {
     background-color: white;
-    border: 1px solid black;
+    border: 2px solid #233772;
     padding: 10px;
 }
 
 input[type=password] {
     background-color: white;
-    border: 1px solid black;
+    border: 2px solid #233772;
     padding: 10px;
 }
 
 input[type=email] {
     background-color: white;
-    border: 1px solid black;
+    border: 2px solid #233772;
     padding: 10px;
 }
 
 input[type=submit] {
     background-color: lightgrey;
-    border: 1px solid black;
+    border: 2px solid #233772;
     padding: 10px;
 }
 
+    input[type=submit]:hover {
+        background-color: white;
+    }
+
 input[type=button] {
     background-color: lightgrey;
-    border: 1px solid black;
+    border: 1px solid #233772;
     padding: 10px;
 }
 
@@ -139,7 +149,7 @@ input[type=button] {
 
     .dropbtn:hover {
         background-color: white;
-        display:block;
+        display: block;
     }
 
 table {
@@ -150,7 +160,7 @@ table {
 
 th, td {
     border: 1px solid black;
-    padding:10px;
+    padding: 10px;
 }
 
 .team-table {
@@ -173,7 +183,7 @@ ul {
 }
 
 footer {
-    padding-left: 22%;
     bottom: 0;
     position: relative;
+    color: lightgray;
 }

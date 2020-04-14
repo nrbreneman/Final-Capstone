@@ -5,9 +5,11 @@ using SportsClubOrganizer.Web.Models;
 using SportsClubOrganizer.Web.Models.Messages;
 using SportsClubOrganizer.Web.Providers.Auth;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SportsClubOrganizer.Web.Controllers
 {
+    [SuppressMessage("ReSharper", "Mvc.ViewNotResolved")]
     public class MessageController : Controller
     {
         private readonly IAuthProvider authProvider;
@@ -28,17 +30,19 @@ namespace SportsClubOrganizer.Web.Controllers
             return View();
         }
 
-        public IActionResult SendMessage()
-        {
-            return View();
-        }
-
+        [AuthorizationFilter("User")]
         public IActionResult SeeMessages()
         {
             User user = authProvider.GetCurrentUser();
             List<MessagesModel> messages = messageDAL.GetMessagesByUser(user);
+            Team team = new Team();
+            foreach (MessagesModel message in messages)
+            {
+                team = teamDAL.GetTeamByUserID(message.SentByID);
+                message.SentByName = team.Name;
+            }
             return View(messages);
-        }
+        }           
 
         [HttpGet]
         [AuthorizationFilter("User")]
@@ -53,7 +57,7 @@ namespace SportsClubOrganizer.Web.Controllers
             {
                 user.UserTeam.DropDownListTeam.Add(AddTeamToList(team));
             }
-            
+
             return View(user.UserTeam);
         }
 
@@ -61,7 +65,7 @@ namespace SportsClubOrganizer.Web.Controllers
         [AuthorizationFilter("User")]
         public IActionResult SelectTeamToSendMessageTo(Team team)
         {
-            return RedirectToAction("CreateMessage", "Message",  new { team.Name });
+            return RedirectToAction("CreateMessage", "Message", new { team.Name });
         }
 
         [HttpGet]
@@ -76,52 +80,60 @@ namespace SportsClubOrganizer.Web.Controllers
 
         [HttpPost]
         [AuthorizationFilter("User")]
-        public IActionResult CreateMessage(Team OpposingTeam)
+        public IActionResult CreateMessage(int UserID, string Message)
         {
-            return View();
-        }
-
-
-        [HttpGet]
-        [AuthorizationFilter("User")]
-        public IActionResult SelectHomeOrAwayVenue(string Name)
-        {
+            TempData["Added"] = "Your Message Has Been Sent!";
             User user = authProvider.GetCurrentUser();
-            user.UserTeam = teamDAL.GetTeamByTeamID(user.TeamID.ToString());
-            Team OpponentTeam = teamDAL.GetTeamByTeamID(Name);
-            Venue SelectedVenue = new Venue();
-            SelectedVenue.Team = user.UserTeam;
-            SelectedVenue.PrimaryVenueName = user.UserTeam.PrimaryVenue;
-            SelectedVenue.SecondaryVenueName = user.UserTeam.SecondaryVenue;
-            return View(SelectedVenue);
+            MessagesModel message = new MessagesModel
+            {
+                MessageBody = Message, SentToID = UserID, SentByID = user.TeamID
+            };
+            messageDAL.AddMessageToDB(message);
+            return RedirectToAction("UserHomePage", "User");
         }
 
         [HttpPost]
         [AuthorizationFilter("User")]
-        public IActionResult SelectHomeOrAwayVenue(Venue SelectedVenue)
+        public IActionResult UserAcceptEvent(int id)
         {
-            User user = authProvider.GetCurrentUser();
-            user.UserTeam = teamDAL.GetTeamByTeamID(user.TeamID.ToString());
-            user.UserTeam.SelectedVenue = SelectedVenue.SelectedVenueName;
-            return RedirectToAction("SelectDate", "Message", user);
-        }
-
-        [HttpGet]
-        [AuthorizationFilter("User")]
-        public IActionResult SelectDate(User user)
-        {
-            //user.UserTeam = teamDAL.GetTeamByTeamID(user.TeamID.ToString());
-            user.UserTeam.HomeDates = teamDAL.GetHomeDates(user.TeamID.ToString());
-            user.UserTeam.TravelDates = teamDAL.GetTravelDates(user.TeamID.ToString());
-            return View(user);
+            TempData["Final"] = "You have approved this event, now pending Admin approval";
+            MessagesModel Message = messageDAL.GetMessagebyID(id);
+            Message.UserAccepted = "Accepted";
+            messageDAL.UpdateMessage(Message);
+            return RedirectToAction("SeeMessages", "Message");
         }
 
         [HttpPost]
         [AuthorizationFilter("User")]
-        public IActionResult SelectDate()
+        public IActionResult UserDeclineEvent(int id)
         {
-            User user = authProvider.GetCurrentUser();
-            return RedirectToAction("SendMessages", "Message", user);
+            TempData["Final"] = "You have declined this event, the other team will be notified";
+            MessagesModel Message = messageDAL.GetMessagebyID(id);
+            Message.UserAccepted = "Declined";
+            messageDAL.UpdateMessage(Message);
+            return RedirectToAction("SeeMessages", "Message");
+        }
+
+        [HttpPost]
+        [AuthorizationFilter("Admin")]
+        public IActionResult AdminAcceptEvent(int id)
+        {
+            TempData["Final"] = "You have approved this event both teams will be notified";
+            MessagesModel Message = messageDAL.GetMessagebyID(id);
+            Message.UserAccepted = "Accepted";
+            messageDAL.UpdateMessage(Message);
+            return RedirectToAction("FinalizeEvent", "Admin");
+        }
+
+        [HttpPost]
+        [AuthorizationFilter("Admin")]
+        public IActionResult AdminDeclineEvent(int id)
+        {
+            TempData["Final"] = "You have declined this event both teams will be notified";
+            MessagesModel Message = messageDAL.GetMessagebyID(id);
+            Message.UserAccepted = "Declined";
+            messageDAL.UpdateMessage(Message);
+            return RedirectToAction("FinalizeEvent", "Admin");
         }
 
         [HttpGet]
@@ -137,7 +149,11 @@ namespace SportsClubOrganizer.Web.Controllers
         {
             User userFrom = authProvider.GetCurrentUser();
             int userToTeamID = userDAL.GetUserFromTeamID(userTo.TeamID);
-            messageDAL.AddMessageToDB(message, userTo.TeamID, userFrom.TeamID);
+            MessagesModel Message = new MessagesModel
+            {
+                MessageBody = message, SentToID = userTo.TeamID, SentByID = userFrom.TeamID
+            };
+            messageDAL.AddMessageToDB(Message);
             return RedirectToAction("UserHomePage", "User");
         }
 
@@ -154,6 +170,11 @@ namespace SportsClubOrganizer.Web.Controllers
 
         [AuthorizationFilter("Admin")]
         public IActionResult ApproveUser()
+        {
+            return View();
+        }
+
+        public IActionResult SelectHomeOrAwayVenue()
         {
             return View();
         }

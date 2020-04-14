@@ -52,7 +52,6 @@
             <p>
                 <input type="text" asp-for="@date" value="@date.ToString("MM/dd/yyy")" />
             </p>
-            @*<span asp-validation-for="HomeDates"></span>*@
         }
 
         @foreach (DateTime date in @Model.TravelDates)
@@ -63,7 +62,6 @@
             <p>
                 <input type="text" asp-for="@date" value="@date.ToString("MM/dd/yyy")" />
             </p>
-            @*<span asp-validation-for="TravelDates"></span>*@
         }
 
         <input type="submit" value="Change Team" class="btn btn-default" />

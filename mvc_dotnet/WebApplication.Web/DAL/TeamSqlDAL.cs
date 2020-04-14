@@ -9,23 +9,23 @@ namespace SportsClubOrganizer.Web.DAL
     {
         private readonly string connectionString;
 
-        private string GetTeamsByLeagueSQL = "SELECT * from Teams WHERE League = @LeagueName Order by Name; ";
-        private string GetLeagueByUserSQL = "SELECT League from Teams JOIN users on users.id = TEAMS.UserID WHERE users.id = @id; ";
-        private string GetAllTeamsSQL = "SELECT * from Teams; ";
-        private string GetTeamByUserIDSQL = "SELECT * from Teams WHERE UserID = @UserID; ";
-        private string GetTeamByTeamIDSQL = "SELECT * from Teams WHERE id = @TeamID; ";
-        private string GetDatesByTeamIDSQL = "SELECT * from Teams JOIN EventDates on EventDates.TeamID = TEAMS.id  WHERE TeamID = @TeamID; ";
-        private string InsertTeamSQL = "SELECT MAX(id) as max from users";
-        private string InsertIntoTeamsSQL = "INSERT INTO Teams (Name, League, Org, PrimaryVenue, SecondaryVenue, UserID) VALUES (@Name, @League, @Org, @PrimaryVenue, @SecondaryVenue, @userID); ";
-        private string UpdateTeamSQL = "UPDATE Teams SET Name = @Name, League = @League, Org = @Org, PrimaryVenue = @Pvenue, SecondaryVenue = @SVenue WHERE UserID = @UserID; ";
-        private string AddTravelDateToDBSQL = "INSERT into EventDates(TeamID, Date, Home) VALUES (@TeamID, @Date, @Home); ";
-        private string AddHomeDateToDBSQL = "INSERT into EventDates(TeamID, Date, Home) VALUES (@TeamID, @Date, @Home); ";
-        private string GetHomeDatesSQL = "Select * from EventDates WHERE TeamID = @TeamID and Home = 1; ";
-        private string GetTravelDatesSQL = "Select * from EventDates WHERE TeamID = @TeamID and Home = 0; ";
-        private string CreateLeagueSQL = "INSERT INTO Leagues (leagueName, org, sport) VALUES (@LeagueName, @Org, @Sport); ";
-        private string GetAllLeaguesSQL = "SELECT * from Leagues; ";
-        private string AdminUpdateTeamSQL = "UPDATE TEAMS SET Name = @Name, League = @League, Org = @Org, PrimaryVenue = @Pvenue, SecondaryVenue = @SVenue WHERE id = @TeamID; ";
-        private string GetScheduleByTeamSQL = "SELECT * FROM Schedule where homeTeam = @teamName  OR awayTeam = @teamName; ";
+        private readonly string GetTeamsByLeagueSQL = "SELECT * from Teams WHERE League = @LeagueName Order by Name; ";
+        private readonly string GetLeagueByUserSQL = "SELECT League from Teams JOIN users on users.id = TEAMS.UserID WHERE users.id = @id; ";
+        private readonly string GetAllTeamsSQL = "SELECT * from Teams; ";
+        private readonly string GetTeamByUserIDSQL = "SELECT * from Teams WHERE UserID = @UserID; ";
+        private readonly string GetTeamByTeamIDSQL = "SELECT * from Teams WHERE id = @TeamID; ";
+        private readonly string GetDatesByTeamIDSQL = "SELECT * from Teams JOIN EventDates on EventDates.TeamID = TEAMS.id  WHERE TeamID = @TeamID; ";
+        private readonly string InsertTeamSQL = "SELECT MAX(id) as max from users";
+        private readonly string InsertIntoTeamsSQL = "INSERT INTO Teams (Name, League, Org, PrimaryVenue, SecondaryVenue, UserID) VALUES (@Name, @League, @Org, @PrimaryVenue, @SecondaryVenue, @userID); ";
+        private readonly string UpdateTeamSQL = "UPDATE Teams SET Name = @Name, League = @League, Org = @Org, PrimaryVenue = @Pvenue, SecondaryVenue = @SVenue WHERE UserID = @UserID; ";
+        private readonly string AddTravelDateToDBSQL = "INSERT into EventDates(TeamID, Date, Home) VALUES (@TeamID, @Date, @Home); ";
+        private readonly string AddHomeDateToDBSQL = "INSERT into EventDates(TeamID, Date, Home) VALUES (@TeamID, @Date, @Home); ";
+        private readonly string GetHomeDatesSQL = "Select * from EventDates WHERE TeamID = @TeamID and Home = 1; ";
+        private readonly string GetTravelDatesSQL = "Select * from EventDates WHERE TeamID = @TeamID and Home = 0; ";
+        private readonly string CreateLeagueSQL = "INSERT INTO Leagues (leagueName, org, sport) VALUES (@LeagueName, @Org, @Sport); ";
+        private readonly string GetAllLeaguesSQL = "SELECT * from Leagues; ";
+        private readonly string AdminUpdateTeamSQL = "UPDATE TEAMS SET Name = @Name, League = @League, Org = @Org, PrimaryVenue = @Pvenue, SecondaryVenue = @SVenue WHERE id = @TeamID; ";
+        private readonly string GetScheduleByTeamSQL = "SELECT * FROM Schedule where homeTeam = @teamName  OR awayTeam = @teamName; ";
 
         public TeamSqlDAL(string connectionString)
         {
@@ -110,7 +110,7 @@ namespace SportsClubOrganizer.Web.DAL
             }
         }
 
-        public Team GetTeamByUserID(User user)
+        public Team GetTeamByUserID(int? userID)
         {
             Team team = new Team();
             try
@@ -119,7 +119,7 @@ namespace SportsClubOrganizer.Web.DAL
                 {
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(GetTeamByUserIDSQL, conn);
-                    cmd.Parameters.AddWithValue("@UserID", user.Id);
+                    cmd.Parameters.AddWithValue("@UserID", userID);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
@@ -151,6 +151,7 @@ namespace SportsClubOrganizer.Web.DAL
                     while (reader.Read())
                     {
                         team = (MapRowToTeam(reader));
+                        team.UserID = Convert.ToInt32(reader["UserID"]);
                     }
                 }
 
@@ -314,11 +315,13 @@ namespace SportsClubOrganizer.Web.DAL
 
                     while (reader.Read())
                     {
-                        Game game = new Game();
-                        game.AwayTeam = Convert.ToString(reader["awayTeam"]);
-                        game.HomeTeam = Convert.ToString(reader["homeTeam"]);
-                        game.Venue = Convert.ToString(reader["venue"]);
-                        game.Date = Convert.ToDateTime(reader["date"]);
+                        Game game = new Game
+                        {
+                            AwayTeam = Convert.ToString(reader["awayTeam"]),
+                            HomeTeam = Convert.ToString(reader["homeTeam"]),
+                            Venue = Convert.ToString(reader["venue"]),
+                            Date = Convert.ToDateTime(reader["date"])
+                        };
 
                         games.Add(game);
                     }
@@ -460,11 +463,13 @@ namespace SportsClubOrganizer.Web.DAL
 
                     while (reader.Read())
                     {
-                        League league = new League();
+                        League league = new League
+                        {
+                            LeagueName = Convert.ToString(reader["leagueName"]),
+                            Sport = Convert.ToString(reader["sport"]),
+                            Org = Convert.ToString(reader["org"])
+                        };
 
-                        league.LeagueName = Convert.ToString(reader["leagueName"]);
-                        league.Sport = Convert.ToString(reader["sport"]);
-                        league.Org = Convert.ToString(reader["org"]);
 
                         leagues.Add(league);
                     }
@@ -480,14 +485,16 @@ namespace SportsClubOrganizer.Web.DAL
 
         private Team MapRowToTeam(SqlDataReader reader)
         {
-            Team team = new Team();
+            Team team = new Team
+            {
+                TeamID = Convert.ToInt32(reader["id"]),
+                Name = Convert.ToString(reader["Name"]),
+                League = Convert.ToString(reader["League"]),
+                Org = Convert.ToString(reader["Org"]),
+                PrimaryVenue = Convert.ToString(reader["PrimaryVenue"]),
+                SecondaryVenue = Convert.ToString(reader["SecondaryVenue"])
+            };
 
-            team.TeamID = Convert.ToInt32(reader["id"]);
-            team.Name = Convert.ToString(reader["Name"]);
-            team.League = Convert.ToString(reader["League"]);
-            team.Org = Convert.ToString(reader["Org"]);
-            team.PrimaryVenue = Convert.ToString(reader["PrimaryVenue"]);
-            team.SecondaryVenue = Convert.ToString(reader["SecondaryVenue"]);
             if (!DBNull.Value.Equals(reader["UserID"]))
             {
                 team.UserID = Convert.ToInt32(reader["UserID"]);

@@ -9,11 +9,26 @@
     {
         @foreach (MessagesModel message in Model)
         {
-            <p>@message.MessageBody</p>
+            @if (message.UserAccepted == "no")
+            {
+                <p>@message.SentByName</p>
+                <p name="MessageBody">@message.MessageBody</p>
+                <p>@TempData["Final"]</p>
 
-            <input type="button" value="Accept Proposed Event" class="btn btn-default" />
+                <form asp-controller="Message" asp-action="UserAcceptEvent" method="post">
+                    <input type="submit" name="Accept" value="Accept Proposed Event" class="btn btn-default" />
+                    <input type="hidden" asp-for="@message.ID" name="id" class="form-control" />
+                </form>
 
-            <input type="button" value="Decline Proposed Event" class="btn btn-default" />
+                <form asp-controller="Message" asp-action="UserDeclineEvent" method="post">
+                    <input type="submit" name="Decline" value="Decline Proposed Event" class="btn btn-default" />
+                    <input type="hidden" asp-for="@message.ID" name="id" class="form-control" />
+                </form>
+            }
+            else
+            {
+                <p>You have no new messages!</p>
+            }
         }
     }
     else

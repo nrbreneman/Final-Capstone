@@ -53,5 +53,7 @@ namespace SportsClubOrganizer.Web.Models
         public List<MessagesModel> Messages { get; set; }
 
         public string SelectedVenue { get; set; }
+
+        public string Message { get; set; }
     }
 }

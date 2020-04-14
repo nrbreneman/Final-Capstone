@@ -71,6 +71,8 @@ id int identity(1,1),
 SentByUserID int not null,
 toUserID int not null,
 messageBody varchar(300),
+userAccepted varchar(20) default('no'),
+adminAccepted varchar(20) default('no'),
 
 constraint pk_messageID primary key (id)
 );

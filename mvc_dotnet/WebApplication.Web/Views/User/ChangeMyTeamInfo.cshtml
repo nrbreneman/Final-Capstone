@@ -43,21 +43,6 @@
             <span asp-validation-for="SecondaryVenue"></span>
         </p>
 
-        @foreach (DateTime date in @Model.HomeDates)
-        {
-            <label asp-for="@date">Home Dates</label>
-            <input type="text" asp-for="@date" value="@date.ToString("MM/dd/yyy")" />
-            @*<span asp-validation-for="HomeDates"></span>*@
-        }
-
-        @foreach (DateTime date in @Model.TravelDates)
-        {
-
-            <label asp-for="@date">Travel Dates</label>
-            <input type="text" asp-for="@date" value="@date.ToString("MM/dd/yyy")" />
-            @*<span asp-validation-for="TravelDates"></span>*@
-        }
-
         <input type="submit" value="Change Team Info" class="btn btn-default" />
 
         <a asp-controller="User" asp-action="UserHomePage" method="post">

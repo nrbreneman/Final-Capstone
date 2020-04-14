@@ -1,8 +1,7 @@
-﻿
-@using SportsClubOrganizer.Web.Models;
+﻿@using SportsClubOrganizer.Web.Models;
 @using Microsoft.AspNetCore.Http;
 @using SportsClubOrganizer.Web.DAL;
-@using SportsClubOrganizer.Web
+
 
 @*@{
         int? loggedIn = Context.Session.GetInt32("MatchMaking_UserId");
@@ -34,9 +33,9 @@
         var displayVersion = Startup.DisplayVersion;
     }*@
 
-@{
+@*@{
     int? loggedIn = Context.Session.GetInt32("Auth_User");
-    int userId = (int)((loggedIn == null) ? 0 : loggedIn);
+    int userId = (int)((loggedIn == null) ? 0 : loggedIn.Value);
 
     bool isLoggedIn = false;
     bool isAdmin = false;
@@ -59,8 +58,8 @@
             isUser = true;
         }
     }
-
-}
+    //var displayVersion = Startup.DisplayVersion;
+    }*@
 
 <!DOCTYPE html>
 <html>
@@ -77,58 +76,60 @@
         </div>*@
 
     <div class="header">
-        <img src="~/images/title.png" />
-        <img src="~/images/whoop.jpg" />
+        <img id="logo" src="~/images/logo2.jpg" />
+
+        @*<img src="~/images/whoop.jpg" />*@
     </div>
 
-    <nav>
-        @{
-            if (isUser)
-            {
-                <ul>
-                    <li><a asp-action="Index" asp-controller="Home" class="nav-buttons">Home</a></li>
-                    <li><a asp-action="UserHomePage" asp-controller="User" class="nav-buttons">My Account</a></li>
-                    <li><a asp-action="Login" asp-controller="Account" class="nav-buttons">Login</a></li>
-                    <li><a asp-action="Register" asp-controller="Account" class="nav-buttons">Register</a></li>
-                    <li><a asp-action="Logoff" asp-controller="Account" class="nav-buttons">Logout</a></li>
-                </ul>
-            }
-            else if (isAdmin)
-            {
-                <ul>
-                    <li><a asp-action="Index" asp-controller="Home" class="nav-buttons">Home</a></li>
-                    <li><a asp-action="Login" asp-controller="Account" class="nav-buttons">Login</a></li>
-                    <li><a asp-action="AdminHomePage" asp-controller="Admin" class="nav-buttons">My Account</a></li>
-                    <li><a asp-action="Register" asp-controller="Account" class="nav-buttons">Register</a></li>
-                    <li><a asp-action="Logoff" asp-controller="Account" class="nav-buttons">Logout</a></li>
-                </ul>
-            }
-            else
-            {
-                <ul>
-                    <li><a asp-action="Index" asp-controller="Home" class="nav-buttons">Home</a></li>
-                    <li><a asp-action="Login" asp-controller="Account" class="nav-buttons">Login</a></li>
-                    <li><a asp-action="Register" asp-controller="Account" class="nav-buttons">Register</a></li>
-                    <li><a asp-action="Logoff" asp-controller="Account" class="nav-buttons">Logout</a></li>
-                </ul>
-            }
-        }
-    </nav>
-
     @*<nav>
-            <ul>
-                <li><a asp-action="Index" asp-controller="Home" class="nav-buttons">Home</a></li>
-                <li><a asp-action="Login" asp-controller="Account" class="nav-buttons">Login</a></li>
-                <li><a asp-action="Register" asp-controller="Account" class="nav-buttons">Register</a></li>
-                <li><a asp-action="Logoff" asp-controller="Account" class="nav-buttons">Logout</a></li>
-            </ul>
+            @{
+                @if (isUser)
+                {
+                    <ul>
+                        <li><a asp-action="Index" asp-controller="Home" class="nav-buttons">Home</a></li>
+                        <li><a asp-action="UserHomePage" asp-controller="User" class="nav-buttons">My Account</a></li>
+                        <li><a asp-action="Login" asp-controller="Account" class="nav-buttons">Login</a></li>
+                        <li><a asp-action="Register" asp-controller="Account" class="nav-buttons">Register</a></li>
+                        <li><a asp-action="Logoff" asp-controller="Account" class="nav-buttons">Logout</a></li>
+                    </ul>
+                }
+                else if (isAdmin)
+                {
+                    <ul>
+                        <li><a asp-action="Index" asp-controller="Home" class="nav-buttons">Home</a></li>
+                        <li><a asp-action="Login" asp-controller="Account" class="nav-buttons">Login</a></li>
+                        <li><a asp-action="AdminHomePage" asp-controller="Admin" class="nav-buttons">My Account</a></li>
+                        <li><a asp-action="Register" asp-controller="Account" class="nav-buttons">Register</a></li>
+                        <li><a asp-action="Logoff" asp-controller="Account" class="nav-buttons">Logout</a></li>
+                    </ul>
+                }
+                else
+                {
+                    <ul>
+                        <li><a asp-action="Index" asp-controller="Home" class="nav-buttons">Home</a></li>
+                        <li><a asp-action="Login" asp-controller="Account" class="nav-buttons">Login</a></li>
+                        <li><a asp-action="Register" asp-controller="Account" class="nav-buttons">Register</a></li>
+                        <li><a asp-action="Logoff" asp-controller="Account" class="nav-buttons">Logout</a></li>
+                    </ul>
+                }
+            }
         </nav>*@
+
+    <nav>
+        <ul>
+            <li><a asp-action="Index" asp-controller="Home" class="nav-buttons">Home</a></li>
+            <li><a asp-action="Login" asp-controller="Account" class="nav-buttons">Login</a></li>
+            <li><a asp-action="Register" asp-controller="Account" class="nav-buttons">Register</a></li>
+            <li><a asp-action="Logoff" asp-controller="Account" class="nav-buttons">Logout</a></li>
+        </ul>
+    </nav>
 
     <div class="container">
         @RenderBody()
 
         <footer>
             <p>&copy; 2020 - TN Enterprises</p>
+            <img id="footer" src="~/images/footer.jpg" />
         </footer>
     </div>
 

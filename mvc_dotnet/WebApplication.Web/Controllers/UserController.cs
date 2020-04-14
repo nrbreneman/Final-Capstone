@@ -43,7 +43,7 @@ namespace SportsClubOrganizer.Web.Controllers
         public IActionResult ChangeMyTeamInfo()
         {
             User user = authProvider.GetCurrentUser();
-            user.UserTeam = teamDAL.GetTeamByUserID(user);
+            user.UserTeam = teamDAL.GetTeamByUserID(user.Id);
             user.UserTeam = teamDAL.GetDatesByTeamID(user);
             return View(user.UserTeam);
         }
@@ -112,8 +112,6 @@ namespace SportsClubOrganizer.Web.Controllers
             teamDAL.AddHomeDateToDB(calendar.HomeDate, user);
             teamDAL.AddTravelDateToDB(calendar.TravelDate, user);
 
-            //empModel.HomeDates = teamDAL.GetHomeDates(user);
-            //empModel.TravelDates = teamDAL.GetTravelDates(user);
             return View(calendar);
         }
 

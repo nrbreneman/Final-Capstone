@@ -4,6 +4,7 @@ using SportsClubOrganizer.Web.DAL;
 using SportsClubOrganizer.Web.Models;
 using SportsClubOrganizer.Web.Models.Account;
 using SportsClubOrganizer.Web.Models.Calendar;
+using SportsClubOrganizer.Web.Models.Messages;
 using SportsClubOrganizer.Web.Providers.Auth;
 using System.Collections.Generic;
 
@@ -14,12 +15,14 @@ namespace SportsClubOrganizer.Web.Controllers
         private readonly IAuthProvider authProvider;
         private readonly TeamSqlDAL teamDAL;
         private readonly IUserDAL userDAL;
+        private readonly MessagesDAL messageDAL;
 
-        public AdminController(IAuthProvider authProvider, TeamSqlDAL teamDAL, IUserDAL userDAL)
+        public AdminController(IAuthProvider authProvider, TeamSqlDAL teamDAL, IUserDAL userDAL, MessagesDAL messageDAL)
         {
             this.authProvider = authProvider;
             this.teamDAL = teamDAL;
             this.userDAL = userDAL;
+            this.messageDAL = messageDAL;
         }
 
         [AuthorizationFilter("Admin")]
@@ -32,6 +35,14 @@ namespace SportsClubOrganizer.Web.Controllers
         public IActionResult ViewAllTeams()
         {
             List<Team> teams = teamDAL.GetAllTeams();
+            return View(teams);
+        }
+
+        [HttpGet]
+        [AuthorizationFilter("Admin", "User")]
+        public IActionResult ViewTeam(string League)
+        {
+            List<Team> teams = teamDAL.GetTeamsByLeague(League);
             return View(teams);
         }
 
@@ -97,7 +108,6 @@ namespace SportsClubOrganizer.Web.Controllers
         [AuthorizationFilter("Admin")]
         public IActionResult ChangeATeam(Team team)
         {
-            //team = teamDAL.GetTeamByTeamID(team.TeamID.ToString());
             return View(team);
         }
 
@@ -205,7 +215,16 @@ namespace SportsClubOrganizer.Web.Controllers
         [AuthorizationFilter("Admin")]
         public IActionResult FinalizeEvent()
         {
-            return View();
+            List<MessagesModel> messages = messageDAL.GetMessagesForAdmin();
+            Team team = new Team();
+            foreach (MessagesModel message in messages)
+            {
+                team = teamDAL.GetTeamByUserID(message.SentByID);
+                message.SentByName = team.Name;
+                team = teamDAL.GetTeamByUserID(message.SentToID);
+                message.SentToName = team.Name;
+            }
+            return View(messages);
         }
 
         [AuthorizationFilter("Admin")]
