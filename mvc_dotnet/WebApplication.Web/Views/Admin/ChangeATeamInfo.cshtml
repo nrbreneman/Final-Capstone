@@ -4,11 +4,11 @@
 }
 
 <div class="page-info">
-    <h2>Modify Teams</h2>
+    <h2>Modify A Team</h2>
 
     <form asp-controller="Admin" asp-action="ChangeATeamInfo" method="post">
         <p>
-            <label asp-for="Name" class="control-label">Select Team</label>
+            <label asp-for="Name" class="control-label">Select Team To Be Changed</label>
         </p>
         <p>
             <select asp-for="Name" asp-items="Model.DropDownListTeam" class="dropbtn"></select>

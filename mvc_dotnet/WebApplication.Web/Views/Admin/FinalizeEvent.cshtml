@@ -4,7 +4,7 @@
     ViewData["Title"] = "FinalizeEvent";
 }
 <div class="page-info">
-    <h2>Finalize Event</h2>
+    <h2>Finalize Requested Event</h2>
         @foreach (MessagesModel message in Model)
         {
             <p>Sent by: @message.SentByName</p>
@@ -18,6 +18,7 @@
                 <input type="button" name="Decline" value="Decline Proposed Event" class="btn btn-default" />
             </a>
         }
-
-        <input type="button" value="Back to Home Page" class="btn btn-default" />
+        <a asp-controller="Admin" asp-action="AdminHomePage" method="post">
+            <input type="button" value="Back to Home Page" class="btn btn-default" />
+        </a>
 </div>

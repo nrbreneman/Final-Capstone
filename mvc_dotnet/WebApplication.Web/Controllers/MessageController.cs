@@ -5,9 +5,11 @@ using SportsClubOrganizer.Web.Models;
 using SportsClubOrganizer.Web.Models.Messages;
 using SportsClubOrganizer.Web.Providers.Auth;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SportsClubOrganizer.Web.Controllers
 {
+    [SuppressMessage("ReSharper", "Mvc.ViewNotResolved")]
     public class MessageController : Controller
     {
         private readonly IAuthProvider authProvider;
@@ -26,7 +28,7 @@ namespace SportsClubOrganizer.Web.Controllers
         public IActionResult Index()
         {
             return View();
-        }       
+        }
 
         [AuthorizationFilter("User")]
         public IActionResult SeeMessages()
@@ -40,7 +42,7 @@ namespace SportsClubOrganizer.Web.Controllers
                 message.SentByName = team.Name;
             }
             return View(messages);
-        }
+        }           
 
         [HttpGet]
         [AuthorizationFilter("User")]
@@ -82,10 +84,10 @@ namespace SportsClubOrganizer.Web.Controllers
         {
             TempData["Added"] = "Your Message Has Been Sent!";
             User user = authProvider.GetCurrentUser();
-            MessagesModel message = new MessagesModel();
-            message.MessageBody = Message;
-            message.SentToID = UserID;
-            message.SentByID = user.TeamID;
+            MessagesModel message = new MessagesModel
+            {
+                MessageBody = Message, SentToID = UserID, SentByID = user.TeamID
+            };
             messageDAL.AddMessageToDB(message);
             return RedirectToAction("UserHomePage", "User");
         }
@@ -147,10 +149,10 @@ namespace SportsClubOrganizer.Web.Controllers
         {
             User userFrom = authProvider.GetCurrentUser();
             int userToTeamID = userDAL.GetUserFromTeamID(userTo.TeamID);
-            MessagesModel Message = new MessagesModel();
-            Message.MessageBody = message;
-            Message.SentToID = userTo.TeamID;
-            Message.SentByID = userFrom.TeamID;
+            MessagesModel Message = new MessagesModel
+            {
+                MessageBody = message, SentToID = userTo.TeamID, SentByID = userFrom.TeamID
+            };
             messageDAL.AddMessageToDB(Message);
             return RedirectToAction("UserHomePage", "User");
         }
@@ -168,6 +170,11 @@ namespace SportsClubOrganizer.Web.Controllers
 
         [AuthorizationFilter("Admin")]
         public IActionResult ApproveUser()
+        {
+            return View();
+        }
+
+        public IActionResult SelectHomeOrAwayVenue()
         {
             return View();
         }

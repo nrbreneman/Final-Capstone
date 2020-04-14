@@ -8,10 +8,12 @@ namespace SportsClubOrganizer.Web.DAL
     {
         private readonly string connectionString;
 
-        private string CreateUserSQL = "INSERT INTO Users(username, password, salt, role) VALUES (@username, @password, @salt, @role); ";
-        private string DeleteUserSQL = "DELETE FROM Users WHERE id = @id; ";
-        private string GetUserSQL = "SELECT * FROM Users WHERE username = @username; ";
-        private string UpdateUserSQL = "UPDATE Users SET password = @password, salt = @salt, role = @role WHERE id = @id; ";
+        private readonly string CreateUserSQL = "INSERT INTO Users(username, password, salt, role) VALUES (@username, @password, @salt, @role); ";
+        private readonly string DeleteUserSQL = "DELETE FROM Users WHERE id = @id; ";
+        private readonly string GetUserSQL = "SELECT * FROM Users WHERE username = @username; ";
+        private readonly string UpdateUserSQL = "UPDATE Users SET password = @password, salt = @salt, role = @role WHERE id = @id; ";
+        private readonly string GetUserLeagueNameSQL = "SELECT League FROM teams JOIN users on users.teamID = teams.id WHERE UserID = @userID; ";
+        private readonly string GetUserFromTeamIDSQL = "SELECT userID from TEAMS where id = @teamID; ";
 
         public UserSqlDAL(string connectionString)
         {
@@ -102,7 +104,7 @@ namespace SportsClubOrganizer.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("SELECT League FROM teams JOIN users on users.teamID = teams.id WHERE UserID = @userID;", conn);
+                    SqlCommand cmd = new SqlCommand(GetUserLeagueNameSQL, conn);
                     cmd.Parameters.AddWithValue("@userID", user.Id);
 
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -129,7 +131,7 @@ namespace SportsClubOrganizer.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("SELECT userID from TEAMS where id = @teamID; ", conn);
+                    SqlCommand cmd = new SqlCommand(GetUserFromTeamIDSQL, conn);
                     cmd.Parameters.AddWithValue("@teamID", TeamID);
 
                     SqlDataReader reader = cmd.ExecuteReader();

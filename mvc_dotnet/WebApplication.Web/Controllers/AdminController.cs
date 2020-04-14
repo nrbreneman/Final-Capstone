@@ -38,6 +38,14 @@ namespace SportsClubOrganizer.Web.Controllers
             return View(teams);
         }
 
+        [HttpGet]
+        [AuthorizationFilter("Admin", "User")]
+        public IActionResult ViewTeam(string League)
+        {
+            List<Team> teams = teamDAL.GetTeamsByLeague(League);
+            return View(teams);
+        }
+
         private SelectListItem AddTeamToList(Team Team)
 
         {

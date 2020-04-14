@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SportsClubOrganizer.Web.DAL;
 using SportsClubOrganizer.Web.Models;
-using SportsClubOrganizer.Web.Providers.Auth;
-using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace SportsClubOrganizer.Web.Controllers
@@ -10,6 +8,7 @@ namespace SportsClubOrganizer.Web.Controllers
     public class HomeController : Controller
     {
         private readonly TeamSqlDAL teamDAL;
+
         public HomeController(TeamSqlDAL teamDAL)
         {
             this.teamDAL = teamDAL;
@@ -28,14 +27,6 @@ namespace SportsClubOrganizer.Web.Controllers
         public IActionResult Register()
         {
             return View();
-        }
-
-        [HttpGet]
-        [AuthorizationFilter("Admin", "User")]
-        public IActionResult ViewTeam(string League)
-        {
-            List<Team> teams = teamDAL.GetTeamsByLeague(League);
-            return View(teams);
         }
         
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -4,7 +4,7 @@
 }
 <div class="page-info">
     <h2>Create Message</h2>
-    
+
     <form asp-controller="Message" asp-action="CreateMessage" method="post">
         <p>Dates That @Model.Name can play at their home field</p>
         @foreach (DateTime date in Model.HomeDates)
@@ -28,4 +28,3 @@
         <input type="submit" value="Send Message" class="btn btn-default" />
     </form>
 </div>
-

@@ -111,7 +111,7 @@ namespace SportsClubOrganizer.Web.Controllers
             User user = authProvider.GetCurrentUser();
             teamDAL.AddHomeDateToDB(calendar.HomeDate, user);
             teamDAL.AddTravelDateToDB(calendar.TravelDate, user);
-            
+
             return View(calendar);
         }
 
