@@ -22,7 +22,7 @@
         @foreach (Team team in Model)
         {
             <tr>
-                <td><a asp-action="AdminSeeSchedule" asp-controller="Admin" asp-route-id="@team.TeamID">@team.Name</a></td>
+                <td><a asp-action="AdminSeeSchedule" asp-controller="Admin" asp-route-id="@team.TeamID" class="sched-links">@team.Name</a></td>
                 <td>@team.League</td>
                 <td>@team.Org</td>
                 <td>@team.PrimaryVenue</td>
