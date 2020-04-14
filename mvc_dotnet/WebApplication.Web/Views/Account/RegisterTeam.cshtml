@@ -11,42 +11,41 @@
             <label asp-for="Name"></label>
         </p>
         <p>
-            <input type="text" asp-for="Name" />
+            <input type="text" asp-for="Name" placeholder="enter your name" />
             <span asp-validation-for="Name"></span>
         </p>
         <p>
             <label asp-for="Org"></label>
         </p>
         <p>
-            <input type="text" asp-for="Org" />
+            <input type="text" asp-for="Org" placeholder="enter your organization" />
             <span asp-validation-for="Org"></span>
         </p>
         <p>
             <label asp-for="League"></label>
         </p>
         <p>
-            <input type="text" asp-for="League" />
+            <input type="text" asp-for="League" placeholder="enter your league" />
             <span asp-validation-for="League"></span>
         </p>
         <p>
             <label asp-for="PrimaryVenue"></label>
         </p>
         <p>
-            <input type="text" asp-for="PrimaryVenue" />
+            <input type="text" asp-for="PrimaryVenue" placeholder="enter your primary venue" />
             <span asp-validation-for="PrimaryVenue"></span>
         </p>
         <p>
             <label asp-for="SecondaryVenue"></label>
         </p>
         <p>
-            <input type="text" asp-for="SecondaryVenue" />
+            <input type="text" asp-for="SecondaryVenue" placeholder="enter your secondary venue" />
             <span asp-validation-for="SecondaryVenue"></span>
         </p>
 
         <input type="submit" value="Continue" class="btn btn-default" />
+        <a asp-controller="Home" asp-action="Index">
+            <input type="button" value="Cancel" class="btn btn-default" />
+        </a>
     </form>
-
-    <a asp-controller="Home" asp-action="Index" method="post">
-        <input type="button" value="Cancel" class="btn btn-default" />
-    </a>
 </div>

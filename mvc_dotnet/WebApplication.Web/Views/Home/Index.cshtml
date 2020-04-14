@@ -3,9 +3,8 @@
     ViewData["Title"] = "Index";
 }
 
-@ViewData["Added"]
-
 <div class="page-info">
+    <p>@TempData["Added"]</p>
     @{
         if (DateTime.Now.Hour < 12 && DateTime.Now.Hour >= 0)
         {

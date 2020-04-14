@@ -1,5 +1,5 @@
 ﻿body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .header {
@@ -37,7 +37,7 @@
     border-left: 3px solid #233772;
     list-style: none;
     text-decoration: none;
-    color: black;
+    color: #233772;
     padding: 10px;
 }
 
@@ -48,7 +48,7 @@
 
         .admin-links a:hover {
             text-decoration: underline;
-            color: lightgray;
+            color: gray;
         }
 
 .user-links {
@@ -56,6 +56,7 @@
     list-style: none;
     text-decoration: none;
     padding: 10px;
+    color: #233772;
 }
 
     .user-links a {
@@ -65,14 +66,31 @@
 
         .user-links a:hover {
             text-decoration: underline;
-            color: lightgray;
+            color: gray;
+        }
+
+.sched-links {
+    list-style: none;
+    text-decoration: none;
+    color: #ee2e29;
+    padding: 10px;
+}
+
+    .sched-links a {
+        list-style: none;
+        text-decoration: none;
+    }
+
+        .sched-links:hover {
+            text-decoration: underline;
+            color: gray;
         }
 
 nav {
     overflow: hidden;
     position: relative;
     top: 0;
-    width: 100%;
+    width: 99%;
     background-color: lightgrey;
     border: 5px solid #233772;
 }
@@ -85,6 +103,7 @@ nav {
     background-color: lightgrey;
     color: #ee2e29;
     font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding: 15px 20px;
     text-align: center;
     text-decoration: none;
@@ -123,9 +142,10 @@ input[type=email] {
 }
 
 input[type=submit] {
-    background-color: lightgrey;
+    background-color: lightgray;
     border: 2px solid #233772;
     padding: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
     input[type=submit]:hover {
@@ -133,9 +153,10 @@ input[type=submit] {
     }
 
 input[type=button] {
-    background-color: lightgrey;
+    background-color: lightgray;
     border: 2px solid #233772;
     padding: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
     input[type=button]:hover {
@@ -149,6 +170,7 @@ input[type=button] {
     font-size: 14px;
     border: 2px solid #233772;
     cursor: pointer;
+    border-left: 3px solid #233772;
 }
 
     .dropbtn:hover {
@@ -184,10 +206,11 @@ ul {
 
 .travel-dates, .home-dates, .calendar {
     margin: 40px;
+    border-left: 3px solid #233772;
 }
 
 footer {
     bottom: 0;
     position: relative;
-    color: lightgray;
+    color: gray;
 }
