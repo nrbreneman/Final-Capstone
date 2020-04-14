@@ -38,14 +38,6 @@ namespace SportsClubOrganizer.Web.Controllers
             return View(teams);
         }
         
-        //NOT USED
-        //public ActionResult Calendar()
-        //{
-        //    //https://localhost:44392/home/calendar
-        //    //https://localhost:44392/home/calendar2
-        //    return View();
-        //}
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

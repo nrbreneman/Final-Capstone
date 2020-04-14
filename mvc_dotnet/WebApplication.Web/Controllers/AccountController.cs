@@ -44,7 +44,7 @@ namespace SportsClubOrganizer.Web.Controllers
                     if (user.Role == "Admin")
                     {
                         return RedirectToAction("AdminHomePage", "Admin");
-                        //Admin login: madi.kohr@gmail.com, Password
+                        //Admin login: admin@gmail.com, Password
                     }
                     else
                     {

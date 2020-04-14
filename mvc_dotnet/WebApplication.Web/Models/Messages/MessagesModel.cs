@@ -6,6 +6,7 @@ namespace SportsClubOrganizer.Web.Models.Messages
         public int? SentByID { get; set; }
         public string SentByName { get; set; }
         public int? SentToID { get; set; }
+        public string SentToName { get; set; }
         public string MessageBody { get; set; }
 
         public string MyTeamName { get; set; }
@@ -13,5 +14,6 @@ namespace SportsClubOrganizer.Web.Models.Messages
         public string ProposedDates { get; set; }
 
         public string UserAccepted { get; set; }
+        public string AdminAccepted { get; set; }
     }
 }

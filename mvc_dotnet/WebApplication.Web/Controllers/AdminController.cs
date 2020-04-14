@@ -100,7 +100,6 @@ namespace SportsClubOrganizer.Web.Controllers
         [AuthorizationFilter("Admin")]
         public IActionResult ChangeATeam(Team team)
         {
-            //team = teamDAL.GetTeamByTeamID(team.TeamID.ToString());
             return View(team);
         }
 
@@ -214,6 +213,8 @@ namespace SportsClubOrganizer.Web.Controllers
             {
                 team = teamDAL.GetTeamByUserID(message.SentByID);
                 message.SentByName = team.Name;
+                team = teamDAL.GetTeamByUserID(message.SentToID);
+                message.SentToName = team.Name;
             }
             return View(messages);
         }

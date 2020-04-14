@@ -88,7 +88,7 @@ namespace SportsClubOrganizer.Web.DAL
                     cmd.Parameters.AddWithValue("@messageBody", Message.MessageBody);
                     cmd.Parameters.AddWithValue("@UserTo", Message.SentToID);
                     cmd.Parameters.AddWithValue("@UserFrom", Message.SentByID);
-                    
+
 
                     cmd.ExecuteNonQuery();
                 }
@@ -105,12 +105,23 @@ namespace SportsClubOrganizer.Web.DAL
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    conn.Open();
-                    SqlCommand cmd = new SqlCommand("UPDATE Messages SET userAccepted = @UserAccepted WHERE id = @messageID", conn);
-                    cmd.Parameters.AddWithValue("@messageID", Message.ID);
-                    cmd.Parameters.AddWithValue("@UserAccepted", Message.UserAccepted);
+                    if ((Message.AdminAccepted == "Accepted") || (Message.AdminAccepted == "Declined"))
+                    {
+                        conn.Open();
+                        SqlCommand cmd = new SqlCommand("UPDATE Messages SET adminAccepted = @AdminAccepted WHERE id = @messageID", conn);
+                        cmd.Parameters.AddWithValue("@messageID", Message.ID);
+                        cmd.Parameters.AddWithValue("@AdminAccepted", Message.AdminAccepted);
+                        cmd.ExecuteNonQuery();
+                    }
+                    else
+                    {
+                        conn.Open();
+                        SqlCommand cmd = new SqlCommand("UPDATE Messages SET userAccepted = @UserAccepted WHERE id = @messageID", conn);
+                        cmd.Parameters.AddWithValue("@messageID", Message.ID);
+                        cmd.Parameters.AddWithValue("@UserAccepted", Message.UserAccepted);
+                        cmd.ExecuteNonQuery();
+                    }
 
-                    cmd.ExecuteNonQuery();
                 }
             }
             catch (SqlException ex)
@@ -134,7 +145,7 @@ namespace SportsClubOrganizer.Web.DAL
 
                     while (reader.Read())
                     {
-                        
+
                         message.MessageBody = Convert.ToString(reader["messageBody"]);
                         message.SentByID = Convert.ToInt32(reader["SentByUserID"]);
                         message.SentToID = Convert.ToInt32(reader["toUserID"]);
