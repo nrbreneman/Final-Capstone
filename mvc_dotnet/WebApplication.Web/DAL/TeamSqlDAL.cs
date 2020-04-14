@@ -26,10 +26,37 @@ namespace SportsClubOrganizer.Web.DAL
         private readonly string GetAllLeaguesSQL = "SELECT * from Leagues; ";
         private readonly string AdminUpdateTeamSQL = "UPDATE TEAMS SET Name = @Name, League = @League, Org = @Org, PrimaryVenue = @Pvenue, SecondaryVenue = @SVenue WHERE id = @TeamID; ";
         private readonly string GetScheduleByTeamSQL = "SELECT * FROM Schedule where homeTeam = @teamName  OR awayTeam = @teamName; ";
+        private readonly string GetRosterSQL = "SELECT firstName, lastName, email, phone, Teams.Name FROM Roster JOIN Teams on Roster.teamID = Teams.id WHERE Teams.id = @teamID";
 
         public TeamSqlDAL(string connectionString)
         {
             this.connectionString = connectionString;
+        }
+
+        public List<Player> GetRoster(int teamID)
+        {
+            List<Player> roster = new List<Player>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(GetRosterSQL, conn);
+                    cmd.Parameters.AddWithValue("@teamID", teamID);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        roster.Add(MapRowToPlayer(reader));
+                    }
+                }
+
+                return roster;
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
         }
 
         public List<Team> GetTeamsByLeague(string League)
@@ -504,6 +531,34 @@ namespace SportsClubOrganizer.Web.DAL
             }
 
             return team;
+        }
+
+        private Player MapRowToPlayer(SqlDataReader reader)
+        {
+            Player Player = new Player
+            {
+                FirstName = Convert.ToString(reader["firstName"]),
+                LastName = Convert.ToString(reader["lastName"]),
+                TeamName = Convert.ToString(reader["Name"]),
+            };
+            if (!DBNull.Value.Equals(reader["email"]))
+            {
+                Player.Email = Convert.ToString(reader["email"]);
+            }
+            else
+            {
+                Player.Email = "";
+            }
+            if (!DBNull.Value.Equals(reader["phone"]))
+            {
+                Player.PhoneNumber = Convert.ToString(reader["Phone"]);
+            }
+            else
+            {
+                Player.PhoneNumber = "";
+            }
+
+            return Player;
         }
     }
 }

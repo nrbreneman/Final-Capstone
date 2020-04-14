@@ -43,7 +43,6 @@ namespace SportsClubOrganizer.Web.Controllers
             }
             return View(messages);
         }
-<<<<<<< HEAD
 
         [AuthorizationFilter("User")]
         public IActionResult SeeMessagesResponse()
@@ -58,8 +57,6 @@ namespace SportsClubOrganizer.Web.Controllers
             }
             return View(messages);
         }
-=======
->>>>>>> b814fe35a6f7b067c6c4693ac676279f5f1acb52
 
         [HttpGet]
         [AuthorizationFilter("User")]
@@ -132,28 +129,6 @@ namespace SportsClubOrganizer.Web.Controllers
             messageDAL.UpdateMessage(Message);
             return RedirectToAction("SeeMessages", "Message");
         }
-
-        //[HttpPost]
-        //[AuthorizationFilter("Admin")]
-        //public IActionResult AdminAcceptEvent(int id)
-        //{
-        //    TempData["Final"] = "You have approved this event both teams will be notified";
-        //    MessagesModel Message = messageDAL.GetMessagebyID(id);
-        //    Message.AdminAccepted = "Accepted";
-        //    messageDAL.UpdateMessage(Message);
-        //    return RedirectToAction("FinalizeEvent", "Admin");
-        //}
-
-        //[HttpPost]
-        //[AuthorizationFilter("Admin")]
-        //public IActionResult AdminDeclineEvent(int id)
-        //{
-        //    TempData["Final"] = "You have declined this event both teams will be notified";
-        //    MessagesModel Message = messageDAL.GetMessagebyID(id);
-        //    Message.AdminAccepted = "Declined";
-        //    messageDAL.UpdateMessage(Message);
-        //    return RedirectToAction("FinalizeEvent", "Admin");
-        //}
 
         [HttpGet]
         [AuthorizationFilter("User")]
