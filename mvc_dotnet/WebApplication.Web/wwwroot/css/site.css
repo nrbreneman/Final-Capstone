@@ -21,7 +21,7 @@
     margin-left: 15%;
     margin-right: 15%;
     background-color: white;
-    padding:20px;
+    padding: 20px;
 }
 
     .page-info h2 {
@@ -30,7 +30,7 @@
     }
 
     .page-info h3 {
-        color:red;
+        color: red;
     }
 
 .admin-links {
@@ -134,16 +134,20 @@ input[type=submit] {
 
 input[type=button] {
     background-color: lightgrey;
-    border: 1px solid #233772;
+    border: 2px solid #233772;
     padding: 10px;
 }
+
+    input[type=button]:hover {
+        background-color: white;
+    }
 
 .dropbtn {
     background-color: lightgray;
     color: black;
     padding: 16px;
     font-size: 14px;
-    border: 1px solid black;
+    border: 2px solid #233772;
     cursor: pointer;
 }
 
@@ -154,12 +158,12 @@ input[type=button] {
 
 table {
     border-collapse: collapse;
-    border: 1px solid black;
+    border: 2px solid #233772;
     margin-bottom: 20px;
 }
 
 th, td {
-    border: 1px solid black;
+    border: 2px solid #233772;
     padding: 10px;
 }
 
