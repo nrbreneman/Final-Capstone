@@ -15,7 +15,7 @@
                 <p>Sent by: @message.SentByName</p>
                 <p>Sent to: @message.SentToName</p>
                 <p name="MessageBody">@message.MessageBody</p>
-                                
+
                 <form asp-controller="Admin" asp-action="AdminAcceptEvent" method="post">
                     <input type="submit" name="Accept" value="Finalize Proposed Event" class="btn btn-default" />
                     <input type="hidden" asp-for="@message.ID" name="id" class="form-control" />
