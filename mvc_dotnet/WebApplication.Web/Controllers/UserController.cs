@@ -5,6 +5,7 @@ using SportsClubOrganizer.Web.Models.Calendar;
 using SportsClubOrganizer.Web.Providers.Auth;
 using System.Collections.Generic;
 
+
 namespace SportsClubOrganizer.Web.Controllers
 {
     public class UserController : Controller
@@ -33,8 +34,8 @@ namespace SportsClubOrganizer.Web.Controllers
         {
             User user = authProvider.GetCurrentUser();
             string League = teamDAL.GetLeagueByUser(user);
-
             List<Team> teams = teamDAL.GetTeamsByLeague(League);
+
             return View(teams);
         }
 
