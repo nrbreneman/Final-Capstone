@@ -212,5 +212,10 @@ ul {
 footer {
     bottom: 0;
     position: relative;
+<<<<<<< HEAD
+    color: lightgray;
+}
+=======
     color: gray;
 }
+>>>>>>> e9d8bd8baf480a9227353e05911f0e4f228301a4

@@ -470,7 +470,6 @@ namespace SportsClubOrganizer.Web.DAL
                             Org = Convert.ToString(reader["org"])
                         };
 
-
                         leagues.Add(league);
                     }
                 }
