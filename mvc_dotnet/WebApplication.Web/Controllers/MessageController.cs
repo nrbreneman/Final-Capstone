@@ -42,7 +42,7 @@ namespace SportsClubOrganizer.Web.Controllers
                 message.SentByName = team.Name;
             }
             return View(messages);
-        }           
+        }
 
         [HttpGet]
         [AuthorizationFilter("User")]
@@ -86,7 +86,9 @@ namespace SportsClubOrganizer.Web.Controllers
             User user = authProvider.GetCurrentUser();
             MessagesModel message = new MessagesModel
             {
-                MessageBody = Message, SentToID = UserID, SentByID = user.TeamID
+                MessageBody = Message,
+                SentToID = UserID,
+                SentByID = user.TeamID
             };
             messageDAL.AddMessageToDB(message);
             return RedirectToAction("UserHomePage", "User");
@@ -151,7 +153,9 @@ namespace SportsClubOrganizer.Web.Controllers
             int userToTeamID = userDAL.GetUserFromTeamID(userTo.TeamID);
             MessagesModel Message = new MessagesModel
             {
-                MessageBody = message, SentToID = userTo.TeamID, SentByID = userFrom.TeamID
+                MessageBody = message,
+                SentToID = userTo.TeamID,
+                SentByID = userFrom.TeamID
             };
             messageDAL.AddMessageToDB(Message);
             return RedirectToAction("UserHomePage", "User");

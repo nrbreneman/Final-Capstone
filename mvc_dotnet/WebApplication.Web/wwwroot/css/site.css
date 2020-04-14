@@ -38,7 +38,6 @@
     list-style: none;
     text-decoration: none;
     color: #233772;
-    padding: 10px;
 }
 
     .admin-links a {
@@ -111,6 +110,10 @@ nav {
     background-color: lightgrey;
     border: 5px solid #233772;
 }
+
+    nav ul {
+        padding-left: 15%;
+    }
 
     nav li {
         display: inline;

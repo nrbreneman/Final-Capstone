@@ -29,20 +29,15 @@
 
         <p>
             <input type="submit" value="Add Date(s)" class="btn btn-default" />
-
-            <a asp-controller="Account" asp-action="Login" method="get">
-                <input type="submit" value="Submit" class="btn btn-success" />
-            </a>
-
-            <a asp-controller="User" asp-action="SeeSchedule" method="post">
-                <input type="button" value="Back" class="btn btn-default" />
-            </a>
-
-            <a asp-controller="User" asp-action="UserHomePage" method="post">
-                <input type="button" value="Cancel" class="btn btn-default" />
-            </a>
         </p>
     </form>
+    <a asp-controller="Account" asp-action="Login" method="get">
+        <input type="submit" value="Submit" class="btn btn-success" />
+    </a>
+
+    <a asp-controller="User" asp-action="UserHomePage" method="post">
+        <input type="button" value="Cancel" class="btn btn-default" />
+    </a>
 </div>
 
         <div class="home-dates">

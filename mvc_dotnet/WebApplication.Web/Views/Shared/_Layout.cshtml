@@ -2,52 +2,20 @@
 @using Microsoft.AspNetCore.Http;
 @using SportsClubOrganizer.Web.DAL;
 
-
-@*@{
-        int? loggedIn = Context.Session.GetInt32("MatchMaking_UserId");
-        int userId = (int)((loggedIn == null) ? 0 : loggedIn);
-        string userName = "";
-
-        bool isLoggedIn = false;
-        bool isAdmin = false;
-        bool isStudent = false;
-
-        if (userId != 0)
-        {
-            isLoggedIn = true;
-
-            UserSqlDAL userDal = new UserDal(Startup.ConnectionString);
-            User user = userDal.GetUser(userId);
-            userName = user.Fullname;
-
-            if (user.Role == RoleDal.ADMINISTRATOR)
-            {
-                isAdmin = true;
-            }
-            else if (user.Role == RoleDal.STUDENT)
-            {
-                isStudent = true;
-            }
-        }
-
-        var displayVersion = Startup.DisplayVersion;
-    }*@
-
-@*@{
-    int? loggedIn = Context.Session.GetInt32("Auth_User");
-    int userId = (int)((loggedIn == null) ? 0 : loggedIn.Value);
+@{
+    string loggedIn = Context.Session.GetString("Auth_User");
 
     bool isLoggedIn = false;
     bool isAdmin = false;
     bool isUser = false;
     string connectionString = "Data Source =.\\SQLEXPRESS; Initial Catalog = DemoDB; Integrated Security = True";
 
-    if (userId != 0)
+    if (!String.IsNullOrEmpty(loggedIn))
     {
         isLoggedIn = true;
 
         UserSqlDAL userDal = new UserSqlDAL(connectionString);
-        User user = userDal.GetUserByID(userId);
+        User user = userDal.GetUser(loggedIn);
 
         if (user.Role == "Admin")
         {
@@ -59,7 +27,7 @@
         }
     }
     //var displayVersion = Startup.DisplayVersion;
-    }*@
+}
 
 <!DOCTYPE html>
 <html>
@@ -70,58 +38,42 @@
 
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
-<body>
-    @*<div class="nav-bar">
-            @Html.Partial("_NavBar")
-        </div>*@
 
+<body>
     <div class="header">
         <img id="logo" src="~/images/logo2.jpg" />
-
-        @*<img src="~/images/whoop.jpg" />*@
     </div>
 
-    @*<nav>
-            @{
-                @if (isUser)
-                {
-                    <ul>
-                        <li><a asp-action="Index" asp-controller="Home" class="nav-buttons">Home</a></li>
-                        <li><a asp-action="UserHomePage" asp-controller="User" class="nav-buttons">My Account</a></li>
-                        <li><a asp-action="Login" asp-controller="Account" class="nav-buttons">Login</a></li>
-                        <li><a asp-action="Register" asp-controller="Account" class="nav-buttons">Register</a></li>
-                        <li><a asp-action="Logoff" asp-controller="Account" class="nav-buttons">Logout</a></li>
-                    </ul>
-                }
-                else if (isAdmin)
-                {
-                    <ul>
-                        <li><a asp-action="Index" asp-controller="Home" class="nav-buttons">Home</a></li>
-                        <li><a asp-action="Login" asp-controller="Account" class="nav-buttons">Login</a></li>
-                        <li><a asp-action="AdminHomePage" asp-controller="Admin" class="nav-buttons">My Account</a></li>
-                        <li><a asp-action="Register" asp-controller="Account" class="nav-buttons">Register</a></li>
-                        <li><a asp-action="Logoff" asp-controller="Account" class="nav-buttons">Logout</a></li>
-                    </ul>
-                }
-                else
-                {
-                    <ul>
-                        <li><a asp-action="Index" asp-controller="Home" class="nav-buttons">Home</a></li>
-                        <li><a asp-action="Login" asp-controller="Account" class="nav-buttons">Login</a></li>
-                        <li><a asp-action="Register" asp-controller="Account" class="nav-buttons">Register</a></li>
-                        <li><a asp-action="Logoff" asp-controller="Account" class="nav-buttons">Logout</a></li>
-                    </ul>
-                }
-            }
-        </nav>*@
-
     <nav>
-        <ul>
-            <li><a asp-action="Index" asp-controller="Home" class="nav-buttons">Home</a></li>
-            <li><a asp-action="Login" asp-controller="Account" class="nav-buttons">Login</a></li>
-            <li><a asp-action="Register" asp-controller="Account" class="nav-buttons">Register</a></li>
-            <li><a asp-action="Logoff" asp-controller="Account" class="nav-buttons">Logout</a></li>
-        </ul>
+        @{
+            @if (isUser)
+            {
+                <ul>
+                    <li><a asp-action="Index" asp-controller="Home" class="nav-buttons">Home</a></li>
+                    <li><a asp-action="UserHomePage" asp-controller="User" class="nav-buttons">My Account</a></li>
+                    <li><a asp-action="Register" asp-controller="Account" class="nav-buttons">Register</a></li>
+                    <li><a asp-action="Logoff" asp-controller="Account" class="nav-buttons">Logout</a></li>
+                </ul>
+            }
+            else if (isAdmin)
+            {
+                <ul>
+                    <li><a asp-action="Index" asp-controller="Home" class="nav-buttons">Home</a></li>
+                    <li><a asp-action="AdminHomePage" asp-controller="Admin" class="nav-buttons">My Account</a></li>
+                    <li><a asp-action="Register" asp-controller="Account" class="nav-buttons">Register</a></li>
+                    <li><a asp-action="Logoff" asp-controller="Account" class="nav-buttons">Logout</a></li>
+                </ul>
+            }
+            else
+            {
+                <ul>
+                    <li><a asp-action="Index" asp-controller="Home" class="nav-buttons">Home</a></li>
+                    <li><a asp-action="Login" asp-controller="Account" class="nav-buttons">Login</a></li>
+                    <li><a asp-action="Register" asp-controller="Account" class="nav-buttons">Register</a></li>
+                    <li><a asp-action="Logoff" asp-controller="Account" class="nav-buttons">Logout</a></li>
+                </ul>
+            }
+        }
     </nav>
 
     <div class="container">

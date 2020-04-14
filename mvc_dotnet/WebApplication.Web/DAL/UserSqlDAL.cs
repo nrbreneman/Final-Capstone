@@ -8,14 +8,13 @@ namespace SportsClubOrganizer.Web.DAL
     {
         private readonly string connectionString;
 
-        private string GetUserByIDSQL = "SELECT * FROM Users WHERE id = @id; ";
+        private readonly string GetUserByIDSQL = "SELECT * FROM Users WHERE id = @id; ";
         private readonly string CreateUserSQL = "INSERT INTO Users(username, password, salt, role) VALUES (@username, @password, @salt, @role); ";
         private readonly string DeleteUserSQL = "DELETE FROM Users WHERE id = @id; ";
         private readonly string GetUserSQL = "SELECT * FROM Users WHERE username = @username; ";
         private readonly string UpdateUserSQL = "UPDATE Users SET password = @password, salt = @salt, role = @role WHERE id = @id; ";
         private readonly string GetUserLeagueNameSQL = "SELECT League FROM teams JOIN users on users.teamID = teams.id WHERE UserID = @userID; ";
         private readonly string GetUserFromTeamIDSQL = "SELECT userID from TEAMS where id = @teamID; ";
-
 
         public UserSqlDAL(string connectionString)
         {
