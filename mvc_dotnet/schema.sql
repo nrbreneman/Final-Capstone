@@ -1,4 +1,8 @@
+﻿<<<<<<< HEAD
 ﻿﻿-- Switch to the system (aka master) database
+=======
+-- Switch to the system (aka master) database
+>>>>>>> fc83a7b03e13eb6da099f4778c7d587ceeb06797
 USE master;
 GO
 
@@ -357,7 +361,7 @@ INSERT INTO Messages(SentByUserID, toUserID, messageBody) VALUES (5,1, 'Detroit 
 INSERT INTO Messages(SentByUserID, toUserID, messageBody) VALUES (6,1, 'Wisconsin Rugby would like to play you on 09/11/2020 at Lambeau Field')
 INSERT INTO Messages(SentByUserID, toUserID, messageBody) VALUES (2,1, 'Chicago Rugby would like to play you on 09/12/2020 at Solider Field')
 INSERT INTO Messages(SentByUserID, toUserID, messageBody) VALUES (2,3, 'Chicago Rugby would like to play you on 09/12/2020 at Solider Field')
-INSERT INTO Messages(SentByUserID, toUserID, messageBody, userAccepted) VALUES (2,3, 'Chicago Rugby would like to play you on 09/12/2020 at Solider Field', 'Accepted')
+INSERT INTO Messages(SentByUserID, toUserID, messageBody, userAccepted) VALUES (2,3, 'Chicago Rugby would like to play you on 09/14/2020 at Solider Field', 'Accepted')
 INSERT INTO Messages(SentByUserID, toUserID, messageBody, userAccepted) VALUES (2,4, 'Chicago Rugby would like to play you on 09/19/2020 at Solider Field', 'Accepted')
 
 INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES( 'Bowers', 'Stephanie', 'sBowers@TNE.com', '6141002000', 2);
@@ -380,6 +384,7 @@ INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES(   'Roodhou
 INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES(  'Jones', 'Emma', 'eJones@TNE.com', '6141002000', 2);
 INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES(  'Schafer', 'Lorena', 'lSchafer@TNE.com', '6141002000', 2);
 INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES(  'Willis', 'Emily', 'eWillis@TNE.com', '6141002000', 2);
+
 
 COMMIT TRANSACTION;
 

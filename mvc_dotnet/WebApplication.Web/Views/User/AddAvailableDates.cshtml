@@ -6,68 +6,63 @@
 
 <div class="page-info">
     <h2>Add Available Dates</h2>
-</div>
 
-<div class="flex">
-    <div class="calendar">
-        <form asp-controller="User" asp-action="AddAvailableDates" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <p>
-                <label asp-for="HomeDate" class="control-label"></label>
-            </p>
-            <p>
-                <input asp-for="HomeDate" class="form-control" />
-                <span asp-validation-for="HomeDate" class="text-danger"></span>
-            </p>
-            <p>
-                <label asp-for="TravelDate" class="control-label"></label>
-            </p>
-            <p>
-                <input asp-for="TravelDate" class="form-control" />
-                <span asp-validation-for="TravelDate" class="text-danger"></span>
-            </p>
-
-            <input type="hidden" asp-for="TravelDates" class="form-control" />
-            <input type="hidden" asp-for="HomeDates" class="form-control" />
-
-            <p>
-                <input type="submit" value="Add Date(s)" class="btn btn-default" />
-            </p>
-        </form>
+    <form asp-controller="User" asp-action="AddAvailableDates" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <p>
+            <label asp-for="HomeDate" class="control-label"></label>
+        </p>
+        <p>
+            <input asp-for="HomeDate" class="form-control" />
+            <span asp-validation-for="HomeDate" class="text-danger"></span>
+        </p>
+        <p>
+            <label asp-for="TravelDate" class="control-label"></label>
+        </p>
+        <p>
+            <input asp-for="TravelDate" class="form-control" />
+            <span asp-validation-for="TravelDate" class="text-danger"></span>
+        </p>
+
+        <input type="hidden" asp-for="TravelDates" class="form-control" />
+        <input type="hidden" asp-for="HomeDates" class="form-control" />
+
+        <p>
+            <input type="submit" value="Add Date(s)" class="btn btn-default" />
+
             <a asp-controller="Account" asp-action="Login" method="get">
                 <input type="submit" value="Complete Registration" class="btn btn-success" />
             </a>
-        </p>
-        <a asp-controller="User" asp-action="SeeSchedule" method="post">
-            <input type="button" value="Back" class="btn btn-default" />
-        </a>
-        <p>
+
+            <a asp-controller="User" asp-action="SeeSchedule" method="post">
+                <input type="button" value="Back" class="btn btn-default" />
+            </a>
+
             <a asp-controller="User" asp-action="UserHomePage" method="post">
                 <input type="button" value="Cancel" class="btn btn-default" />
             </a>
         </p>
-    </div>
-
-    <div class="home-dates">
-        @if (Model.HomeDates.Count > 0)
-        {
-            <p><strong>Home Dates:</strong></p>
-            @foreach (DateTime date in Model.HomeDates)
-            {
-                <p>@date.ToString("MM/dd/yyy")</p>
-            }
-        }
-    </div>
-
-    <div class="travel-dates">
-        @if (Model.TravelDates.Count > 0)
-        {
-            <p><strong>Travel Dates:</strong></p>
-            @foreach (DateTime date in Model.TravelDates)
-            {
-                <p>@date.ToString("MM/dd/yyy")</p>
-            }
-        }
-    </div>
+    </form>
 </div>
+
+        <div class="home-dates">
+            @if (Model.HomeDates.Count > 0)
+            {
+                <p><strong>Home Dates:</strong></p>
+                @foreach (DateTime date in Model.HomeDates)
+                {
+                    <p>@date.ToString("MM/dd/yyy")</p>
+                }
+            }
+        </div>
+
+        <div class="travel-dates">
+            @if (Model.TravelDates.Count > 0)
+            {
+                <p><strong>Travel Dates:</strong></p>
+                @foreach (DateTime date in Model.TravelDates)
+                {
+                    <p>@date.ToString("MM/dd/yyy")</p>
+                }
+            }
+        </div>

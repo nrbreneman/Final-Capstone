@@ -60,7 +60,7 @@ namespace SportsClubOrganizer.Web.Controllers
         [HttpGet]
         public IActionResult LogOff()
         {
-            TempData["Added"] = "Successfully logged out";
+            TempData["Added"] = "You have successfully logged out!";
             authProvider.LogOff();
 
             return RedirectToAction("Index", "Home");

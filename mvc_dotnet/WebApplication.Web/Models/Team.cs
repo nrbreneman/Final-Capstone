@@ -45,8 +45,6 @@ namespace SportsClubOrganizer.Web.Models
         [DataType(DataType.Date)]
         public List<DateTime?> TravelDates { get; set; } = new List<DateTime?>();
 
-
-
         public int UserID { get; set; }
 
         public IList<SelectListItem> DropDownListTeam = new List<SelectListItem>();
@@ -57,7 +55,6 @@ namespace SportsClubOrganizer.Web.Models
         public string SelectedVenue { get; set; }
 
         public string Message { get; set; }
-
 
         public string TeamNameSort { get; set; }
         public string HomeDateSort { get; set; }

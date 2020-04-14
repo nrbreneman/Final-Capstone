@@ -123,6 +123,7 @@ namespace SportsClubOrganizer.Web.Controllers
             return View(teams);
         }
 
+        [AuthorizationFilter("User")]
         public IActionResult SeeSchedule()
         {
             User user = authProvider.GetCurrentUser();
@@ -130,5 +131,13 @@ namespace SportsClubOrganizer.Web.Controllers
             List<Game> games = teamDAL.GetScheduleByTeam(user.UserTeam);
             return View(games);
         }
+        [AuthorizationFilter("User")]
+        public IActionResult ViewMyRoster()
+        {
+            User user = authProvider.GetCurrentUser();
+            List<Player> roster = teamDAL.GetRoster(user.TeamID.Value);
+            return View(roster);
+        }
+
     }
 }

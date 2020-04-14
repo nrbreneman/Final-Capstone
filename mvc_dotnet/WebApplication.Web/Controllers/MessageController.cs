@@ -42,7 +42,21 @@ namespace SportsClubOrganizer.Web.Controllers
                 message.SentByName = team.Name;
             }
             return View(messages);
-        }           
+        }
+
+        [AuthorizationFilter("User")]
+        public IActionResult SeeMessagesResponse()
+        {
+            User user = authProvider.GetCurrentUser();
+            List<MessagesModel> messages = messageDAL.GetMessagesResponses(user);
+            Team team = new Team();
+            foreach (MessagesModel message in messages)
+            {
+                team = teamDAL.GetTeamByUserID(message.SentToID);
+                message.SentByName = team.Name;
+            }
+            return View(messages);
+        }
 
         [HttpGet]
         [AuthorizationFilter("User")]
@@ -86,7 +100,9 @@ namespace SportsClubOrganizer.Web.Controllers
             User user = authProvider.GetCurrentUser();
             MessagesModel message = new MessagesModel
             {
-                MessageBody = Message, SentToID = UserID, SentByID = user.TeamID
+                MessageBody = Message,
+                SentToID = UserID,
+                SentByID = user.TeamID
             };
             messageDAL.AddMessageToDB(message);
             return RedirectToAction("UserHomePage", "User");
@@ -114,28 +130,6 @@ namespace SportsClubOrganizer.Web.Controllers
             return RedirectToAction("SeeMessages", "Message");
         }
 
-        //[HttpPost]
-        //[AuthorizationFilter("Admin")]
-        //public IActionResult AdminAcceptEvent(int id)
-        //{
-        //    TempData["Final"] = "You have approved this event both teams will be notified";
-        //    MessagesModel Message = messageDAL.GetMessagebyID(id);
-        //    Message.AdminAccepted = "Accepted";
-        //    messageDAL.UpdateMessage(Message);
-        //    return RedirectToAction("FinalizeEvent", "Admin");
-        //}
-
-        //[HttpPost]
-        //[AuthorizationFilter("Admin")]
-        //public IActionResult AdminDeclineEvent(int id)
-        //{
-        //    TempData["Final"] = "You have declined this event both teams will be notified";
-        //    MessagesModel Message = messageDAL.GetMessagebyID(id);
-        //    Message.AdminAccepted = "Declined";
-        //    messageDAL.UpdateMessage(Message);
-        //    return RedirectToAction("FinalizeEvent", "Admin");
-        //}
-
         [HttpGet]
         [AuthorizationFilter("User")]
         public IActionResult SendMessages(User user)
@@ -151,7 +145,9 @@ namespace SportsClubOrganizer.Web.Controllers
             int userToTeamID = userDAL.GetUserFromTeamID(userTo.TeamID);
             MessagesModel Message = new MessagesModel
             {
-                MessageBody = message, SentToID = userTo.TeamID, SentByID = userFrom.TeamID
+                MessageBody = message,
+                SentToID = userTo.TeamID,
+                SentByID = userFrom.TeamID
             };
             messageDAL.AddMessageToDB(Message);
             return RedirectToAction("UserHomePage", "User");
