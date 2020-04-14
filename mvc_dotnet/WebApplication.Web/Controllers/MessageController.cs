@@ -42,7 +42,21 @@ namespace SportsClubOrganizer.Web.Controllers
                 message.SentByName = team.Name;
             }
             return View(messages);
-        }           
+        }
+
+        [AuthorizationFilter("User")]
+        public IActionResult SeeMessagesResponse()
+        {
+            User user = authProvider.GetCurrentUser();
+            List<MessagesModel> messages = messageDAL.GetMessagesResponses(user);
+            Team team = new Team();
+            foreach (MessagesModel message in messages)
+            {
+                team = teamDAL.GetTeamByUserID(message.SentToID);
+                message.SentByName = team.Name;
+            }
+            return View(messages);
+        }
 
         [HttpGet]
         [AuthorizationFilter("User")]
