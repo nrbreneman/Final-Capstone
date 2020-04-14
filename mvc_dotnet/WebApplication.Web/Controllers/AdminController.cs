@@ -38,13 +38,13 @@ namespace SportsClubOrganizer.Web.Controllers
             return View(teams);
         }
 
-        [HttpGet]
-        [AuthorizationFilter("Admin", "User")]
-        public IActionResult ViewTeam(string League)
-        {
-            List<Team> teams = teamDAL.GetTeamsByLeague(League);
-            return View(teams);
-        }
+        //[HttpGet]
+        //[AuthorizationFilter("Admin", "User")]
+        //public IActionResult ViewTeam(string League)
+        //{
+        //    List<Team> teams = teamDAL.GetTeamsByLeague(League);
+        //    return View(teams);
+        //}
 
         private SelectListItem AddTeamToList(Team Team)
 
@@ -236,6 +236,28 @@ namespace SportsClubOrganizer.Web.Controllers
         public IActionResult SeeAvailability()
         {
             return View();
+        }
+
+        [HttpPost]
+        [AuthorizationFilter("Admin")]
+        public IActionResult AdminAcceptEvent(int id)
+        {
+            TempData["Final"] = "You have approved this event both teams will be notified";
+            MessagesModel Message = messageDAL.GetMessagebyID(id);
+            Message.AdminAccepted = "Accepted";
+            messageDAL.UpdateMessage(Message);
+            return RedirectToAction("FinalizeEvent", "Admin");
+        }
+
+        [HttpPost]
+        [AuthorizationFilter("Admin")]
+        public IActionResult AdminDeclineEvent(int id)
+        {
+            TempData["Final"] = "You have declined this event both teams will be notified";
+            MessagesModel Message = messageDAL.GetMessagebyID(id);
+            Message.AdminAccepted = "Declined";
+            messageDAL.UpdateMessage(Message);
+            return RedirectToAction("FinalizeEvent", "Admin");
         }
     }
 }

@@ -71,6 +71,7 @@ namespace SportsClubOrganizer.Web.DAL
                         message.SentByID = Convert.ToInt32(reader["SentByUserID"]);
                         message.SentToID = Convert.ToInt32(reader["toUserID"]);
                         message.ID = Convert.ToInt32(reader["id"]);
+                        message.AdminAccepted = Convert.ToString(reader["adminAccepted"]);
                         messages.Add(message);
                     }
                 }

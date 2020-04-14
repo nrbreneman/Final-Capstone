@@ -114,27 +114,27 @@ namespace SportsClubOrganizer.Web.Controllers
             return RedirectToAction("SeeMessages", "Message");
         }
 
-        [HttpPost]
-        [AuthorizationFilter("Admin")]
-        public IActionResult AdminAcceptEvent(int id)
-        {
-            TempData["Final"] = "You have approved this event both teams will be notified";
-            MessagesModel Message = messageDAL.GetMessagebyID(id);
-            Message.UserAccepted = "Accepted";
-            messageDAL.UpdateMessage(Message);
-            return RedirectToAction("FinalizeEvent", "Admin");
-        }
+        //[HttpPost]
+        //[AuthorizationFilter("Admin")]
+        //public IActionResult AdminAcceptEvent(int id)
+        //{
+        //    TempData["Final"] = "You have approved this event both teams will be notified";
+        //    MessagesModel Message = messageDAL.GetMessagebyID(id);
+        //    Message.AdminAccepted = "Accepted";
+        //    messageDAL.UpdateMessage(Message);
+        //    return RedirectToAction("FinalizeEvent", "Admin");
+        //}
 
-        [HttpPost]
-        [AuthorizationFilter("Admin")]
-        public IActionResult AdminDeclineEvent(int id)
-        {
-            TempData["Final"] = "You have declined this event both teams will be notified";
-            MessagesModel Message = messageDAL.GetMessagebyID(id);
-            Message.UserAccepted = "Declined";
-            messageDAL.UpdateMessage(Message);
-            return RedirectToAction("FinalizeEvent", "Admin");
-        }
+        //[HttpPost]
+        //[AuthorizationFilter("Admin")]
+        //public IActionResult AdminDeclineEvent(int id)
+        //{
+        //    TempData["Final"] = "You have declined this event both teams will be notified";
+        //    MessagesModel Message = messageDAL.GetMessagebyID(id);
+        //    Message.AdminAccepted = "Declined";
+        //    messageDAL.UpdateMessage(Message);
+        //    return RedirectToAction("FinalizeEvent", "Admin");
+        //}
 
         [HttpGet]
         [AuthorizationFilter("User")]
