@@ -11,9 +11,9 @@
         {
             @if (message.UserAccepted == "no")
             {
-                <p>@message.SentByName</p>
+                <p>From: @message.SentByName</p>
                 <p name="MessageBody">@message.MessageBody</p>
-                <p>@TempData["Final"]</p>
+                @*<p>@TempData["Final"]</p>*@
 
                 <form asp-controller="Message" asp-action="UserAcceptEvent" method="post">
                     <input type="submit" name="Accept" value="Accept Proposed Event" class="btn btn-default" />
@@ -24,6 +24,21 @@
                     <input type="submit" name="Decline" value="Decline Proposed Event" class="btn btn-default" />
                     <input type="hidden" asp-for="@message.ID" name="id" class="form-control" />
                 </form>
+                <br />
+            }
+            else if (message.UserAccepted == "Accepted")
+            {
+                <p>From: @message.SentByName</p>
+                <p name="MessageBody">@message.MessageBody</p>
+                <p>Match pending Admin approval</p>
+                <br />
+            }
+            else
+            {
+                <p>From: @message.SentByName</p>
+                <p name="MessageBody">@message.MessageBody</p>
+                <p>Match declined, @message.SentByName have been notified</p>
+                <br />
             }
         }
     }
