@@ -1,3 +1,4 @@
+﻿<<<<<<< HEAD
 ﻿
 ﻿-- Switch to the system (aka master) database
 USE master;
@@ -100,7 +101,11 @@ teamID int not null,
 constraint pk_rosterID primary key (rosterID)
 );
 
-CREATE TABLE Games(teamID1 int not null,teamID2 int not null,);
+CREATE TABLE Games
+(
+teamID1 int not null,
+teamID2 int not null,
+);
 
 
 ALTER TABLE EventDates
@@ -385,7 +390,19 @@ INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES(  'Jones', 
 INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES(  'Schafer', 'Lorena', 'lSchafer@TNE.com', '6141002000', 2);
 INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES(  'Willis', 'Emily', 'eWillis@TNE.com', '6141002000', 2);
 
-INSERT INTO Games(teamID1, teamID2) VALUES(1,2)INSERT INTO Games(teamID1, teamID2) VALUES(4,2)INSERT INTO Games(teamID1, teamID2) VALUES(5,2)INSERT INTO Games(teamID1, teamID2) VALUES(3,2)INSERT INTO Games(teamID1, teamID2) VALUES(2,1)INSERT INTO Games(teamID1, teamID2) VALUES(2,3)INSERT INTO Games(teamID1, teamID2) VALUES(2,4)INSERT INTO Games(teamID1, teamID2) VALUES(1,5)INSERT INTO Games(teamID1, teamID2) VALUES(3,4)INSERT INTO Games(teamID1, teamID2) VALUES(5,6)INSERT INTO Games(teamID1, teamID2) VALUES(1,2)INSERT INTO Games(teamID1, teamID2) VALUES(2,3)INSERT INTO Games(teamID1, teamID2) VALUES(4,3)
+INSERT INTO Games(teamID1, teamID2) VALUES(1,2)
+INSERT INTO Games(teamID1, teamID2) VALUES(4,2)
+INSERT INTO Games(teamID1, teamID2) VALUES(5,2)
+INSERT INTO Games(teamID1, teamID2) VALUES(3,2)
+INSERT INTO Games(teamID1, teamID2) VALUES(2,1)
+INSERT INTO Games(teamID1, teamID2) VALUES(2,3)
+INSERT INTO Games(teamID1, teamID2) VALUES(2,4)
+INSERT INTO Games(teamID1, teamID2) VALUES(1,5)
+INSERT INTO Games(teamID1, teamID2) VALUES(3,4)
+INSERT INTO Games(teamID1, teamID2) VALUES(5,6)
+INSERT INTO Games(teamID1, teamID2) VALUES(1,2)
+INSERT INTO Games(teamID1, teamID2) VALUES(2,3)
+INSERT INTO Games(teamID1, teamID2) VALUES(4,3)
 
 
 COMMIT TRANSACTION;

@@ -5,15 +5,12 @@
 @{
     string loggedIn = Context.Session.GetString("Auth_User");
 
-    bool isLoggedIn = false;
     bool isAdmin = false;
     bool isUser = false;
     string connectionString = "Data Source =.\\SQLEXPRESS; Initial Catalog = DemoDB; Integrated Security = True";
 
     if (!String.IsNullOrEmpty(loggedIn))
     {
-        isLoggedIn = true;
-
         UserSqlDAL userDal = new UserSqlDAL(connectionString);
         User user = userDal.GetUser(loggedIn);
 
