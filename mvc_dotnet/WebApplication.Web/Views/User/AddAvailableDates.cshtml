@@ -6,41 +6,39 @@
 
 <div class="page-info">
     <h2>Add Available Dates</h2>
+    <div class="flex">
+        <div>
+            <form asp-controller="User" asp-action="AddAvailableDates" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <p>
+                    <label asp-for="HomeDate" class="control-label"></label>
+                </p>
+                <p>
+                    <input asp-for="HomeDate" class="form-control" />
+                    <span asp-validation-for="HomeDate" class="text-danger"></span>
+                </p>
+                <p>
+                    <label asp-for="TravelDate" class="control-label"></label>
+                </p>
+                <p>
+                    <input asp-for="TravelDate" class="form-control" />
+                    <span asp-validation-for="TravelDate" class="text-danger"></span>
+                </p>
 
-    <form asp-controller="User" asp-action="AddAvailableDates" method="post">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <p>
-            <label asp-for="HomeDate" class="control-label"></label>
-        </p>
-        <p>
-            <input asp-for="HomeDate" class="form-control" />
-            <span asp-validation-for="HomeDate" class="text-danger"></span>
-        </p>
-        <p>
-            <label asp-for="TravelDate" class="control-label"></label>
-        </p>
-        <p>
-            <input asp-for="TravelDate" class="form-control" />
-            <span asp-validation-for="TravelDate" class="text-danger"></span>
-        </p>
+                <input type="hidden" asp-for="TravelDates" class="form-control" />
+                <input type="hidden" asp-for="HomeDates" class="form-control" />
 
-        <input type="hidden" asp-for="TravelDates" class="form-control" />
-        <input type="hidden" asp-for="HomeDates" class="form-control" />
+                <input type="submit" value="Add Date(s)" class="btn btn-default" />
 
-        <p>
-            <input type="submit" value="Add Date(s)" class="btn btn-default" />
-        </p>
-    </form>
-    <a asp-controller="Account" asp-action="Login" method="get">
-        <input type="submit" value="Submit" class="btn btn-success" />
-    </a>
-
-    <a asp-controller="User" asp-action="UserHomePage" method="post">
-        <input type="button" value="Cancel" class="btn btn-default" />
-    </a>
-</div>
-
-        <div class="home-dates">
+                <a asp-controller="User" asp-action="UserHomePage">
+                    <input type="submit" value="Submit" class="btn btn-default" />
+                </a>
+                <a asp-controller="User" asp-action="UserHomePage">
+                    <input type="button" value="Cancel" class="btn btn-default" />
+                </a>
+            </form>
+        </div>
+        <div>
             @if (Model.HomeDates.Count > 0)
             {
                 <p><strong>Home Dates:</strong></p>
@@ -50,8 +48,7 @@
                 }
             }
         </div>
-
-        <div class="travel-dates">
+        <div>
             @if (Model.TravelDates.Count > 0)
             {
                 <p><strong>Travel Dates:</strong></p>
@@ -61,3 +58,5 @@
                 }
             }
         </div>
+    </div>
+</div>

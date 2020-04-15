@@ -10,28 +10,27 @@
             <label asp-for="LeagueName"></label>
         </p>
         <p>
-            <input type="text" asp-for="LeagueName" />
+            <input type="text" asp-for="LeagueName" placeholder="enter league name"/>
             <span asp-validation-for="LeagueName"></span>
         </p>
         <p>
             <label asp-for="Org"></label>
         </p>
         <p>
-            <input type="text" asp-for="Org" />
+            <input type="text" asp-for="Org" placeholder="enter organization name"/>
             <span asp-validation-for="Org"></span>
         </p>
         <p>
             <label asp-for="Sport"></label>
         </p>
         <p>
-            <input type="text" asp-for="Sport" />
+            <input type="text" asp-for="Sport" placeholder="enter sport"/>
             <span asp-validation-for="Sport"></span>
         </p>
 
         <input type="submit" value="Create League" class="btn btn-default" />
-
-        <a asp-controller="Admin" asp-action="AdminHomePage" method="post">
-            <input type="button" value="Back To Home Page" class="btn btn-default" />
+        <a asp-controller="Admin" asp-action="AdminHomePage">
+            <input type="button" value="Back to My Account" class="btn btn-default" />
         </a>
     </form>
 </div>

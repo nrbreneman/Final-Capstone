@@ -175,32 +175,32 @@ namespace SportsClubOrganizer.Web.DAL
             }
         }
 
-        public User GetUserByID(int userID)
-        {
-            User user = null;
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-                    SqlCommand cmd = new SqlCommand(GetUserByIDSQL, conn);
-                    cmd.Parameters.AddWithValue("@id", userID);
+        //public User GetUserByID(int userID)
+        //{
+        //    User user = null;
+        //    try
+        //    {
+        //        using (SqlConnection conn = new SqlConnection(connectionString))
+        //        {
+        //            conn.Open();
+        //            SqlCommand cmd = new SqlCommand(GetUserByIDSQL, conn);
+        //            cmd.Parameters.AddWithValue("@id", userID);
 
-                    SqlDataReader reader = cmd.ExecuteReader();
+        //            SqlDataReader reader = cmd.ExecuteReader();
 
-                    if (reader.Read())
-                    {
-                        user = MapRowToUser(reader);
-                    }
-                }
+        //            if (reader.Read())
+        //            {
+        //                user = MapRowToUser(reader);
+        //            }
+        //        }
 
-                return user;
-            }
-            catch (SqlException ex)
-            {
-                throw ex;
-            }
-        }
+        //        return user;
+        //    }
+        //    catch (SqlException ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
 
         private User MapRowToUser(SqlDataReader reader)
         {

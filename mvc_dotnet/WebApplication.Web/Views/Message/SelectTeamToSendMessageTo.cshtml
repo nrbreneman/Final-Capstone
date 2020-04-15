@@ -3,11 +3,16 @@
     ViewData["Title"] = "SelectTeamToSendMessageTo";
 }
 <div class="page-info">
-    <h2>Select Team To Send Message To</h2>
+    <h2>Message Center</h2>
     <form asp-controller="Message" asp-action="SelectTeamToSendMessageTo" method="post">
+        <p>Select Team</p>
         <p>
             <select asp-for="Name" asp-items="Model.DropDownListTeam" class="dropbtn"></select>
         </p>
         <input type="submit" value="Select Team" class="btn btn-default" />
+        <a asp-controller="User" asp-action="UserHomePage">
+            <input type="button" value="Cancel" class="btn btn-default" />
+        </a>
     </form>
+
 </div>
