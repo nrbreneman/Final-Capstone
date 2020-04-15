@@ -618,6 +618,77 @@ namespace SportsClubOrganizer.Web.DAL
             }
         }
 
+        public void UpdatePlayer(Player model)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("Update roster set email = @email, firstName = @FirstName, lastName = @LastName, phone = @PhoneNumber where rosterID = @ID", conn);
+                    cmd.Parameters.AddWithValue("@email", model.Email);
+                    cmd.Parameters.AddWithValue("@FirstName", model.FirstName);
+                    cmd.Parameters.AddWithValue("@LastName", model.LastName);
+                    cmd.Parameters.AddWithValue("@PhoneNumber", model.PhoneNumber);
+                    cmd.Parameters.AddWithValue("@ID", model.ID);
+
+                    cmd.ExecuteNonQuery();
+
+                    return;
+                }
+            }
+            catch (NotImplementedException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void AddPlayer(Player player)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("Insert into roster(email, firstName, lastName, phone, teamID) VALUES(@Email, @FirstName, @LastName, @PhoneNumber, @TeamID)", conn);
+                    cmd.Parameters.AddWithValue("@Email", player.Email);
+                    cmd.Parameters.AddWithValue("@FirstName", player.FirstName);
+                    cmd.Parameters.AddWithValue("@LastName", player.LastName);
+                    cmd.Parameters.AddWithValue("@PhoneNumber", player.PhoneNumber);
+                    cmd.Parameters.AddWithValue("@TeamID", player.TeamId);
+
+                    cmd.ExecuteNonQuery();
+
+                    return;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void DeletePlayer(int id)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("Delete from roster where rosterID = @id", conn);
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    cmd.ExecuteNonQuery();
+
+                    return;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+
         private Team MapRowToTeam(SqlDataReader reader)
         {
             Team team = new Team
