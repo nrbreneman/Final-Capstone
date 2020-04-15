@@ -52,24 +52,6 @@
             font-size: 18px;
         }
 
-/*.user-links {
-    border-left: 3px solid #233772;
-    list-style: none;
-    text-decoration: none;
-    padding: 10px;
-    color: #233772;
-}
-
-    .user-links a {
-        list-style: none;
-        text-decoration: none;
-    }
-
-        .user-links a:hover {
-            text-decoration: underline;
-            color: dimgray;
-        }*/
-
 .table-links {
     list-style: none;
     text-decoration: none;

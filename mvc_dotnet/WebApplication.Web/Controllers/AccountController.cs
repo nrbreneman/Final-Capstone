@@ -76,7 +76,6 @@ namespace SportsClubOrganizer.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Register(RegisterViewModel registerViewModel)
         {
-            TempData["Added"] = "Successfully added user!";
 
             if (ModelState.IsValid)
             {

@@ -1,4 +1,5 @@
 ﻿using SportsClubOrganizer.Web.Models;
+using System.Collections.Generic;
 
 namespace SportsClubOrganizer.Web.DAL
 {
@@ -15,5 +16,13 @@ namespace SportsClubOrganizer.Web.DAL
         string GetUserLeagueName(User user);
 
         int GetUserFromTeamID(int? TeamID);
+
+        List<User> GetAllUnapprovedUsers();
+
+        User GetUserTemp(string username);
+
+        void DeleteUserTemp(User user);
+
+        void AdminApproveUser(User user);
     }
 }

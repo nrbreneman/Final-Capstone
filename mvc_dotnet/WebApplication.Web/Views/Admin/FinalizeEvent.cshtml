@@ -28,13 +28,12 @@
                         <th>Status:</th>
                         <td><p style="color: blue">Pending</p></td>
                     </tr>
-
                 </table>
 
                 <div class="buttons">
                     <div>
                         <form asp-controller="Admin" asp-action="AdminAcceptEvent" method="post">
-                            <input type="submit" name="Accept" value="Finalize Proposed Event" class="btn btn-default" />
+                            <input type="submit" name="Accept" value="Accept Proposed Event" class="btn btn-default" />
                             <input type="hidden" asp-for="@message.ID" name="id" class="form-control" />
                         </form>
                     </div>

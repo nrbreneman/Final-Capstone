@@ -28,9 +28,9 @@ namespace SportsClubOrganizer.Web.DAL
         private readonly string GetScheduleByTeamSQL = "SELECT * FROM Schedule where homeTeam = @teamName  OR awayTeam = @teamName; ";
         private readonly string GetRosterSQL = "SELECT rosterID, firstName, lastName, email, phone, Teams.Name FROM Roster JOIN Teams on Roster.teamID = Teams.id WHERE Teams.id = @teamID";
         private readonly string GetPlayerSQL = "SELECT rosterID, firstName, lastName, email, phone, Teams.Name FROM Roster JOIN Teams on Roster.teamID = Teams.id WHERE rosterID = @rosterID;";
-        //private readonly string GetAllTeamsOrderByHomeAvailabilitySQL = "SELECT * from Teams ORDER BY HomeDates; ";
-        //private readonly string GetAllTeamsOrderByTimesPlayedSQL = "Select * FROM Teams Order By TimesPlayed; ";
-        //private readonly string GetAllTeamsOrderByTravelAvailabilitySQL = "SELECT * from Teams ORDER BY TravelDates; ";
+        private readonly string GetAllTeamsOrderByHomeAvailabilitySQL = "Select * from EventDates WHERE TeamID = @TeamID and Home = 1; ";
+        private readonly string GetAllTeamsOrderByTimesPlayedSQL = "Select Count(*) as count FROM Games where(teamID1 = @userTeamID or teamID2 = @userTeamID)  and(teamID1 = @teamID or teamID2 = @teamID); ";
+        private readonly string GetAllTeamsOrderByTravelAvailabilitySQL = "Select * from EventDates WHERE TeamID = @TeamID and Home = 0; ";
 
         public TeamSqlDAL(string connectionString)
         {
@@ -65,7 +65,7 @@ namespace SportsClubOrganizer.Web.DAL
 
         public Player GetPlayerByID(int ID)
         {
-            Player player= new Player();
+            Player player = new Player();
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -88,8 +88,6 @@ namespace SportsClubOrganizer.Web.DAL
                 throw ex;
             }
         }
-
-
 
         public List<Team> GetTeamsByLeague(string League)
         {
@@ -169,83 +167,84 @@ namespace SportsClubOrganizer.Web.DAL
             }
         }
 
-        //public List<Team> GetAllTeamsOrderByHomeAvailability()
-        //{
-        //    List<Team> teams = new List<Team>();
-        //    try
-        //    {
-        //        using (SqlConnection conn = new SqlConnection(connectionString))
-        //        {
-        //            conn.Open();
-        //            SqlCommand cmd = new SqlCommand(GetAllTeamsOrderByHomeAvailabilitySQL, conn);
+        public List<Team> GetAllTeamsOrderByHomeAvailability()
+        {
+            List<Team> teams = new List<Team>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(GetAllTeamsOrderByHomeAvailabilitySQL, conn);
 
-        //            SqlDataReader reader = cmd.ExecuteReader();
+                    SqlDataReader reader = cmd.ExecuteReader();
 
-        //            while (reader.Read())
-        //            {
-        //                teams.Add(MapRowToTeam(reader));
-        //            }
-        //        }
+                    while (reader.Read())
+                    {
+                        teams.Add(MapRowToTeam(reader));
+                    }
+                }
 
-        //        return teams;
-        //    }
-        //    catch (SqlException ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
+                return teams;
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
 
-        //public List<Team> GetAllTeamsOrderByTravelAvailability()
-        //{
-        //    List<Team> teams = new List<Team>();
-        //    try
-        //    {
-        //        using (SqlConnection conn = new SqlConnection(connectionString))
-        //        {
-        //            conn.Open();
-        //            SqlCommand cmd = new SqlCommand(GetAllTeamsOrderByTravelAvailabilitySQL, conn);
+        public List<Team> GetAllTeamsOrderByTravelAvailability()
+        {
+            List<Team> teams = new List<Team>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(GetAllTeamsOrderByTravelAvailabilitySQL, conn);
 
-        //            SqlDataReader reader = cmd.ExecuteReader();
+                    SqlDataReader reader = cmd.ExecuteReader();
 
-        //            while (reader.Read())
-        //            {
-        //                teams.Add(MapRowToTeam(reader));
-        //            }
-        //        }
+                    while (reader.Read())
+                    {
+                        teams.Add(MapRowToTeam(reader));
+                    }
+                }
 
-        //        return teams;
-        //    }
-        //    catch (SqlException ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
+                return teams;
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
 
-        //public List<Team> GetAllTeamsOrderByTimesPlayed()
-        //{
-        //    List<Team> teams = new List<Team>();
-        //    try
-        //    {
-        //        using (SqlConnection conn = new SqlConnection(connectionString))
-        //        {
-        //            conn.Open();
-        //            SqlCommand cmd = new SqlCommand(GetAllTeamsOrderByTimesPlayedSQL, conn);
+        public int GetCountOfTimesPlayed(User user, int TeamID)
+        {
+            int count = 0;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(GetAllTeamsOrderByTimesPlayedSQL, conn);
+                    cmd.Parameters.AddWithValue("@userTeamID", user.TeamID);
+                    cmd.Parameters.AddWithValue("@teamID", TeamID);
+                    SqlDataReader reader = cmd.ExecuteReader();
 
-        //            SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        count = Convert.ToInt32(reader["count"]);
+                    }
+                }
 
-        //            while (reader.Read())
-        //            {
-        //                teams.Add(MapRowToTeam(reader));
-        //            }
-        //        }
-
-        //        return teams;
-        //    }
-        //    catch (SqlException ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
+                return count;
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
 
         public Team GetTeamByUserID(int? userID)
         {
@@ -619,6 +618,76 @@ namespace SportsClubOrganizer.Web.DAL
             }
         }
 
+        public void UpdatePlayer(Player model)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("Update roster set email = @email, firstName = @FirstName, lastName = @LastName, phone = @PhoneNumber where rosterID = @ID", conn);
+                    cmd.Parameters.AddWithValue("@email", model.Email);
+                    cmd.Parameters.AddWithValue("@FirstName", model.FirstName);
+                    cmd.Parameters.AddWithValue("@LastName", model.LastName);
+                    cmd.Parameters.AddWithValue("@PhoneNumber", model.PhoneNumber);
+                    cmd.Parameters.AddWithValue("@ID", model.ID);
+
+                    cmd.ExecuteNonQuery();
+
+                    return;
+                }
+            }
+            catch (NotImplementedException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void AddPlayer(Player player)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("Insert into roster(email, firstName, lastName, phone, teamID) VALUES(@Email, @FirstName, @LastName, @PhoneNumber, @TeamID)", conn);
+                    cmd.Parameters.AddWithValue("@Email", player.Email);
+                    cmd.Parameters.AddWithValue("@FirstName", player.FirstName);
+                    cmd.Parameters.AddWithValue("@LastName", player.LastName);
+                    cmd.Parameters.AddWithValue("@PhoneNumber", player.PhoneNumber);
+                    cmd.Parameters.AddWithValue("@TeamID", player.TeamId);
+
+                    cmd.ExecuteNonQuery();
+
+                    return;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void DeletePlayer(int id)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("Delete from roster where rosterID = @id", conn);
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    cmd.ExecuteNonQuery();
+
+                    return;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
 
         private Team MapRowToTeam(SqlDataReader reader)
         {

@@ -1,11 +1,32 @@
-﻿@using SportsClubOrganizer.Web.Models.Messages
-@model List<SportsClubOrganizer.Web.Models.Messages.MessagesModel>
+﻿@using SportsClubOrganizer.Web.Models
+@model List<User>
 @{
     ViewData["Title"] = "ApproveUser";
 }
 
 <div class="page-info">
     <h2>Approve User</h2>
+    @if (Model.Count > 0)
+    {
+        <h3>Users Pending Approval:</h3>
+        @foreach (User user in Model)
+        {
+            <p>@user.Username</p>
+            <form asp-controller="Admin" asp-action="AcceptUser" method="post">
+                <input type="submit" name="Accept" value="Accept User" class="btn btn-default" />
+                <input type="hidden" asp-for="@user.Username" name="username" class="form-control" />
+            </form>
+
+            <form asp-controller="Admin" asp-action="DeclineUser" method="post">
+                <input type="submit" name="Decline" value="Decline user" class="btn btn-default" />
+                <input type="hidden" asp-for="@user.Username" name="username" class="form-control" />
+            </form>
+        }
+    }
+    else
+    {
+        <p>No new users to approve!</p>
+    }
 
     <a asp-controller="Admin" asp-action="AdminHomePage">
         <input type="button" value="Back to My Account" class="btn btn-default" />

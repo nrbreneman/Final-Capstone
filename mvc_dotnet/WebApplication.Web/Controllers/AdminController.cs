@@ -35,21 +35,13 @@ namespace SportsClubOrganizer.Web.Controllers
         public IActionResult ViewAllTeams()
         {
             List<Team> teams = teamDAL.GetAllTeams();
-            foreach(Team team in teams)
+            foreach (Team team in teams)
             {
                 team.HomeDates = teamDAL.GetHomeDates(team.TeamID.ToString());
                 team.TravelDates = teamDAL.GetTravelDates(team.TeamID.ToString());
             }
             return View(teams);
         }
-
-        //[HttpGet]
-        //[AuthorizationFilter("Admin", "User")]
-        //public IActionResult ViewTeam(string League)
-        //{
-        //    List<Team> teams = teamDAL.GetTeamsByLeague(League);
-        //    return View(teams);
-        //}
 
         private SelectListItem AddTeamToList(Team Team)
 
@@ -228,14 +220,39 @@ namespace SportsClubOrganizer.Web.Controllers
                 message.SentByName = team.Name;
                 team = teamDAL.GetTeamByUserID(message.SentToID);
                 message.SentToName = team.Name;
+                messageDAL.AddGamePlayed(message);
             }
             return View(messages);
         }
 
+        [HttpGet]
         [AuthorizationFilter("Admin")]
         public IActionResult ApproveUser()
         {
-            return View();
+            List<User> users = new List<User>();
+            users = userDAL.GetAllUnapprovedUsers();
+            return View(users);
+        }
+
+        [HttpPost]
+        [AuthorizationFilter("Admin")]
+        public IActionResult AcceptUser(string username)
+        {
+            User user = new User();
+            user = userDAL.GetUserTemp(username);
+            userDAL.CreateUser(user);
+            userDAL.DeleteUserTemp(user);
+            return RedirectToAction("ApproveUser", "Admin");
+        }
+
+        [HttpPost]
+        [AuthorizationFilter("Admin")]
+        public IActionResult DeclineUser(string username)
+        {
+            User user = new User();
+            user = userDAL.GetUserTemp(username);
+            userDAL.DeleteUserTemp(user);
+            return RedirectToAction("ApproveUser", "Admin");
         }
 
         public IActionResult SeeAvailability()

@@ -18,8 +18,12 @@
                         <td>@message.SentByName</td>
                     </tr>
                     <tr>
-                        <th>Message</th>
+                        <th>Message:</th>
                         <td><p name="MessageBody">@message.MessageBody</p></td>
+                    </tr>
+                    <tr>
+                        <th>Status:</th>
+                        <td style="color: blue">Match Pending Approval- awaiting Admin to approve/decline.</td>
                     </tr>
                 </table>
 
@@ -32,7 +36,6 @@
                     <input type="submit" name="Decline" value="Decline Proposed Event" class="btn btn-default" />
                     <input type="hidden" asp-for="@message.ID" name="id" class="form-control" />
                 </form>
-                <br />
             }
         }
 
@@ -52,7 +55,7 @@
                     </tr>
                     <tr>
                         <th>Status:</th>
-                        <td style="color: blue">Match Pending Approval- awaiting Admin to approve/decline.</td>
+                        <td style="color: green">Match Accepted- please wait for Admin approval.</td>
                     </tr>
                 </table>
             }

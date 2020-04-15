@@ -1,0 +1,27 @@
+﻿@using SportsClubOrganizer.Web.Models
+@model List<Player>
+@{
+    ViewData["Title"] = "DeleteAPlayer";
+}
+
+<div class="page-info">
+    <h2>Destroy a Player</h2>
+    Click on a player to destroy them
+    <table class="team-table">
+        <tr>
+            <th>Name</th>
+        </tr>
+        @foreach (Player player in Model)
+        {
+            <tr>
+                <td>
+                    <a asp-action="DeleteAPlayer" asp-controller="User" asp-route-id="@player.ID" class="table-links">@player.FirstName @player.LastName</a>
+                </td>
+            </tr>
+        }
+    </table>
+
+    <a asp-controller="User" asp-action="UserHomePage" method="post">
+        <input type="button" value="Back to Home Page" class="btn btn-default" />
+    </a>
+</div>

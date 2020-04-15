@@ -9,7 +9,7 @@
     <h2>View All Teams</h2>
 
     <table>
-        <tr style="background-color:lightgray">
+        <tr>
             <th>Team Name</th>
             <th>League</th>
             <th>Organization</th>
@@ -31,14 +31,12 @@
                     @foreach (DateTime date in team.HomeDates)
                     {
                         @date.ToString("MM/dd/yyyy")
-                        <br/>
                     }
                 </td>
                 <td>
                     @foreach (DateTime date in team.TravelDates)
                     {
                         @date.ToString("MM/dd/yyyy")
-                        <br />
                     }
                 </td>
             </tr>

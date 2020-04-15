@@ -123,8 +123,8 @@ namespace SportsClubOrganizer.Web.Providers.Auth
                 Role = role
             };
 
-            userDAL.CreateUser(user);
-            Session.SetString(SessionKey, user.Username);
+            userDAL.AdminApproveUser(user);
+            //Session.SetString(SessionKey, user.Username);
         }
 
         /// <summary>

@@ -37,10 +37,13 @@
             <input asp-for="PhoneNumber" class="form-control" value="@Model.PhoneNumber" id="phoneNumber" maxlength="16" />
             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
         </p>
-            <input type="submit" value="Update Player Info" class="btn btn-default" />
-            <a asp-controller="User" asp-action="ViewMyRoster">
-                <input type="button" value="Back to Roster" class="btn btn-default" />
-            </a>
+        <input type="submit" value="Update Player Info" class="btn btn-default" />
+        <a asp-controller="User" asp-action="ViewMyRoster">
+            <input type="button" value="Back to Roster" class="btn btn-default" />
+        </a>
+        <a asp-controller="User" asp-action="UserHomePage" method="post">
+            <input type="button" value="Back to Home Page" class="btn btn-default" />
+        </a>
 
     </form>
 </div>
