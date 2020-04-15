@@ -12,8 +12,13 @@
             @* <a asp-action="ViewMyLeague" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.TeamName)</a>*@
             <th>League</th>
             <th>Organization</th>
-            <th><a asp-action="ViewMyLeague">Primary Venue</a></th>
-            <th><a asp-action="ViewMyLeague">Secondary Venue</a></th>
+<<<<<<< HEAD
+            <th><a asp-action="ViewMyLeague" asp-route-sortOrder="Primary">Primary Venue</a></th>
+            <th><a asp-action="ViewMyLeague" asp-route-sortOrder="Secondary">Secondary Venue</a></th>
+=======
+            <th><a asp-action="ViewMyLeague" class="extra-links">Primary Venue</a></th>
+            <th><a asp-action="ViewMyLeague" class="extra-links">Secondary Venue</a></th>
+>>>>>>> 5f343220b0d06734f4adf9bf86e1afbdb70a470a
             @*<th><a asp-action="ViewMyLeague">Home Dates Available</a></th>
                 <th><a asp-action="ViewMyLeague">Travel Dates Available</a></th>*@
         </tr>

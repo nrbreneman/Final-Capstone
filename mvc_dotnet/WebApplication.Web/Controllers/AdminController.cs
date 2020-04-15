@@ -35,6 +35,8 @@ namespace SportsClubOrganizer.Web.Controllers
         public IActionResult ViewAllTeams()
         {
             List<Team> teams = teamDAL.GetAllTeams();
+
+
             foreach (Team team in teams)
             {
                 team.HomeDates = teamDAL.GetHomeDates(team.TeamID.ToString());
