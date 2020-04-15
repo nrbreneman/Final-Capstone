@@ -1,5 +1,6 @@
 ﻿using SportsClubOrganizer.Web.Models;
 using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace SportsClubOrganizer.Web.DAL
@@ -9,9 +10,13 @@ namespace SportsClubOrganizer.Web.DAL
         private readonly string connectionString;
 
         private readonly string GetUserByIDSQL = "SELECT * FROM Users WHERE id = @id; ";
+        private readonly string GetAllUnapprovedUserSQL = "SELECT * FROM UsersTemp;";
         private readonly string CreateUserSQL = "INSERT INTO Users(username, password, salt, role) VALUES (@username, @password, @salt, @role); ";
+        private readonly string AdminApproveUserSQL = "INSERT INTO UsersTemp(username, password, salt, role) VALUES (@username, @password, @salt, @role); ";
         private readonly string DeleteUserSQL = "DELETE FROM Users WHERE id = @id; ";
+        private readonly string DeleteUserTempSQL = "DELETE FROM Users WHERE id = @id; ";
         private readonly string GetUserSQL = "SELECT * FROM Users WHERE username = @username; ";
+        private readonly string GetUserTempSQL = "SELECT * FROM UsersTemp WHERE username = @username; ";
         private readonly string UpdateUserSQL = "UPDATE Users SET password = @password, salt = @salt, role = @role WHERE id = @id; ";
         private readonly string GetUserLeagueNameSQL = "SELECT League FROM teams JOIN users on users.teamID = teams.id WHERE UserID = @userID; ";
         private readonly string GetUserFromTeamIDSQL = "SELECT userID from TEAMS where id = @teamID; ";
@@ -29,6 +34,55 @@ namespace SportsClubOrganizer.Web.DAL
                 {
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(CreateUserSQL, conn);
+                    cmd.Parameters.AddWithValue("@username", user.Username);
+                    cmd.Parameters.AddWithValue("@password", user.Password);
+                    cmd.Parameters.AddWithValue("@salt", user.Salt);
+                    cmd.Parameters.AddWithValue("@role", user.Role);
+
+                    cmd.ExecuteNonQuery();
+
+                    return;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<User> GetAllUnapprovedUsers()
+        {
+            List<User> users = new List<User>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(GetAllUnapprovedUserSQL, conn);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        users.Add(MapRowToUser(reader));
+                    }
+                }
+
+                return users;
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+                     
+        public void AdminApproveUser(User user)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(AdminApproveUserSQL, conn);
                     cmd.Parameters.AddWithValue("@username", user.Username);
                     cmd.Parameters.AddWithValue("@password", user.Password);
                     cmd.Parameters.AddWithValue("@salt", user.Salt);
@@ -66,6 +120,27 @@ namespace SportsClubOrganizer.Web.DAL
             }
         }
 
+        public void DeleteUserTemp(User user)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(DeleteUserTempSQL, conn);
+                    cmd.Parameters.AddWithValue("@id", user.Id);
+
+                    cmd.ExecuteNonQuery();
+
+                    return;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+
         public User GetUser(string username)
         {
             User user = null;
@@ -82,10 +157,33 @@ namespace SportsClubOrganizer.Web.DAL
                     if (reader.Read())
                     {
                         user = MapRowToUser(reader);
-                        //if (user.Role == "User")
-                        //{
-                        //    user.TeamID = Convert.ToInt32(reader["teamID"]);
-                        //}
+                     }
+                }
+
+                return user;
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public User GetUserTemp(string username)
+        {
+            User user = null;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(GetUserTempSQL, conn);
+                    cmd.Parameters.AddWithValue("@username", username);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        user = MapRowToUser(reader);
                     }
                 }
 
