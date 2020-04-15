@@ -11,7 +11,7 @@
         <h3>Users Pending Approval:</h3>
         @foreach (User user in Model)
         {
-            <p>user.Username</p>
+            <p>@user.Username</p>
             <form asp-controller="Admin" asp-action="AcceptUser" method="post">
                 <input type="submit" name="Accept" value="Accept User" class="btn btn-default" />
                 <input type="hidden" asp-for="@user.Username" name="username" class="form-control" />

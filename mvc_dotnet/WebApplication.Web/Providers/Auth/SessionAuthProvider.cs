@@ -124,7 +124,7 @@ namespace SportsClubOrganizer.Web.Providers.Auth
             };
 
             userDAL.AdminApproveUser(user);
-            Session.SetString(SessionKey, user.Username);
+            //Session.SetString(SessionKey, user.Username);
         }
 
         /// <summary>

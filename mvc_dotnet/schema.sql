@@ -106,6 +106,18 @@ teamID1 int not null,
 teamID2 int not null,
 );
 
+CREATE TABLE UsersTemp
+(
+	id			int			identity(1,1),
+	username	varchar(50)	not null,
+	password	varchar(50)	not null,
+	salt		varchar(50)	not null,
+	role		varchar(50)	default('user'),
+	teamID		int,
+
+	constraint pk_UsersID primary key (id)
+);
+
 
 ALTER TABLE EventDates
 ADD CONSTRAINT fk_dates

@@ -245,7 +245,7 @@ namespace SportsClubOrganizer.Web.Controllers
             return RedirectToAction("ApproveUser", "Admin");
         }
 
-        [HttpGet]
+        [HttpPost]
         [AuthorizationFilter("Admin")]
         public IActionResult DeclineUser(string username)
         {
