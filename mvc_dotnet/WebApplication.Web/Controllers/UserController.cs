@@ -163,14 +163,24 @@ namespace SportsClubOrganizer.Web.Controllers
             return View(roster);
         }
 
+        [HttpGet]
         [AuthorizationFilter("User")]
-        public IActionResult AddAPlayer(int id)
+        public IActionResult AddAPlayer()
         {
-            Player player = teamDAL.GetPlayerByID(id);
-            return View(player);
+            return View();
         }
 
-        [HttpGet]
+        [HttpPost]
+        [AuthorizationFilter("User")]
+        public IActionResult AddAPlayer(Player player)
+        {
+            User user = authProvider.GetCurrentUser();
+            player.TeamId = user.TeamID.Value;
+            teamDAL.AddPlayer(player);
+            return RedirectToAction("ViewMyRoster", "User");
+        }
+
+       [HttpGet]
         [AuthorizationFilter("User")]
         public IActionResult UpdateAPlayer(int ID)
         {
@@ -182,7 +192,25 @@ namespace SportsClubOrganizer.Web.Controllers
         [AuthorizationFilter("User")]
         public IActionResult UpdateAPlayer(Player model)
         {
-            return View();
+            teamDAL.UpdatePlayer(model);
+            return RedirectToAction("ViewMyRoster", "User");
+        }
+
+        [HttpGet]
+        [AuthorizationFilter("User")]
+        public IActionResult DeletePlayer()
+        {
+            User user = authProvider.GetCurrentUser();
+            List<Player> roster = teamDAL.GetRoster(user.TeamID.Value);
+            return View(roster);
+        }
+
+        [HttpGet]
+        [AuthorizationFilter("User")]
+        public IActionResult DeleteAPlayer(int id)
+        {
+            teamDAL.DeletePlayer(id);
+            return RedirectToAction("ViewMyRoster", "User");
         }
     }
 }
