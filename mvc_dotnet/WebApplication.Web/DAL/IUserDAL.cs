@@ -23,6 +23,6 @@ namespace SportsClubOrganizer.Web.DAL
 
         void DeleteUserTemp(User user);
 
-        void AdminApproveUser(User user);
+        void AdminApproveUser(User user)
     }
 }

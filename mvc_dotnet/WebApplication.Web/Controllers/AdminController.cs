@@ -236,10 +236,10 @@ namespace SportsClubOrganizer.Web.Controllers
 
         [HttpPost]
         [AuthorizationFilter("Admin")]
-        public IActionResult AcceptUser(string userName)
+        public IActionResult AcceptUser(string username)
         {
             User user = new User();
-            user = userDAL.GetUserTemp(userName);
+            user = userDAL.GetUserTemp(username);
             userDAL.CreateUser(user);
             userDAL.DeleteUserTemp(user);
             return RedirectToAction("ApproveUser", "Admin");
@@ -247,12 +247,12 @@ namespace SportsClubOrganizer.Web.Controllers
 
         [HttpGet]
         [AuthorizationFilter("Admin")]
-        public IActionResult DeclineUser(string userName)
+        public IActionResult DeclineUser(string username)
         {
             User user = new User();
-            user = userDAL.GetUserTemp(userName);
+            user = userDAL.GetUserTemp(username);
             userDAL.DeleteUserTemp(user);
-            return View(user);
+            return RedirectToAction("ApproveUser", "Admin");
         }
 
         public IActionResult SeeAvailability()
