@@ -117,6 +117,27 @@ namespace SportsClubOrganizer.Web.DAL
             }
         }
 
+        public void AddGamePlayed(MessagesModel message)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("INSERT into Games(teamID1, teamID2) VALUES(@teamID1, @teamID2)", conn);
+                    cmd.Parameters.AddWithValue("@teamID1", message.SentByID);
+                    cmd.Parameters.AddWithValue("@teamID2", message.SentToID);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+
+
         public void AddMessageToDB(MessagesModel Message)
         {
             try

@@ -55,6 +55,7 @@ namespace SportsClubOrganizer.Web.Models
         public string SelectedVenue { get; set; }
 
         public string Message { get; set; }
+        public int count { get; set; } = 0;
 
         //public string TeamNameSort { get; set; }
         //public string HomeDateSort { get; set; }

@@ -2,6 +2,7 @@
 using SportsClubOrganizer.Web.DAL;
 using SportsClubOrganizer.Web.Models;
 using SportsClubOrganizer.Web.Models.Calendar;
+using SportsClubOrganizer.Web.Models.Messages;
 using SportsClubOrganizer.Web.Providers.Auth;
 using System.Collections.Generic;
 
@@ -13,12 +14,14 @@ namespace SportsClubOrganizer.Web.Controllers
         private readonly IAuthProvider authProvider;
         private readonly TeamSqlDAL teamDAL;
         private readonly IUserDAL userDAL;
+        private readonly MessagesDAL messageDAL;
 
-        public UserController(IAuthProvider authProvider, TeamSqlDAL teamDAL, IUserDAL userDAL)
+        public UserController(IAuthProvider authProvider, TeamSqlDAL teamDAL, IUserDAL userDAL, MessagesDAL messageDAL)
         {
             this.authProvider = authProvider;
             this.teamDAL = teamDAL;
             this.userDAL = userDAL;
+            this.messageDAL = messageDAL;
         }
 
         [HttpGet]
@@ -30,12 +33,32 @@ namespace SportsClubOrganizer.Web.Controllers
 
         [HttpGet]
         [AuthorizationFilter("Admin", "User")]
-        public IActionResult ViewMyLeague()
+        public IActionResult ViewMyLeague(string SortOrder)
         {
             User user = authProvider.GetCurrentUser();
             string League = teamDAL.GetLeagueByUser(user);
             List<Team> teams = teamDAL.GetTeamsByLeague(League);
+            Dictionary<int, int> teamCounts = new Dictionary<int, int>();
+            foreach (Team team in teams)
+            {
+                team.count = teamDAL.GetCountOfTimesPlayed(user, team.TeamID);
+                if (SortOrder == "HomeAvailable")
+                {
+                    teams = teamDAL.GetAllTeamsOrderByHomeAvailability();
+                }
+                else if (SortOrder == "TravelAvailable")
+                {
+                    teams = teamDAL.GetAllTeamsOrderByTravelAvailability();
+                }
+                else if (SortOrder == "TimesPlayed")
+                {
+                    team.count = teamDAL.GetCountOfTimesPlayed(user, team.TeamID);
+                    teamCounts.Add(team.TeamID, team.count);
+                }
 
+                team.HomeDates = teamDAL.GetHomeDates(team.TeamID.ToString());
+                team.TravelDates = teamDAL.GetTravelDates(team.TeamID.ToString());
+            }
             return View(teams);
         }
 
@@ -147,7 +170,7 @@ namespace SportsClubOrganizer.Web.Controllers
             Player player = teamDAL.GetPlayerByID(id);
             return View(player);
         }
-        
+
         [HttpGet]
         [AuthorizationFilter("User")]
         public IActionResult UpdateAPlayer(int ID)
@@ -160,7 +183,7 @@ namespace SportsClubOrganizer.Web.Controllers
         [AuthorizationFilter("User")]
         public IActionResult UpdateAPlayer(Player model)
         {
-            
+
             return View();
         }
 

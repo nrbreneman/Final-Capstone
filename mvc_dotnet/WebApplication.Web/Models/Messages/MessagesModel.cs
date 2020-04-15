@@ -15,5 +15,6 @@ namespace SportsClubOrganizer.Web.Models.Messages
 
         public string UserAccepted { get; set; }
         public string AdminAccepted { get; set; }
+        
     }
 }

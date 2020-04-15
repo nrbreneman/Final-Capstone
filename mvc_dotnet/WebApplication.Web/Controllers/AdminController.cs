@@ -229,6 +229,7 @@ namespace SportsClubOrganizer.Web.Controllers
                 message.SentByName = team.Name;
                 team = teamDAL.GetTeamByUserID(message.SentToID);
                 message.SentToName = team.Name;
+                messageDAL.AddGamePlayed(message);
             }
             return View(messages);
         }

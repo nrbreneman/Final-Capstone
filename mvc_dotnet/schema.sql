@@ -1,6 +1,5 @@
-
+﻿
 ﻿-- Switch to the system (aka master) database
-
 USE master;
 GO
 
@@ -100,6 +99,9 @@ teamID int not null,
 
 constraint pk_rosterID primary key (rosterID)
 );
+
+CREATE TABLE Games(teamID1 int not null,teamID2 int not null,);
+
 
 ALTER TABLE EventDates
 ADD CONSTRAINT fk_dates
@@ -359,8 +361,8 @@ INSERT INTO Messages(SentByUserID, toUserID, messageBody) VALUES (5,1, 'Detroit 
 INSERT INTO Messages(SentByUserID, toUserID, messageBody) VALUES (6,1, 'Wisconsin Rugby would like to play you on 09/11/2020 at Lambeau Field')
 INSERT INTO Messages(SentByUserID, toUserID, messageBody) VALUES (2,1, 'Chicago Rugby would like to play you on 09/12/2020 at Solider Field')
 INSERT INTO Messages(SentByUserID, toUserID, messageBody) VALUES (2,3, 'Chicago Rugby would like to play you on 09/12/2020 at Solider Field')
-INSERT INTO Messages(SentByUserID, toUserID, messageBody, userAccepted) VALUES (2,3, 'Chicago Rugby would like to play you on 09/14/2020 at Solider Field', 'Accepted')
-INSERT INTO Messages(SentByUserID, toUserID, messageBody, userAccepted) VALUES (2,4, 'Chicago Rugby would like to play you on 09/19/2020 at Solider Field', 'Accepted')
+INSERT INTO Messages(SentByUserID, toUserID, messageBody, userAccepted) VALUES (3,5, 'Chicago Rugby would like to play you on 09/14/2020 at Solider Field', 'Accepted')
+INSERT INTO Messages(SentByUserID, toUserID, messageBody, userAccepted) VALUES (3,4, 'Chicago Rugby would like to play you on 09/19/2020 at Solider Field', 'Accepted')
 
 INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES( 'Bowers', 'Stephanie', 'sBowers@TNE.com', '6141002000', 2);
 INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES( 'Day', 'Taylor', 'tDay@TNE.com', '6141002000', 2);
@@ -382,6 +384,8 @@ INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES(   'Roodhou
 INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES(  'Jones', 'Emma', 'eJones@TNE.com', '6141002000', 2);
 INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES(  'Schafer', 'Lorena', 'lSchafer@TNE.com', '6141002000', 2);
 INSERT INTO Roster(lastName, firstName, email, phone, teamID) VALUES(  'Willis', 'Emily', 'eWillis@TNE.com', '6141002000', 2);
+
+INSERT INTO Games(teamID1, teamID2) VALUES(1,2)INSERT INTO Games(teamID1, teamID2) VALUES(4,2)INSERT INTO Games(teamID1, teamID2) VALUES(5,2)INSERT INTO Games(teamID1, teamID2) VALUES(3,2)INSERT INTO Games(teamID1, teamID2) VALUES(2,1)INSERT INTO Games(teamID1, teamID2) VALUES(2,3)INSERT INTO Games(teamID1, teamID2) VALUES(2,4)INSERT INTO Games(teamID1, teamID2) VALUES(1,5)INSERT INTO Games(teamID1, teamID2) VALUES(3,4)INSERT INTO Games(teamID1, teamID2) VALUES(5,6)INSERT INTO Games(teamID1, teamID2) VALUES(1,2)INSERT INTO Games(teamID1, teamID2) VALUES(2,3)INSERT INTO Games(teamID1, teamID2) VALUES(4,3)
 
 
 COMMIT TRANSACTION;
