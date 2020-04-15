@@ -29,7 +29,7 @@ namespace SportsClubOrganizer.Web.DAL
         private readonly string GetRosterSQL = "SELECT rosterID, firstName, lastName, email, phone, Teams.Name FROM Roster JOIN Teams on Roster.teamID = Teams.id WHERE Teams.id = @teamID";
         private readonly string GetPlayerSQL = "SELECT rosterID, firstName, lastName, email, phone, Teams.Name FROM Roster JOIN Teams on Roster.teamID = Teams.id WHERE rosterID = @rosterID;";
         private readonly string GetAllTeamsOrderByHomeAvailabilitySQL = "Select * from EventDates WHERE TeamID = @TeamID and Home = 1; ";
-        private readonly string GetAllTeamsOrderByTimesPlayedSQL = "Select Count(*) as count FROM Games where(teamID1 = @userTeamID or teamID2 = @userTeamID)  and(teamID1 = @teamID or teamID2 = @teamID) ORDER BY Count desc; ";
+        private readonly string GetAllTeamsOrderByTimesPlayedSQL = "Select Count(*) as count FROM Games where(teamID1 = @userTeamID or teamID2 = @userTeamID)  and(teamID1 = @teamID or teamID2 = @teamID); ";
         private readonly string GetAllTeamsOrderByTravelAvailabilitySQL = "Select * from EventDates WHERE TeamID = @TeamID and Home = 0; ";
 
         public TeamSqlDAL(string connectionString)

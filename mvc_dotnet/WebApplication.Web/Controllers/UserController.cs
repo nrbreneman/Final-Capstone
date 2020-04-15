@@ -56,6 +56,7 @@ namespace SportsClubOrganizer.Web.Controllers
 
                 team.HomeDates = teamDAL.GetHomeDates(team.TeamID.ToString());
                 team.TravelDates = teamDAL.GetTravelDates(team.TeamID.ToString());
+                
             }
             return View(teams);
         }
