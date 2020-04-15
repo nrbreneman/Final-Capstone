@@ -137,7 +137,6 @@ namespace SportsClubOrganizer.Web.DAL
             }
         }
 
-
         public void AddMessageToDB(MessagesModel Message)
         {
             try

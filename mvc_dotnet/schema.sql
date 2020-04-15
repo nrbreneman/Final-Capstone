@@ -1,4 +1,3 @@
-﻿<<<<<<< HEAD
 ﻿
 ﻿-- Switch to the system (aka master) database
 USE master;

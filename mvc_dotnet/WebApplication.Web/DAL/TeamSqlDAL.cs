@@ -28,9 +28,9 @@ namespace SportsClubOrganizer.Web.DAL
         private readonly string GetScheduleByTeamSQL = "SELECT * FROM Schedule where homeTeam = @teamName  OR awayTeam = @teamName; ";
         private readonly string GetRosterSQL = "SELECT rosterID, firstName, lastName, email, phone, Teams.Name FROM Roster JOIN Teams on Roster.teamID = Teams.id WHERE Teams.id = @teamID";
         private readonly string GetPlayerSQL = "SELECT rosterID, firstName, lastName, email, phone, Teams.Name FROM Roster JOIN Teams on Roster.teamID = Teams.id WHERE rosterID = @rosterID;";
-        private readonly string GetAllTeamsOrderByHomeAvailabilitySQL = "SELECT * from Teams ORDER BY HomeDates; ";
-        private readonly string GetAllTeamsOrderByTimesPlayedSQL = "Select Count(*) as count FROM Games where(teamID1 = @userTeamID or teamID2 = @userTeamID)  and(teamID1 = @teamID or teamID2 = @teamID); ";
-        private readonly string GetAllTeamsOrderByTravelAvailabilitySQL = "SELECT * from Teams ORDER BY TravelDates; ";
+        private readonly string GetAllTeamsOrderByHomeAvailabilitySQL = "Select * from EventDates WHERE TeamID = @TeamID and Home = 1; ";
+        private readonly string GetAllTeamsOrderByTimesPlayedSQL = "Select Count(*) as count FROM Games where(teamID1 = @userTeamID or teamID2 = @userTeamID)  and(teamID1 = @teamID or teamID2 = @teamID) ORDER BY Count desc; ";
+        private readonly string GetAllTeamsOrderByTravelAvailabilitySQL = "Select * from EventDates WHERE TeamID = @TeamID and Home = 0; ";
 
         public TeamSqlDAL(string connectionString)
         {
@@ -65,7 +65,7 @@ namespace SportsClubOrganizer.Web.DAL
 
         public Player GetPlayerByID(int ID)
         {
-            Player player= new Player();
+            Player player = new Player();
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -88,8 +88,6 @@ namespace SportsClubOrganizer.Web.DAL
                 throw ex;
             }
         }
-
-
 
         public List<Team> GetTeamsByLeague(string League)
         {
@@ -619,7 +617,6 @@ namespace SportsClubOrganizer.Web.DAL
                 throw ex;
             }
         }
-
 
         private Team MapRowToTeam(SqlDataReader reader)
         {

@@ -2,10 +2,8 @@
 using SportsClubOrganizer.Web.DAL;
 using SportsClubOrganizer.Web.Models;
 using SportsClubOrganizer.Web.Models.Calendar;
-using SportsClubOrganizer.Web.Models.Messages;
 using SportsClubOrganizer.Web.Providers.Auth;
 using System.Collections.Generic;
-
 
 namespace SportsClubOrganizer.Web.Controllers
 {
@@ -183,9 +181,7 @@ namespace SportsClubOrganizer.Web.Controllers
         [AuthorizationFilter("User")]
         public IActionResult UpdateAPlayer(Player model)
         {
-
             return View();
         }
-
     }
 }
