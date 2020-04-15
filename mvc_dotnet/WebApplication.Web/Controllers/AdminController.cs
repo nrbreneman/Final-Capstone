@@ -36,7 +36,6 @@ namespace SportsClubOrganizer.Web.Controllers
         {
             List<Team> teams = teamDAL.GetAllTeams();
             foreach(Team team in teams)
-
             {
                 team.HomeDates = teamDAL.GetHomeDates(team.TeamID.ToString());
                 team.TravelDates = teamDAL.GetTravelDates(team.TeamID.ToString());
