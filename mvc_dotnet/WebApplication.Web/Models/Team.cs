@@ -56,11 +56,13 @@ namespace SportsClubOrganizer.Web.Models
 
         public string Message { get; set; }
 
-        public string TeamNameSort { get; set; }
-        public string HomeDateSort { get; set; }
-        public string TravelDateSort { get; set; }
-        public string TimesPlayedSort { get; set; }
-        public string CurrentFilter { get; set; }
-        public string CurrentSort { get; set; }
+        //public string TeamNameSort { get; set; }
+        //public string HomeDateSort { get; set; }
+        //public string TravelDateSort { get; set; }
+        //public string TimesPlayedSort { get; set; }
+        //public string CurrentFilter { get; set; }
+        //public string CurrentSort { get; set; }
+        //public string Primary { get; set; }
+        //public string Secondary { get; set; }
     }
 }

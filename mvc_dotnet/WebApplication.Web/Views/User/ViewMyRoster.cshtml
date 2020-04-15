@@ -17,10 +17,10 @@
         @foreach (Player player in Model)
         {
             <tr>
-                <td>@player.FirstName</td>
+                <td><a asp-action="UpdateAPlayer" asp-controller="User" asp-route-id="@player.ID">@player.FirstName</a></td>
                 <td>@player.LastName</td>
                 <td>@player.PhoneNumber</td>
-                @if(player.Email!= null)
+                @if (player.Email != null)
                 {
                     <td>@player.Email</td>
                 }
@@ -33,6 +33,9 @@
             </tr>
         }
     </table>
+    <a asp-controller="User" asp-action="AddAPlayer" method="post">
+        <input type="button" value="Add A Player" class="btn btn-default" />
+    </a>
 
     <a asp-controller="User" asp-action="UserHomePage" method="post">
         <input type="button" value="Back to Home Page" class="btn btn-default" />
