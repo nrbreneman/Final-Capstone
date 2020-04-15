@@ -26,7 +26,8 @@ namespace SportsClubOrganizer.Web.DAL
         private readonly string GetAllLeaguesSQL = "SELECT * from Leagues; ";
         private readonly string AdminUpdateTeamSQL = "UPDATE TEAMS SET Name = @Name, League = @League, Org = @Org, PrimaryVenue = @Pvenue, SecondaryVenue = @SVenue WHERE id = @TeamID; ";
         private readonly string GetScheduleByTeamSQL = "SELECT * FROM Schedule where homeTeam = @teamName  OR awayTeam = @teamName; ";
-        private readonly string GetRosterSQL = "SELECT firstName, lastName, email, phone, Teams.Name FROM Roster JOIN Teams on Roster.teamID = Teams.id WHERE Teams.id = @teamID";
+        private readonly string GetRosterSQL = "SELECT rosterID, firstName, lastName, email, phone, Teams.Name FROM Roster JOIN Teams on Roster.teamID = Teams.id WHERE Teams.id = @teamID";
+        private readonly string GetPlayerSQL = "SELECT rosterID, firstName, lastName, email, phone, Teams.Name FROM Roster JOIN Teams on Roster.teamID = Teams.id WHERE rosterID = @rosterID;";
 
         public TeamSqlDAL(string connectionString)
         {
@@ -58,6 +59,34 @@ namespace SportsClubOrganizer.Web.DAL
                 throw ex;
             }
         }
+
+        public Player GetPlayerByID(int ID)
+        {
+            Player player= new Player();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(GetPlayerSQL, conn);
+                    cmd.Parameters.AddWithValue("@rosterID", ID);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        player = MapRowToPlayer(reader);
+                    }
+                }
+
+                return player;
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+
+
 
         public List<Team> GetTeamsByLeague(string League)
         {
@@ -537,6 +566,7 @@ namespace SportsClubOrganizer.Web.DAL
         {
             Player Player = new Player
             {
+                ID = Convert.ToInt32(reader["rosterID"]),
                 FirstName = Convert.ToString(reader["firstName"]),
                 LastName = Convert.ToString(reader["lastName"]),
                 TeamName = Convert.ToString(reader["Name"]),
