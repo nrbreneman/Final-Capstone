@@ -1,8 +1,6 @@
-﻿<<<<<<< HEAD
-﻿﻿-- Switch to the system (aka master) database
-=======
--- Switch to the system (aka master) database
->>>>>>> fc83a7b03e13eb6da099f4778c7d587ceeb06797
+
+﻿-- Switch to the system (aka master) database
+
 USE master;
 GO
 
@@ -116,7 +114,7 @@ ADD CONSTRAINT fk_userTo
 FOREIGN KEY (toUserID) REFERENCES Users(id);
 
 
-INSERT INTO Roster(firstName, lastName, email, phone, teamID) VALUES('Nathan', 'Breneman', 'nrbreneman@gmail.com', '6149052372', 21);
+
 INSERT INTO Users(username, password ,salt ,role)  VALUES ('admin@gmail.com','Zn3FdCdRkqZbUxfSoc1o7aCEkVk=','/NWc+euho+Y=', 'Admin');
 INSERT INTO Users(username, password ,salt, teamID)  VALUES ('1@1.com',	'dUQ7LIuKzjJiNYsOSvzS0B5nQQ4=',	'Yk65cf+kbPg=', 1);
 INSERT INTO Users(username, password ,salt, teamID)  VALUES ('2@1.com',	'15fxnVEz27mM6c42ZOVXXx1lnPc=', 'TfAwiQDlbKY=', 2);

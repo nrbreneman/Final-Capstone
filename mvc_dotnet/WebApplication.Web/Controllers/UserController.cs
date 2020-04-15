@@ -5,6 +5,7 @@ using SportsClubOrganizer.Web.Models.Calendar;
 using SportsClubOrganizer.Web.Providers.Auth;
 using System.Collections.Generic;
 
+
 namespace SportsClubOrganizer.Web.Controllers
 {
     public class UserController : Controller
@@ -33,8 +34,8 @@ namespace SportsClubOrganizer.Web.Controllers
         {
             User user = authProvider.GetCurrentUser();
             string League = teamDAL.GetLeagueByUser(user);
-
             List<Team> teams = teamDAL.GetTeamsByLeague(League);
+
             return View(teams);
         }
 
@@ -131,12 +132,36 @@ namespace SportsClubOrganizer.Web.Controllers
             List<Game> games = teamDAL.GetScheduleByTeam(user.UserTeam);
             return View(games);
         }
+
         [AuthorizationFilter("User")]
         public IActionResult ViewMyRoster()
         {
             User user = authProvider.GetCurrentUser();
             List<Player> roster = teamDAL.GetRoster(user.TeamID.Value);
             return View(roster);
+        }
+
+        [AuthorizationFilter("User")]
+        public IActionResult AddAPlayer(int id)
+        {
+            Player player = teamDAL.GetPlayerByID(id);
+            return View(player);
+        }
+        
+        [HttpGet]
+        [AuthorizationFilter("User")]
+        public IActionResult UpdateAPlayer(int ID)
+        {
+            Player player = teamDAL.GetPlayerByID(ID);
+            return View(player);
+        }
+
+        [HttpPost]
+        [AuthorizationFilter("User")]
+        public IActionResult UpdateAPlayer(Player model)
+        {
+            
+            return View();
         }
 
     }
