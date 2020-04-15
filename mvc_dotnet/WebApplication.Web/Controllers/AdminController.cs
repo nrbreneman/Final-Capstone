@@ -35,7 +35,7 @@ namespace SportsClubOrganizer.Web.Controllers
         public IActionResult ViewAllTeams()
         {
             List<Team> teams = teamDAL.GetAllTeams();
-            foreach(Team team in teams)
+            foreach (Team team in teams)
             {
                 team.HomeDates = teamDAL.GetHomeDates(team.TeamID.ToString());
                 team.TravelDates = teamDAL.GetTravelDates(team.TeamID.ToString());
@@ -220,6 +220,7 @@ namespace SportsClubOrganizer.Web.Controllers
                 message.SentByName = team.Name;
                 team = teamDAL.GetTeamByUserID(message.SentToID);
                 message.SentToName = team.Name;
+                messageDAL.AddGamePlayed(message);
             }
             return View(messages);
         }

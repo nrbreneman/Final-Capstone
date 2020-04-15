@@ -14,7 +14,7 @@
             {
                 <p>From: @message.SentByName</p>
                 <p name="MessageBody">@message.MessageBody</p>
-                
+
                 <form asp-controller="Message" asp-action="UserAcceptEvent" method="post">
                     <input type="submit" name="Accept" value="Accept Proposed Event" class="btn btn-default" />
                     <input type="hidden" asp-for="@message.ID" name="id" class="form-control" />

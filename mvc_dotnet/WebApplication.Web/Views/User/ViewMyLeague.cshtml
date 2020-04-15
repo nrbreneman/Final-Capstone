@@ -1,4 +1,5 @@
 ﻿@using SportsClubOrganizer.Web.Models
+@using SportsClubOrganizer.Web.Models.Messages
 @model List<SportsClubOrganizer.Web.Models.Team>
 @{
     ViewData["Title"] = "ViewMyLeague";
@@ -12,9 +13,10 @@
             <th>League</th>
             <th>Organization</th>
             <th>Primary Venue</th>
-            <th><a asp-action="ViewMyLeague" asp-route-sortOrder="SecondaryVenue">Secondary Venue</a></th>
+            <th>Secondary Venue</th>
             <th><a asp-action="ViewMyLeague" asp-route-sortOrder="HomeAvailable">Home Dates Available</a></th>
             <th><a asp-action="ViewMyLeague" asp-route-sortOrder="TravelAvailable">Travel Dates Available</a></th>
+            <th><a asp-action="ViewMyLeague" asp-route-sortOrder="TimesPlayed">Times Played</a></th>
         </tr>
 
         @foreach (Team team in Model)
@@ -25,20 +27,31 @@
                 <td>@team.Org</td>
                 <td>@team.PrimaryVenue</td>
                 <td>@team.SecondaryVenue</td>
-                @*<td>
-                        @foreach (DateTime date in team.HomeDates)
-                        {
-                            @date.ToString("MM/dd/yyyy")
+                <td>
+                    @foreach (DateTime date in team.HomeDates)
+                    {
+                        @date.ToString("MM/dd/yyyy")
+                        <br />
 
-                        }
-                    </td>
-                    <td>
-                        @foreach (DateTime date in team.TravelDates)
-                        {
-                            @date.ToString("MM/dd/yyyy")
-
-                        }
-                    </td>*@
+                    }
+                </td>
+                <td>
+                    @foreach (DateTime date in team.TravelDates)
+                    {
+                        @date.ToString("MM/dd/yyyy")
+                        <br />
+                    }
+                </td>
+                <td>
+                    @if (team.count > 0)
+                    {
+                        <p>@team.count</p>
+                    }
+                    else
+                    {
+                        <p>0</p>
+                    }
+                </td>
             </tr>
         }
     </table>
