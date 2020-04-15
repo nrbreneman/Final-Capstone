@@ -76,7 +76,6 @@ namespace SportsClubOrganizer.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Register(RegisterViewModel registerViewModel)
         {
-            TempData["Added"] = "Admin has been notifed adn will aprroval your request shortly!";
 
             if (ModelState.IsValid)
             {

@@ -14,7 +14,7 @@ namespace SportsClubOrganizer.Web.DAL
         private readonly string CreateUserSQL = "INSERT INTO Users(username, password, salt, role) VALUES (@username, @password, @salt, @role); ";
         private readonly string AdminApproveUserSQL = "INSERT INTO UsersTemp(username, password, salt, role) VALUES (@username, @password, @salt, @role); ";
         private readonly string DeleteUserSQL = "DELETE FROM Users WHERE id = @id; ";
-        private readonly string DeleteUserTempSQL = "DELETE FROM Users WHERE id = @id; ";
+        private readonly string DeleteUserTempSQL = "DELETE FROM UsersTemp WHERE id = @id; ";
         private readonly string GetUserSQL = "SELECT * FROM Users WHERE username = @username; ";
         private readonly string GetUserTempSQL = "SELECT * FROM UsersTemp WHERE username = @username; ";
         private readonly string UpdateUserSQL = "UPDATE Users SET password = @password, salt = @salt, role = @role WHERE id = @id; ";
@@ -61,7 +61,7 @@ namespace SportsClubOrganizer.Web.DAL
                     SqlCommand cmd = new SqlCommand(GetAllUnapprovedUserSQL, conn);
                     SqlDataReader reader = cmd.ExecuteReader();
 
-                    if (reader.Read())
+                    while (reader.Read())
                     {
                         users.Add(MapRowToUser(reader));
                     }
