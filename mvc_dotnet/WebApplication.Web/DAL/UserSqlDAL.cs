@@ -74,7 +74,7 @@ namespace SportsClubOrganizer.Web.DAL
                 throw ex;
             }
         }
-                     
+
         public void AdminApproveUser(User user)
         {
             try
@@ -157,7 +157,7 @@ namespace SportsClubOrganizer.Web.DAL
                     if (reader.Read())
                     {
                         user = MapRowToUser(reader);
-                     }
+                    }
                 }
 
                 return user;
