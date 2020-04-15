@@ -17,7 +17,7 @@
                 <input type="hidden" asp-for="@user.Id" name="id" class="form-control" />
             </form>
 
-            <form asp-controller="Message" asp-action="DeclineUser" method="post">
+            <form asp-controller="Admin" asp-action="DeclineUser" method="post">
                 <input type="submit" name="Decline" value="Decline user" class="btn btn-default" />
                 <input type="hidden" asp-for="@user.Id" name="id" class="form-control" />
             </form>
