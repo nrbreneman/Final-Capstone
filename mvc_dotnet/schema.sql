@@ -1,8 +1,5 @@
-﻿<<<<<<< HEAD
-﻿﻿-- Switch to the system (aka master) database
-=======
--- Switch to the system (aka master) database
->>>>>>> fc83a7b03e13eb6da099f4778c7d587ceeb06797
+﻿-- Switch to the system (aka master) database
+
 USE master;
 GO
 
