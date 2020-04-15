@@ -25,6 +25,13 @@ namespace SportsClubOrganizer.Web.Models
 
         public string TeamName { get; set; }
 
+        //public string formatPhone(string PhoneNumer)
+        //{
+        //    string format;
+        //    format.Format(PhoneNumber, "###-###-####");
+        //    return format;
+        //}
+
 
     }
 }
