@@ -229,11 +229,11 @@ INSERT INTO EventDates(TeamID, Date, Home) VALUES(3, '2020-09-07', 1);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(4, '2020-09-08', 1);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(5, '2020-09-09', 1);
 
-INSERT INTO EventDates(TeamID, Date, Home) VALUES(1, '2020-09-10', 0);
-INSERT INTO EventDates(TeamID, Date, Home) VALUES(2, '2020-09-11', 0);
+INSERT INTO EventDates(TeamID, Date, Home) VALUES(5, '2020-09-10', 0);
+INSERT INTO EventDates(TeamID, Date, Home) VALUES(4, '2020-09-11', 0);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(3, '2020-09-12', 0);
-INSERT INTO EventDates(TeamID, Date, Home) VALUES(4, '2020-09-13', 0);
-INSERT INTO EventDates(TeamID, Date, Home) VALUES(5, '2020-09-14', 0);
+INSERT INTO EventDates(TeamID, Date, Home) VALUES(2, '2020-09-13', 0);
+INSERT INTO EventDates(TeamID, Date, Home) VALUES(1, '2020-09-14', 0);
 
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(1, '2020-09-15', 1);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(2, '2020-09-16', 1);
@@ -282,10 +282,9 @@ INSERT INTO EventDates(TeamID, Date, Home) VALUES(26, '2020-09-27', 1);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(27, '2020-09-28', 1);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(28, '2020-09-29', 1);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(29, '2020-09-30', 1);
-<<<<<<< HEAD
-=======
+
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(30, '2020-09-29', 1);
->>>>>>> 7ee32012619d67e7b1afc07224bfd461ba93137f
+
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(31, '2020-09-01', 1);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(32, '2020-09-02', 1);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(33, '2020-09-03', 1);
@@ -322,10 +321,8 @@ INSERT INTO EventDates(TeamID, Date, Home) VALUES(27, '2020-09-27', 1);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(28, '2020-09-28', 1);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(29, '2020-09-29', 1);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(30, '2020-09-30', 1);
-<<<<<<< HEAD
-=======
+
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(31, '2020-09-29', 1);
->>>>>>> 7ee32012619d67e7b1afc07224bfd461ba93137f
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(32, '2020-09-02', 1);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(33, '2020-09-01', 1);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(34, '2020-09-03', 1);
