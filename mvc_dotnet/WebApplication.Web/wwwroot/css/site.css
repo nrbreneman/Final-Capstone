@@ -234,3 +234,8 @@ footer {
     position: relative;
     color: dimgray;
 }
+
+a .linkedin {
+    text-decoration: underline;
+    color: blue;
+}
