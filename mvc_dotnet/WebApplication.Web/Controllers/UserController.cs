@@ -55,11 +55,12 @@ namespace SportsClubOrganizer.Web.Controllers
 
             if (SortOrder == "HomeAvailable")
             {
-                teams = teams.OrderBy(t => t.HomeDates.OrderBy(d => d.Value).First()).ToList();
+                teams = teams.OrderBy(t => t.HomeDates.OrderBy(d => d.Value).FirstOrDefault()).ToList();
             }
             else if (SortOrder == "TravelAvailable")
             {
-                teams = teams.OrderBy(t => t.TravelDates.OrderBy(d => d.Value).First()).ToList();
+                
+                teams = teams.OrderBy(t => t.TravelDates.OrderBy(d => d.Value).FirstOrDefault()).ToList();
             }
             else if (SortOrder == "TimesPlayed")
             {
