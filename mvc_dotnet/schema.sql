@@ -1,5 +1,4 @@
-﻿
-﻿-- Switch to the system (aka master) database
+﻿﻿-- Switch to the system (aka master) database
 USE master;
 GO
 
@@ -283,7 +282,6 @@ INSERT INTO EventDates(TeamID, Date, Home) VALUES(26, '2020-09-27', 1);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(27, '2020-09-28', 1);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(28, '2020-09-29', 1);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(29, '2020-09-30', 1);
-INSERT INTO EventDates(TeamID, Date, Home) VALUES(30, '2020-09-31', 1);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(31, '2020-09-01', 1);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(32, '2020-09-02', 1);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(33, '2020-09-03', 1);
@@ -320,7 +318,6 @@ INSERT INTO EventDates(TeamID, Date, Home) VALUES(27, '2020-09-27', 1);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(28, '2020-09-28', 1);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(29, '2020-09-29', 1);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(30, '2020-09-30', 1);
-INSERT INTO EventDates(TeamID, Date, Home) VALUES(31, '2020-09-31', 1);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(32, '2020-09-02', 1);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(33, '2020-09-01', 1);
 INSERT INTO EventDates(TeamID, Date, Home) VALUES(34, '2020-09-03', 1);
@@ -423,5 +420,5 @@ INSERT INTO Games(teamID1, teamID2) VALUES(4,3)
 
 COMMIT TRANSACTION;
 
---Roster SQL to get all "SELECT firstName, lastName, email, phone, Teams.Name FROM Roster JOIN Teams on Roster.teamID = Teams.id WHERE Teams.id = @teamID";
+-- Roster SQL to get all "SELECT firstName, lastName, email, phone, Teams.Name FROM Roster JOIN Teams on Roster.teamID = Teams.id WHERE Teams.id = @teamID";
 
