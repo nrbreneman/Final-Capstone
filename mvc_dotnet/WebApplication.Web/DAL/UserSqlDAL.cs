@@ -154,7 +154,7 @@ namespace SportsClubOrganizer.Web.DAL
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
-                    if (reader.Read())
+                    while (reader.Read())
                     {
                         user = MapRowToUser(reader);
                     }
