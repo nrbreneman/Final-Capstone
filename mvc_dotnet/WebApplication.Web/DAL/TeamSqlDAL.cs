@@ -347,7 +347,7 @@ namespace SportsClubOrganizer.Web.DAL
                 {
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(AddTravelDateToDBSQL, conn);
-                    cmd.Parameters.AddWithValue("@TeamID", 1);
+                    cmd.Parameters.AddWithValue("@TeamID", user.TeamID);
                     cmd.Parameters.AddWithValue("@Date", TravelDate);
                     cmd.Parameters.AddWithValue("@Home", 0);
 
@@ -368,7 +368,7 @@ namespace SportsClubOrganizer.Web.DAL
                 {
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(AddHomeDateToDBSQL, conn);
-                    cmd.Parameters.AddWithValue("@TeamID", 1);
+                    cmd.Parameters.AddWithValue("@TeamID", user.TeamID);
                     cmd.Parameters.AddWithValue("@Date", HomeDate);
                     cmd.Parameters.AddWithValue("@Home", 1);
 

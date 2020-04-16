@@ -43,6 +43,7 @@
             <input type="text" asp-for="SecondaryVenue" value="@Model.SecondaryVenue" />
             <span asp-validation-for="SecondaryVenue"></span>
         </p>
+        <input type="hidden" asp-for="TeamID" value="@Model.TeamID" />
 
         @foreach (DateTime date in @Model.HomeDates)
         {
