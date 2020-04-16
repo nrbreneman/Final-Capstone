@@ -6,10 +6,9 @@
 
 <div class="page-info">
     <h2>Add Available Dates</h2>
-
-    <div class="row">
-        <div class="col-md-4">
-            <form asp-action="AdminAddAvailableDates" method="post">
+    <div class="flex">
+        <form asp-action="AdminAddAvailableDates" method="post">
+            <div>
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <p>
                     <label asp-for="HomeDate" class="control-label"></label>
@@ -25,24 +24,18 @@
                     <input asp-for="TravelDate" class="form-control" />
                     <span asp-validation-for="TravelDate" class="text-danger"></span>
                 </p>
-                <p>
-                </p>
-                <p>
-                    <input type="hidden" asp-for="TravelDates" class="form-control" />
-                    <input type="hidden" asp-for="HomeDates" class="form-control" />
-                </p>
-                <p>
+                <input type="hidden" asp-for="TravelDates" class="form-control" />
+                <input type="hidden" asp-for="HomeDates" class="form-control" />
+            </div>
 
-                    <input type="submit" value="Add Date(s)" class="btn btn-default" />
-
-                    <a asp-controller="Admin" asp-action="AdminHomePage" method="post">
-                        <input type="button" value="Complete" class="btn btn-default" />
-                    </a>
-                    <a asp-controller="Admin" asp-action="AdminHomePage" method="post">
-                        <input type="button" value="No New Dates" class="btn btn-default" />
-                    </a>
-            </form>
-        </div>
+                <input type="submit" value="Add Date(s)" class="btn btn-default" />
+                <a asp-controller="Admin" asp-action="AdminHomePage">
+                    <input type="button" value="No New Dates" class="btn btn-default" />
+                </a>
+                <a asp-controller="Admin" asp-action="AdminHomePage">
+                    <input type="button" value="Complete" class="btn btn-default" />
+                </a>
+        </form>
     </div>
     <div>
         @if (Model.HomeDates.Count > 0)
@@ -54,10 +47,6 @@
             }
         }
     </div>
-
-    @*<a asp-controller="Home" asp-action="ClickTravelButton" method="post">
-            <input type="submit" value="AddTravelDate" class="btn btn-default" />
-        </a>*@
 
     <div>
         @if (Model.TravelDates.Count > 0)

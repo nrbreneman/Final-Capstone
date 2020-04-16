@@ -4,9 +4,9 @@
     ViewData["Title"] = "ViewMyRoster";
 }
 
-<h2>View My Roster</h2>
 <div class="page-info">
-    <h2>Schedule</h2>
+    <h2>My Team Roster</h2>
+    <p>Click on a team member to edit their information</p>
     <table class="team-table">
         <tr>
             <th>First Name</th>
@@ -17,7 +17,7 @@
         @foreach (Player player in Model)
         {
             <tr>
-                <td><a asp-action="UpdateAPlayer" asp-controller="User" asp-route-id="@player.ID">@player.FirstName</a></td>
+                <td><a asp-action="UpdateAPlayer" asp-controller="User" asp-route-id="@player.ID" class="table-links">@player.FirstName</a></td>
                 <td>@player.LastName</td>
                 <td>@player.PhoneNumber</td>
                 @if (player.Email != null)
@@ -31,14 +31,13 @@
             </tr>
         }
     </table>
-    <a asp-controller="User" asp-action="AddAPlayer" method="post">
+    <a asp-controller="User" asp-action="AddAPlayer">
         <input type="button" value="Add A Player" class="btn btn-default" />
     </a>
-    <a asp-controller="User" asp-action="DeletePlayer" method="post">
+    <a asp-controller="User" asp-action="DeletePlayer">
         <input type="button" value="Remove A Player" class="btn btn-default" />
     </a>
-
-    <a asp-controller="User" asp-action="UserHomePage" method="post">
-        <input type="button" value="Back to Home Page" class="btn btn-default" />
+    <a asp-controller="User" asp-action="UserHomePage">
+        <input type="button" value="Back to My Account" class="btn btn-default" />
     </a>
 </div>

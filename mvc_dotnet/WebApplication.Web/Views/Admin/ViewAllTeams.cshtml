@@ -8,7 +8,7 @@
 <div class="page-info">
     <h2>View All Teams</h2>
 
-    <table class="team-table">
+    <table>
         <tr>
             <th>Team Name</th>
             <th>League</th>
@@ -22,7 +22,7 @@
         @foreach (Team team in Model)
         {
             <tr>
-                <td><a asp-action="AdminSeeSchedule" asp-controller="Admin" asp-route-id="@team.TeamID" class="sched-links">@team.Name</a></td>
+                <td><a asp-action="AdminSeeSchedule" asp-controller="Admin" asp-route-id="@team.TeamID" class="table-links">@team.Name</a></td>
                 <td>@team.League</td>
                 <td>@team.Org</td>
                 <td>@team.PrimaryVenue</td>
@@ -31,20 +31,18 @@
                     @foreach (DateTime date in team.HomeDates)
                     {
                         @date.ToString("MM/dd/yyyy")
-                        <br />
                     }
                 </td>
                 <td>
                     @foreach (DateTime date in team.TravelDates)
                     {
                         @date.ToString("MM/dd/yyyy")
-                        <br />
                     }
                 </td>
             </tr>
         }
     </table>
-    <a asp-controller="Admin" asp-action="AdminHomePage" method="post">
-        <input type="button" value="Back to Home Page" class="btn btn-default" />
+    <a asp-controller="Admin" asp-action="AdminHomePage">
+        <input type="button" value="Back to My Account" class="btn btn-default" />
     </a>
 </div>

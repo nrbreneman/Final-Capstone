@@ -12,10 +12,20 @@
         {
             @if ((message.UserAccepted == "Accepted") && (message.AdminAccepted == "no"))
             {
-                <p> From: @message.SentByName </p>
-                <p name="MessageBody"> @message.MessageBody </p>
-                <p> Match pending Admin approval </p>
-                <br />
+                <table>
+                    <tr>
+                        <th>From:</th>
+                        <td>@message.SentByName</td>
+                    </tr>
+                    <tr>
+                        <th>Message:</th>
+                        <td><p name="MessageBody">@message.MessageBody</p></td>
+                    </tr>
+                    <tr>
+                        <th>Status:</th>
+                        <td><p style="color: blue">Match Pending Approval- awaiting Admin to approve/decline.</p></td>
+                    </tr>
+                </table>
             }
         }
 
@@ -24,10 +34,20 @@
         {
             @if (message.UserAccepted == "Declined")
             {
-                <p> From: @message.SentByName </p>
-                <p name="MessageBody"> @message.MessageBody </p>
-                <p> Match declined, @message.SentByName have been notified </p>
-                <br />
+                <table>
+                    <tr>
+                        <th>From:</th>
+                        <td>@message.SentByName</td>
+                    </tr>
+                    <tr>
+                        <th>Message:</th>
+                        <td><p name="MessageBody">@message.MessageBody</p></td>
+                    </tr>
+                    <tr>
+                        <th>Status:</th>
+                        <td><p style="color: #ee2e29">Match Declined- @message.SentByName have been notified.</p></td>
+                    </tr>
+                </table>
             }
         }
 
@@ -36,16 +56,31 @@
         {
             @if ((message.UserAccepted == "Accepted") && (message.AdminAccepted == "Accepted"))
             {
-                <p> From: @message.SentByName </p>
-                <p name="MessageBody"> @message.MessageBody </p>
-                <p> Match added to your schedule! </p>
-                <br />
+                <table>
+                    <tr>
+                        <th>From:</th>
+                        <td>@message.SentByName</td>
+                    </tr>
+                    <tr>
+                        <th>Message:</th>
+                        <td><p name="MessageBody">@message.MessageBody</p></td>
+                    </tr>
+                    <tr>
+                        <th>Status:</th>
+                        <td><p style="color: green">Match Accepted- this match has been added to your schedule.</p></td>
+                    </tr>
+                </table>
             }
         }
-
     }
     else
     {
         <p>You have no new messages!</p>
     }
+
+    <a asp-controller="Message" asp-action="Index">
+        <input type="button" value="Back" class="btn btn-default" />
+    </a>
+
 </div>
+

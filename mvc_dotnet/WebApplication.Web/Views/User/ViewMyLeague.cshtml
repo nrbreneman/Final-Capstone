@@ -7,16 +7,16 @@
 
 <div class="page-info">
     <h2>Teams In My League</h2>
-    <table class="team-table">
+    <table>
         <tr>
             <th>Team Name</th>
             <th>League</th>
             <th>Organization</th>
             <th>Primary Venue</th>
             <th>Secondary Venue</th>
-            <th><a asp-action="ViewMyLeague" asp-route-sortOrder="HomeAvailable">Home Dates Available</a></th>
-            <th><a asp-action="ViewMyLeague" asp-route-sortOrder="TravelAvailable">Travel Dates Available</a></th>
-            <th><a asp-action="ViewMyLeague" asp-route-sortOrder="TimesPlayed">Times Played</a></th>
+            <th><a asp-action="ViewMyLeague" asp-route-sortOrder="HomeAvailable" class="table-links">Home Dates Available</a></th>
+            <th><a asp-action="ViewMyLeague" asp-route-sortOrder="TravelAvailable" class="table-links">Travel Dates Available</a></th>
+            <th><a asp-action="ViewMyLeague" asp-route-sortOrder="TimesPlayed" class="table-links">Times Played</a></th>
         </tr>
 
         @foreach (Team team in Model)
@@ -56,7 +56,7 @@
         }
     </table>
 
-    <a asp-controller="User" asp-action="UserHomePage" method="post">
-        <input type="button" value="Back to Home Page" class="btn btn-default" />
+    <a asp-controller="User" asp-action="UserHomePage">
+        <input type="button" value="Back to My Account" class="btn btn-default" />
     </a>
 </div>

@@ -31,56 +31,36 @@
 
     .page-info h3 {
         color: red;
+        font-size: 20px;
     }
 
-.admin-links {
+.homepage-links {
     border-left: 3px solid #233772;
     list-style: none;
     text-decoration: none;
     color: #233772;
 }
 
-    .admin-links a {
+    .homepage-links a {
         list-style: none;
         text-decoration: none;
     }
 
-        .admin-links a:hover {
+        .homepage-links a:hover {
             text-decoration: underline;
             color: dimgray;
+            font-size: 18px;
         }
 
-.user-links {
-    border-left: 3px solid #233772;
-    list-style: none;
-    text-decoration: none;
-    padding: 10px;
-    color: #233772;
-}
-
-    .user-links a {
-        list-style: none;
-        text-decoration: none;
-    }
-
-        .user-links a:hover {
-            text-decoration: underline;
-            color: dimgray;
-        }
-
-.sched-links {
+.table-links {
     list-style: none;
     text-decoration: none;
     color: #ee2e29;
     padding: 10px;
+    font-weight: bold;
 }
 
-    .sched-links a {
-        list-style: none;
-        text-decoration: none;
-    }
-
-    .sched-links:hover {
+    .table-links:hover {
         text-decoration: underline;
         color: dimgray;
     }
@@ -137,49 +117,33 @@ nav {
         background-color: white;
     }
 
-input[class=input] {
-    background-color: white;
-    border: 2px solid #233772;
-    padding: 10px;
+.buttons {
+    display: flex;
+    flex-direction: row;
 }
 
-input[type=text] {
-    background-color: white;
-    border: 2px solid #233772;
-    padding: 10px;
-}
-
-input[type=password] {
-    background-color: white;
-    border: 2px solid #233772;
-    padding: 10px;
-}
-
-input[type=email] {
-    background-color: white;
-    border: 2px solid #233772;
-    padding: 10px;
-}
-
-input[type=submit] {
-    background-color: lightgray;
-    border: 2px solid #233772;
-    padding: 10px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-    input[type=submit]:hover {
-        background-color: white;
+    .buttons div {
+        padding-right: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
     }
 
-input[type=button] {
+input[type=email], input[type=password], input[type=text], input[class=input] {
+    background-color: white;
+    border: 2px solid #233772;
+    padding: 10px;
+}
+
+input[type=button], input[type=submit] {
     background-color: lightgray;
     border: 2px solid #233772;
     padding: 10px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-right: 15px;
+    margin-bottom: 20px;
 }
 
-    input[type=button]:hover {
+    input[type=button]:hover, input[type=submit]:hover {
         background-color: white;
     }
 
@@ -202,16 +166,23 @@ table {
     border-collapse: collapse;
     border: 2px solid #233772;
     margin-bottom: 20px;
-}
-
-th, td {
-    border: 2px solid #233772;
-    padding: 10px;
-}
-
-.team-table {
     table-layout: auto;
     width: 100%;
+}
+
+tr {
+    text-align: left;
+}
+
+th {
+    border: 2px solid #233772;
+    padding: 10px;
+    background-color: lightgray;
+}
+
+td {
+    border: 2px solid #233772;
+    padding: 10px;
 }
 
 ul {
@@ -221,12 +192,15 @@ ul {
 .flex {
     display: flex;
     flex-direction: row;
-    padding-left: 22%;
 }
 
-.travel-dates, .home-dates, .calendar {
-    margin: 40px;
-    border-left: 3px solid #233772;
+    .flex div {
+        margin-right: 70px;
+    }
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
 }
 
 footer {
@@ -234,8 +208,11 @@ footer {
     position: relative;
     color: dimgray;
 }
+<<<<<<< HEAD
 
 a .linkedin {
     text-decoration: underline;
     color: blue;
 }
+=======
+>>>>>>> b0c83eaccd5cd9ba3e14150712b28a4aa75375e5

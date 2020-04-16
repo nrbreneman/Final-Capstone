@@ -26,24 +26,23 @@
             <label asp-for="Username" class="control-label">Email</label>
         </p>
         <p>
-            <input asp-for="Username" class="form-control" />
-            <span asp-validation-for="Username" class="text-danger" placeholder="enter email address"></span>
+            <input asp-for="Username" class="form-control" placeholder="enter email address"/>
+            <span asp-validation-for="Username" class="text-danger"></span>
         </p>
         <p>
             <label asp-for="Password" class="control-label"></label>
         </p>
         <p>
-            <input asp-for="Password" class="form-control" id="myInput" type="password" />
-            <span asp-validation-for="Password" class="text-danger" placeholder="enter password"></span>
+            <input asp-for="Password" class="form-control" id="myInput" type="password" placeholder="enter password"/>
+            <span asp-validation-for="Password" class="text-danger"></span>
         </p>
         <p>
             <input type="checkbox" onclick="seePassword()">Show Password
         </p>
 
         <input type="submit" value="Create" class="btn btn-default" />
-
-        <a asp-controller="Admin" asp-action="AdminHomePage" method="post">
-            <input type="button" value="Back to Home Page" class="btn btn-default" />
+        <a asp-controller="Admin" asp-action="AdminHomePage">
+            <input type="button" value="Back to My Account" class="btn btn-default" />
         </a>
     </form>
 </div>

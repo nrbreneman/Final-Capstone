@@ -6,6 +6,7 @@
 
 <div class="page-info">
     <h2>Destroy a Player</h2>
+    Click on a player to destroy them
     <table class="team-table">
         <tr>
             <th>Name</th>
@@ -13,8 +14,9 @@
         @foreach (Player player in Model)
         {
             <tr>
-                <td><a asp-action="DeleteAPlayer" asp-controller="User" asp-route-id="@player.ID">@player.FirstName @player.LastName</a></td>
-                
+                <td>
+                    <a asp-action="DeleteAPlayer" asp-controller="User" asp-route-id="@player.ID" class="table-links">@player.FirstName @player.LastName</a>
+                </td>
             </tr>
         }
     </table>

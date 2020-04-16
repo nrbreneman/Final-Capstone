@@ -4,45 +4,92 @@
     ViewData["Title"] = "FinalizeEvent";
 }
 <div class="page-info">
-    <h2>Finalize Requested Event</h2>
+    <h2>Finalize Requested Events</h2>
     @if (Model.Count > 0)
     {
         @foreach (MessagesModel message in Model)
         {
             @if (message.AdminAccepted == "no")
             {
-                <p>Sent by: @message.SentByName</p>
-                <p>Sent to: @message.SentToName</p>
-                <p name="MessageBody">@message.MessageBody</p>
+                <table>
+                    <tr>
+                        <th>To:</th>
+                        <td>@message.SentToName</td>
+                    </tr>
+                    <tr>
+                        <th>From:</th>
+                        <td>@message.SentByName</td>
+                    </tr>
+                    <tr>
+                        <th>Message:</th>
+                        <td><p name="MessageBody">@message.MessageBody</p></td>
+                    </tr>
+                    <tr>
+                        <th>Status:</th>
+                        <td><p style="color: blue">Pending</p></td>
+                    </tr>
+                </table>
 
-                <form asp-controller="Admin" asp-action="AdminAcceptEvent" method="post">
-                    <input type="submit" name="Accept" value="Finalize Proposed Event" class="btn btn-default" />
-                    <input type="hidden" asp-for="@message.ID" name="id" class="form-control" />
-                </form>
-                <form asp-controller="Admin" asp-action="AdminDeclineEvent" method="post">
-                    <input type="submit" name="Decline" value="Decline Proposed Event" class="btn btn-default" />
-                    <input type="hidden" asp-for="@message.ID" name="id" class="form-control" />
-                </form>
-
+                <div class="buttons">
+                    <div>
+                        <form asp-controller="Admin" asp-action="AdminAcceptEvent" method="post">
+                            <input type="submit" name="Accept" value="Accept Proposed Event" class="btn btn-default" />
+                            <input type="hidden" asp-for="@message.ID" name="id" class="form-control" />
+                        </form>
+                    </div>
+                    <div>
+                        <form asp-controller="Admin" asp-action="AdminDeclineEvent" method="post">
+                            <input type="submit" name="Decline" value="Decline Proposed Event" class="btn btn-default" />
+                            <input type="hidden" asp-for="@message.ID" name="id" class="form-control" />
+                        </form>
+                    </div>
+                </div>
             }
             else if (message.AdminAccepted == "Accepted")
             {
-                <p>Sent by: @message.SentByName</p>
-                <p>Sent to: @message.SentToName</p>
-                <p name="MessageBody">@message.MessageBody</p>
-                <p>You have approved this event</p>
+                <table>
+                    <tr>
+                        <th>To:</th>
+                        <td>@message.SentToName</td>
+                    </tr>
+                    <tr>
+                        <th>From:</th>
+                        <td>@message.SentByName</td>
+                    </tr>
+                    <tr>
+                        <th>Message:</th>
+                        <td><p name="MessageBody">@message.MessageBody</p></td>
+                    </tr>
+                    <tr>
+                        <th>Status:</th>
+                        <td><p style="color:green">Approved</p></td>
+                    </tr>
+                </table>
             }
             else
             {
-                <p>Sent by: @message.SentByName</p>
-                <p>Sent to: @message.SentToName</p>
-                <p name="MessageBody">@message.MessageBody</p>
-                <p>You have declined this event</p>
+                <table>
+                    <tr>
+                        <th>To:</th>
+                        <td>@message.SentToName</td>
+                    </tr>
+                    <tr>
+                        <th>From:</th>
+                        <td>@message.SentByName</td>
+                    </tr>
+                    <tr>
+                        <th>Message:</th>
+                        <td><p name="MessageBody">@message.MessageBody</p></td>
+                    </tr>
+                    <tr>
+                        <th>Status:</th>
+                        <td><p style="color:#ee2e29">Declined</p></td>
+                    </tr>
+                </table>
             }
         }
-
     }
-    <a asp-controller="Admin" asp-action="AdminHomePage" method="post">
-        <input type="button" value="Back to Home Page" class="btn btn-default" />
+    <a asp-controller="Admin" asp-action="AdminHomePage">
+        <input type="button" value="Back to My Account" class="btn btn-default" />
     </a>
 </div>

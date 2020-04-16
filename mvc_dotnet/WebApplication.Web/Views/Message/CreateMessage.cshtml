@@ -6,22 +6,35 @@
     <h2>Create Message</h2>
 
     <form asp-controller="Message" asp-action="CreateMessage" method="post">
-        <p>Dates that @Model.Name can play at their home field</p>
-        @foreach (DateTime date in Model.HomeDates)
-        {
-            <p>@date.ToString("MM/dd/yyyy")</p>
-        }
-        <p>Dates That @Model.Name can travel</p>
-
-        @foreach (DateTime date in Model.TravelDates)
-        {
-            <p>@date.ToString("MM/dd/yyyy")</p>
-        }
-
-        <p>Please type your message below:</p>
-        <textarea name="Message" style="margin: 0px; width: 448px; height: 150px;"></textarea>
-        <br />
         <input type="hidden" asp-for="@Model.UserID" name="UserID" class="form-control" />
-        <input type="submit" value="Send Message" class="btn btn-default" />
+        <div class="flex">
+
+            <div>
+                <p>Please type your message below:</p>
+                <textarea name="Message" style="margin: 0px; width: 448px; height: 150px;"></textarea>
+                <p>
+                    <input type="submit" value="Send Message" class="btn btn-default" />
+                    <a asp-controller="User" asp-action="UserHomePage">
+                        <input type="button" value="Cancel" class="btn btn-default" />
+                    </a>
+                    </p>
+            </div>
+
+            <div>
+                <h3>@Model.Name Available Home Dates</h3>
+                @foreach (DateTime date in Model.HomeDates)
+                {
+                    <p>@date.ToString("MM/dd/yyyy")</p>
+                }
+
+                <h3>@Model.Name Available Travel Dates</h3>
+                @foreach (DateTime date in Model.TravelDates)
+                {
+                    <p>@date.ToString("MM/dd/yyyy")</p>
+                }
+            </div>
+        </div>
     </form>
 </div>
+
+
