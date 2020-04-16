@@ -60,7 +60,7 @@ namespace SportsClubOrganizer.Web.Controllers
         [HttpGet]
         public IActionResult LogOff()
         {
-            TempData["Added"] = "You have successfully logged out!";
+            TempData["LogOut"] = "You have successfully logged out!";
             authProvider.LogOff();
 
             return RedirectToAction("Index", "Home");
@@ -101,8 +101,8 @@ namespace SportsClubOrganizer.Web.Controllers
             if (ModelState.IsValid)
             {
                 teamDAL.InsertTeam(team);
-
-                return RedirectToAction("AddAvailableDates", "User", new { team.League });
+                TempData["Registered"] = "You have submitted your registration, please wait for an Admin to approve your account";
+                return RedirectToAction("Index", "Home");
             }
 
             return View(team);

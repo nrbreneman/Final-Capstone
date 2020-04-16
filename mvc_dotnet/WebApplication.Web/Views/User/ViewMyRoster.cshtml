@@ -9,16 +9,18 @@
     <p>Click on a team member to edit their information</p>
     <table class="team-table">
         <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
+            <th>Name</th>
             <th>Phone Number</th>
             <th>Email Address</th>
         </tr>
         @foreach (Player player in Model)
         {
             <tr>
-                <td><a asp-action="UpdateAPlayer" asp-controller="User" asp-route-id="@player.ID" class="table-links">@player.FirstName</a></td>
-                <td>@player.LastName</td>
+                <td>
+                    <a asp-action="UpdateAPlayer" asp-controller="User" asp-route-id="@player.ID" class="table-links">
+                        @player.FirstName @player.LastName
+                    </a>
+                </td>
                 <td>@player.PhoneNumber</td>
                 @if (player.Email != null)
                 {
@@ -28,6 +30,7 @@
                 {
                     <td></td>
                 }
+
             </tr>
         }
     </table>

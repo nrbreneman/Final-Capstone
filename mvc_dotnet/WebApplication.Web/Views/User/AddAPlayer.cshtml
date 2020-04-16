@@ -37,13 +37,13 @@
             <input asp-for="PhoneNumber" class="form-control" id="phoneNumber" maxlength="16" />
             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
         </p>
-        <p>
+        @*<p>
             <label asp-for="TeamName" class="control-label">Team Name</label>
-        </p>
-        <p>
+        </p>*@
+        @*<p>
             <input asp-for="TeamName" class="form-control" />
             <span asp-validation-for="TeamName" class="text-danger"></span>
-        </p>
+        </p>*@
 
         <input type="submit" value="Create Player" class="btn btn-default" />
         <a asp-action="ViewMyRoster" asp-controller="User">
@@ -55,7 +55,7 @@
     </form>
 </div>
 
-<script>
+@*<script>
     function phoneFormat(input) {
 
         input = input.replace(/\D/g,'');
@@ -80,4 +80,4 @@
         var charCode = (evt.which) ? evt.which : evt.keyCode;
         phoneNumber.value = phoneFormat(phoneNumber.value);
     });
-</script>
+</script>*@
