@@ -132,8 +132,11 @@ namespace SportsClubOrganizer.Web.Controllers
         {
             TempData["Added"] = "Successfully updated available dates";
             User user = authProvider.GetCurrentUser();
+            //user.TeamID = teamDAL.GetTeamByUserID(user.Id);
             teamDAL.AddHomeDateToDB(calendar.HomeDate, user);
             teamDAL.AddTravelDateToDB(calendar.TravelDate, user);
+            calendar.HomeDates = teamDAL.GetHomeDates(user.TeamID.ToString());
+            calendar.TravelDates = teamDAL.GetTravelDates(user.TeamID.ToString());
 
             return View(calendar);
         }

@@ -110,26 +110,26 @@ namespace SportsClubOrganizer.Web.Controllers
 
         [HttpPost]
         [AuthorizationFilter("Admin")]
-        public IActionResult ChangeATeam(Team team, int teamID)
+        public IActionResult ChangeATeam(Team team, int TeamID)
         {
             TempData["Added"] = "Successfully updated " + team.Name + "'s team info";
-            teamID = team.TeamID;
+            TeamID = team.TeamID;
             teamDAL.AdminUpdateTeam(team);
-            return RedirectToAction("AdminAddAvailableDates", "Admin", teamID);
+            return RedirectToAction("AdminAddAvailableDates", "Admin", team);
         }
 
         [HttpGet]
         [AuthorizationFilter("Admin")]
-        public ActionResult AdminAddAvailableDates(int TeamID)
+        public ActionResult AdminAddAvailableDates(Team team)
         {
             Calendar calendar = new Calendar();
-            calendar.TeamID = TeamID;
-            User user = new User();
-            user.TeamID = calendar.TeamID;
+            calendar.TeamID = team.TeamID;
+            //User user = new User();
+            //user.TeamID = calendar.TeamID;
             calendar.HomeDates = new List<System.DateTime?>();
             calendar.TravelDates = new List<System.DateTime?>();
-            calendar.HomeDates = teamDAL.GetHomeDates(user.TeamID.ToString());
-            calendar.TravelDates = teamDAL.GetTravelDates(user.TeamID.ToString());
+            calendar.HomeDates = teamDAL.GetHomeDates(calendar.TeamID.ToString());
+            calendar.TravelDates = teamDAL.GetTravelDates(calendar.TeamID.ToString());
             return View(calendar);
         }
 

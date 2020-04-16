@@ -25,6 +25,10 @@
                     <span asp-validation-for="TravelDate" class="text-danger"></span>
                 </p>
 
+                @*<input type="hidden" asp-for="TravelDates" class="form-control" />*@
+                <input type="hidden" asp-for="TeamID" value="@Model.TeamID" />
+            </div>
+            <div>
                 <input type="submit" value="Add Date(s)" class="btn btn-default" />
                 <a asp-controller="Admin" asp-action="AdminHomePage">
                     <input type="button" value="No New Dates" class="btn btn-default" />
@@ -34,6 +38,7 @@
                 </a>
             </div>
         </form>
+
 
         <div>
             @if (Model.HomeDates.Count > 0)
