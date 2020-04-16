@@ -44,6 +44,7 @@
     .homepage-links a {
         list-style: none;
         text-decoration: none;
+        color: #233772;
     }
 
         .homepage-links a:hover {
