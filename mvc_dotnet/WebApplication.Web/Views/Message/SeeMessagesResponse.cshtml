@@ -78,8 +78,11 @@
         <p>You have no new messages!</p>
     }
 
-    <a asp-controller="Message" asp-action="Index">
-        <input type="button" value="Back" class="btn btn-default" />
+    <a asp-controller="Message" asp-action="Index" method="post">
+        <input type="button" value="Back to Messages" class="btn btn-default" />
+    </a>
+    <a asp-controller="User" asp-action="UserHomePage" method="post">
+        <input type="button" value="Back to My Account" class="btn btn-default" />
     </a>
 
 </div>
