@@ -20,8 +20,8 @@ namespace SportsClubOrganizer.Web.DAL
         private readonly string UpdateTeamSQL = "UPDATE Teams SET Name = @Name, League = @League, Org = @Org, PrimaryVenue = @Pvenue, SecondaryVenue = @SVenue WHERE UserID = @UserID; ";
         private readonly string AddTravelDateToDBSQL = "INSERT into EventDates(TeamID, Date, Home) VALUES (@TeamID, @Date, @Home); ";
         private readonly string AddHomeDateToDBSQL = "INSERT into EventDates(TeamID, Date, Home) VALUES (@TeamID, @Date, @Home); ";
-        private readonly string GetHomeDatesSQL = "Select * from EventDates WHERE TeamID = @TeamID and Home = 1; ";
-        private readonly string GetTravelDatesSQL = "Select * from EventDates WHERE TeamID = @TeamID and Home = 0; ";
+        private readonly string GetHomeDatesSQL = "Select * from EventDates WHERE TeamID = @TeamID and Home = 1 ORDER BY date; ";
+        private readonly string GetTravelDatesSQL = "Select * from EventDates WHERE TeamID = @TeamID and Home = 0 ORDER BY date; ";
         private readonly string CreateLeagueSQL = "INSERT INTO Leagues (leagueName, org, sport) VALUES (@LeagueName, @Org, @Sport); ";
         private readonly string GetAllLeaguesSQL = "SELECT * from Leagues; ";
         private readonly string AdminUpdateTeamSQL = "UPDATE TEAMS SET Name = @Name, League = @League, Org = @Org, PrimaryVenue = @Pvenue, SecondaryVenue = @SVenue WHERE id = @TeamID; ";

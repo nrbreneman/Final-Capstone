@@ -4,6 +4,7 @@ using SportsClubOrganizer.Web.Models;
 using SportsClubOrganizer.Web.Models.Calendar;
 using SportsClubOrganizer.Web.Providers.Auth;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SportsClubOrganizer.Web.Controllers
 {
@@ -35,27 +36,34 @@ namespace SportsClubOrganizer.Web.Controllers
         {
             User user = authProvider.GetCurrentUser();
             string League = teamDAL.GetLeagueByUser(user);
-            List<Team> teams = teamDAL.GetTeamsByLeague(League);
-            Dictionary<int, int> teamCounts = new Dictionary<int, int>();
+            List<Team> teams = new List<Team>();
+            List<Team> teams1 = teamDAL.GetTeamsByLeague(League);
+            foreach(Team team in teams1)
+            {
+                if (team.TeamID != user.TeamID)
+                {
+                    teams.Add(team);
+                }
+            }
             foreach (Team team in teams)
             {
                 team.count = teamDAL.GetCountOfTimesPlayed(user, team.TeamID);
-                if (SortOrder == "HomeAvailable")
-                {
-                    teams = teamDAL.GetAllTeamsOrderByHomeAvailability();
-                }
-                else if (SortOrder == "TravelAvailable")
-                {
-                    teams = teamDAL.GetAllTeamsOrderByTravelAvailability();
-                }
-                else if (SortOrder == "TimesPlayed")
-                {
-                    team.count = teamDAL.GetCountOfTimesPlayed(user, team.TeamID);
-                    teamCounts.Add(team.TeamID, team.count);
-                }
-
+                
                 team.HomeDates = teamDAL.GetHomeDates(team.TeamID.ToString());
                 team.TravelDates = teamDAL.GetTravelDates(team.TeamID.ToString());
+            }
+
+            if (SortOrder == "HomeAvailable")
+            {
+                teams = teams.OrderBy(t => t.HomeDates.OrderBy(d => d.Value).First()).ToList();
+            }
+            else if (SortOrder == "TravelAvailable")
+            {
+                teams = teams.OrderBy(t => t.TravelDates.OrderBy(d => d.Value).First()).ToList();
+            }
+            else if (SortOrder == "TimesPlayed")
+            {
+                teams = teams.OrderBy(t => t.count).ToList();
                 
             }
             return View(teams);
@@ -133,8 +141,14 @@ namespace SportsClubOrganizer.Web.Controllers
             TempData["Added"] = "Successfully updated available dates";
             User user = authProvider.GetCurrentUser();
             //user.TeamID = teamDAL.GetTeamByUserID(user.Id);
-            teamDAL.AddHomeDateToDB(calendar.HomeDate, user);
-            teamDAL.AddTravelDateToDB(calendar.TravelDate, user);
+            if(calendar.HomeDate != null)
+            {
+                teamDAL.AddHomeDateToDB(calendar.HomeDate, user);
+            }
+            if (calendar.TravelDate != null)
+            {
+                teamDAL.AddTravelDateToDB(calendar.TravelDate, user);
+            }
             calendar.HomeDates = teamDAL.GetHomeDates(user.TeamID.ToString());
             calendar.TravelDates = teamDAL.GetTravelDates(user.TeamID.ToString());
 
@@ -183,7 +197,7 @@ namespace SportsClubOrganizer.Web.Controllers
             return RedirectToAction("ViewMyRoster", "User");
         }
 
-       [HttpGet]
+        [HttpGet]
         [AuthorizationFilter("User")]
         public IActionResult UpdateAPlayer(int ID)
         {
