@@ -6,7 +6,6 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    /*border-bottom: 2px solid #233772;*/
 }
 
 #logo {
@@ -44,6 +43,7 @@
     .homepage-links a {
         list-style: none;
         text-decoration: none;
+        color: #233772;
     }
 
         .homepage-links a:hover {
@@ -208,11 +208,3 @@ footer {
     position: relative;
     color: dimgray;
 }
-<<<<<<< HEAD
-
-a .linkedin {
-    text-decoration: underline;
-    color: blue;
-}
-=======
->>>>>>> b0c83eaccd5cd9ba3e14150712b28a4aa75375e5

@@ -24,10 +24,11 @@
                     <input asp-for="TravelDate" class="form-control" />
                     <span asp-validation-for="TravelDate" class="text-danger"></span>
                 </p>
+
                 @*<input type="hidden" asp-for="TravelDates" class="form-control" />*@
                 <input type="hidden" asp-for="TeamID" value="@Model.TeamID" />
             </div>
-
+            <div>
                 <input type="submit" value="Add Date(s)" class="btn btn-default" />
                 <a asp-controller="Admin" asp-action="AdminHomePage">
                     <input type="button" value="No New Dates" class="btn btn-default" />
@@ -35,27 +36,30 @@
                 <a asp-controller="Admin" asp-action="AdminHomePage">
                     <input type="button" value="Complete" class="btn btn-default" />
                 </a>
+            </div>
         </form>
-    </div>
-    <div>
-        @if (Model.HomeDates.Count > 0)
-        {
-            <p><strong>Home Dates:</strong></p>
-            @foreach (DateTime date in Model.HomeDates)
-            {
-                <p>@date.ToString("MM/dd/yyy")</p>
-            }
-        }
-    </div>
 
-    <div>
-        @if (Model.TravelDates.Count > 0)
-        {
-            <p><strong>Travel Dates:</strong></p>
-            @foreach (DateTime date in Model.TravelDates)
+
+        <div>
+            @if (Model.HomeDates.Count > 0)
             {
-                <p>@date.ToString("MM/dd/yyy")</p>
+                <h3>Home Dates:</h3>
+                @foreach (DateTime date in Model.HomeDates)
+                {
+                    <p>@date.ToString("MM/dd/yyy")</p>
+                }
             }
-        }
+        </div>
+
+        <div>
+            @if (Model.TravelDates.Count > 0)
+            {
+                <h3>Travel Dates:</h3>
+                @foreach (DateTime date in Model.TravelDates)
+                {
+                    <p>@date.ToString("MM/dd/yyy")</p>
+                }
+            }
+        </div>
     </div>
 </div>
