@@ -83,7 +83,7 @@
             }
         }
 
-        <h3>Admin Approved Requests:</h3>
+        @*<h3>Admin Approved Requests:</h3>
         @foreach (MessagesModel message in Model)
         {
             @if ((message.UserAccepted == "Accepted") && (message.AdminAccepted == "Accepted"))
@@ -103,7 +103,7 @@
                     </tr>
                 </table>
             }
-        }
+        }*@
     }
     else
     {
