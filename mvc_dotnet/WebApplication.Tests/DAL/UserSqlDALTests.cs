@@ -5,5 +5,6 @@ namespace WebApplication.Tests.DAL
     [TestClass]
     public class UserSqlDALTests
     {
+        //add tests 
     }
 }
