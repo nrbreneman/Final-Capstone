@@ -141,7 +141,6 @@ namespace SportsClubOrganizer.Web.Controllers
         {
             TempData["Added"] = "Successfully updated available dates";
             User user = authProvider.GetCurrentUser();
-            //user.TeamID = teamDAL.GetTeamByUserID(user.Id);
             if(calendar.HomeDate != null)
             {
                 teamDAL.AddHomeDateToDB(calendar.HomeDate, user);

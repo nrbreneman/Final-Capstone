@@ -124,8 +124,6 @@ namespace SportsClubOrganizer.Web.Controllers
         {
             Calendar calendar = new Calendar();
             calendar.TeamID = team.TeamID;
-            //User user = new User();
-            //user.TeamID = calendar.TeamID;
             calendar.HomeDates = new List<System.DateTime?>();
             calendar.TravelDates = new List<System.DateTime?>();
             calendar.HomeDates = teamDAL.GetHomeDates(calendar.TeamID.ToString());

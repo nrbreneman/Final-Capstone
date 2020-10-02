@@ -499,8 +499,6 @@ namespace SportsClubOrganizer.Web.DAL
 
                     comd.ExecuteNonQuery();
 
-                    //INSERT INTO EventDates(TeamID, Date, Home) VALUES(36, '2020-09-12', 0);
-
                     return;
                 }
             }
